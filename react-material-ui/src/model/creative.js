@@ -3,8 +3,8 @@ import ModelLimits from "./limits";
 
 const ModelCreative = {
   name: null,
-  width: null,
-  height: null,
+  w: null,
+  h: null,
   enabled: false,
   type: null,
   iabCategories: null,

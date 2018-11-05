@@ -68,8 +68,8 @@ class Creative extends Component {
             <TextBox name="creativeUrl" label="Asset URL" handler={this.handleInputChange.bind(this)}/>
           </ExpansionPanelDetails>
           <ExpansionPanelDetails>
-            <TextBox name="width" label="Width" handler={this.handleInputChange.bind(this)}/>
-            <TextBox name="height" label="Height" handler={this.handleInputChange.bind(this)}/>
+            <TextBox name="w" label="Width" handler={this.handleInputChange.bind(this)}/>
+            <TextBox name="h" label="Height" handler={this.handleInputChange.bind(this)}/>
             <TextBox name="type" label="Type" handler={this.handleInputChange.bind(this)}/>
             <TextBox name="mimes" label="Mimes" handler={this.handleInputChangeArray.bind(this)}/>
           </ExpansionPanelDetails>
