@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import './App.css';
 import NavBar from './components/navbar';
 import Campaign from './components/campaign';
+import Creative from "./components/creative";
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
       <div className="App">
         <NavBar/>
         <Campaign/>
+        <Creative/>
       </div>
     );
   }

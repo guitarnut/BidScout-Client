@@ -9,20 +9,20 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Switcher from './switch'
+import ModelCreative from "../model/creative";
+import {saveCreative} from "../api/restapi";
 import {handleInputChange, handleInputChangeArray} from "../input/formInputHandler";
-import {saveCampaign} from "../api/restapi";
-import ModelCampaign from "../model/campaign";
 
-class Campaign extends Component {
+class Creative extends Component {
 
-  state = ModelCampaign;
+  state = ModelCreative;
 
   constructor() {
     super();
   }
 
   save = () => {
-    saveCampaign(this.state);
+    saveCreative(this.state);
   };
 
   handleInputChange(event) {
@@ -36,9 +36,9 @@ class Campaign extends Component {
   render() {
     return (
       <div>
-        <h1>Campaign</h1>
+        <h1>Creative</h1>
         <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
-          <TextBox name="name" label="Campaign Name" handler={this.handleInputChange.bind(this)}/>
+          <TextBox name="name" label="Name" handler={this.handleInputChange.bind(this)}/>
           <Switcher
             name="enabled"
             label="Enabled"
@@ -47,19 +47,30 @@ class Campaign extends Component {
           />
         </Grid>
         <Divider/>
-        <h3>Supply</h3>
+        <Divider/>
+        <h3>Properties</h3>
         <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
-          <TextBox name="publisher" label="Publisher" handler={this.handleInputChange.bind(this)}
-                   tip="Allowed Inventory"/>
+          <TextBox name="width" label="Width" handler={this.handleInputChange.bind(this)}/>
+          <TextBox name="height" label="Height" handler={this.handleInputChange.bind(this)}/>
+          <TextBox name="type" label="Type" handler={this.handleInputChange.bind(this)}/>
+          <TextBox name="iabCategories" label="IAB Categories" handler={this.handleInputChangeArray.bind(this)}/>
+          <TextBox name="attr" label="Attributes" handler={this.handleInputChangeArray.bind(this)}/>
+          <TextBox name="btype" label="Banner Type" handler={this.handleInputChangeArray.bind(this)}/>
+          <TextBox name="mimes" label="Mimes" handler={this.handleInputChangeArray.bind(this)}/>
+          <TextBox name="adDomain" label="Ad Domains" handler={this.handleInputChangeArray.bind(this)}/>
+          <TextBox name="creativeUrl" label="Asset URL" handler={this.handleInputChange.bind(this)}/>
+        </Grid>
+        <Divider/>
+        <h3>Auction Settings</h3>
+        <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
+          <TextBox name="minBid" label="Minimum Bid" handler={this.handleInputChange.bind(this)}/>
+          <TextBox name="maxBid" label="Maximum Bid" handler={this.handleInputChange.bind(this)}/>
         </Grid>
         <Divider/>
         <h3>Tracking and Reporting</h3>
         <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
-          <TextBox name="cid" label="Campaign Id" handler={this.handleInputChange.bind(this)} tip="Reporting ID"/>
-          <TextBox name="seat" label="Seat ID" handler={this.handleInputChange.bind(this)} tip="Bidder Seat"/>
-          <TextBox name="nurl" label="Win Notice URL" handler={this.handleInputChange.bind(this)}/>
-          <TextBox name="impressionExpiry" label="Impression TTL"
-                   handler={this.handleInputChange.bind(this)} tip="Impression expiration in seconds"/>
+          <TextBox name="crid" label="Creative ID" handler={this.handleInputChange.bind(this)}/>
+          <TextBox name="adId" label="Ad ID" handler={this.handleInputChange.bind(this)}/>
         </Grid>
         <Divider/>
         <h3>Users</h3>
@@ -154,4 +165,4 @@ class Campaign extends Component {
   }
 }
 
-export default Campaign;
+export default Creative;
