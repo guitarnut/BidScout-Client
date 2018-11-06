@@ -29,3 +29,29 @@ export function saveCampaign(json) {
       return error;
     });
 }
+
+export function getCampaign(id) {
+  return new Promise((resolve, reject) => {
+    axios.post(host + '/api/campaign/get/' + id, {}, {headers: postHeaders})
+      .then(function (response) {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        console.log("Error occurred while getting campaign");
+        reject(error);
+      });
+  })
+}
+
+export function getCreative(id) {
+  return new Promise((resolve, reject) => {
+    axios.post(host + '/api/creative/get/' + id, {}, {headers: postHeaders})
+      .then(function (response) {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        console.log("Error occurred while getting campaign");
+        reject(error);
+      });
+  })
+}

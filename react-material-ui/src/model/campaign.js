@@ -1,5 +1,6 @@
 import ModelRequirements from "./requirements";
 import ModelLimits from "./limits";
+import ModelStatistics from "./statistics";
 
 const ModelCampaign = {
   name: null,
@@ -10,7 +11,8 @@ const ModelCampaign = {
   nurl: null,
   impressionExpiry: 0,
   requirements: ModelRequirements,
-  limits: ModelLimits
+  limits: ModelLimits,
+  statistics: ModelStatistics
 };
 
 export default ModelCampaign;
