@@ -26,6 +26,7 @@ class ViewCampaign extends Component {
         <Stat title="NBR" value={this.state.statistics.nbr}/>
         <Stat title="Impressions" value={this.state.statistics.impressions}/>
         <Stat title="Expired Impressions" value={this.state.statistics.expiredImpressions}/>
+        <Stat title="Clicks" value={this.state.statistics.clicks}/>
         <Stat title="eCPM" value={this.state.statistics.ecpm}/>
         <Stat title="Bid Price Total" value={this.state.statistics.bidPriceTotal}/>
         <Stat title="Total Spend" value={this.state.statistics.revenue}/>

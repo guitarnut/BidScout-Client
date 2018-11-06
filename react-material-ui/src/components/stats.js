@@ -1,8 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
@@ -21,25 +18,6 @@ const styles = theme => ({
     width: 200,
   },
 });
-
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
 
 function Stat(props) {
   const { classes } = props;

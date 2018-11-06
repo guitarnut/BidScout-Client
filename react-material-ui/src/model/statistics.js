@@ -7,7 +7,8 @@ const ModelStatistics = {
   revenue: 0,
   ecpm: 0,
   requests: 0,
-  bidPriceTotal: 0
+  bidPriceTotal: 0,
+  clicks: 0
 };
 
 export default ModelStatistics;
