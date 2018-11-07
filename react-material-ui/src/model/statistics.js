@@ -4,6 +4,7 @@ const ModelStatistics = {
   impressions: 0,
   duplicateImpressions: 0,
   expiredImpressions: 0,
+  invalidImpressions: 0,
   revenue: 0,
   ecpm: 0,
   requests: 0,

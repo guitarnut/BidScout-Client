@@ -59,6 +59,45 @@ class Creative extends Component {
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
+        <ExpansionPanel expanded={this.isExpanded('config')}
+                        onChange={this.handlePanel('config')}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+            <Typography>Configuration</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Switcher
+              name="enabled"
+              label="Creative Enabled"
+              value={this.state.enabled}
+              handler={this.handleInputChange.bind(this)}
+            />
+            <Switcher
+              name="requirements.userMatch"
+              label="Require User Match"
+              value={this.state.requirements.userMatch}
+              handler={this.handleInputChange.bind(this)}
+            />
+            <Switcher
+              name="requirements.secure"
+              label="Require Secure Bids"
+              value={this.state.requirements.secure}
+              handler={this.handleInputChange.bind(this)}
+            />
+            <TextField name="requirements.startDate" id="datetime-local" label="Campaign Start" type="datetime-local"
+                       InputLabelProps={{
+                         shrink: true,
+                       }}
+                       onChange={this.handleInputChange.bind(this)}
+            />
+            <TextField name="requirements.endDate" id="datetime-local" label="Campaign End" type="datetime-local"
+                       InputLabelProps={{
+                         shrink: true,
+                       }}
+                       onChange={this.handleInputChange.bind(this)}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+
         <ExpansionPanel expanded={this.isExpanded('properties')}
                         onChange={this.handlePanel('properties')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
@@ -102,45 +141,6 @@ class Creative extends Component {
           <ExpansionPanelDetails>
             <TextBox name="crid" label="Creative ID" handler={this.handleInputChange.bind(this)}/>
             <TextBox name="adId" label="Ad ID" handler={this.handleInputChange.bind(this)}/>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-
-        <ExpansionPanel expanded={this.isExpanded('config')}
-                        onChange={this.handlePanel('config')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography>Configuration</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Switcher
-              name="enabled"
-              label="Campaign Enabled"
-              value={this.state.enabled}
-              handler={this.handleInputChange.bind(this)}
-            />
-            <Switcher
-              name="requirements.userMatch"
-              label="Require User Match"
-              value={this.state.requirements.userMatch}
-              handler={this.handleInputChange.bind(this)}
-            />
-            <Switcher
-              name="requirements.secure"
-              label="Require Secure Bids"
-              value={this.state.requirements.secure}
-              handler={this.handleInputChange.bind(this)}
-            />
-            <TextField name="requirements.startDate" id="datetime-local" label="Campaign Start" type="datetime-local"
-                       InputLabelProps={{
-                         shrink: true,
-                       }}
-                       onChange={this.handleInputChange.bind(this)}
-            />
-            <TextField name="requirements.endDate" id="datetime-local" label="Campaign End" type="datetime-local"
-                       InputLabelProps={{
-                         shrink: true,
-                       }}
-                       onChange={this.handleInputChange.bind(this)}
-            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
 

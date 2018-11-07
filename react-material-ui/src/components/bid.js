@@ -19,7 +19,6 @@ class Bid extends Component {
     axios.get('http://localhost:8080/api/bid/5a5511f8d43af74f4e0a4757')
       .then(function (response) {
         t.setState({bid: response.data});
-        console.log(t.state.bid)
       })
       .catch(function (error) {
         console.log("Error occurred while fetching bid");

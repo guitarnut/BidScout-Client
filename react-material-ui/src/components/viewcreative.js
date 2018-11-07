@@ -27,6 +27,8 @@ class ViewCreative extends Component {
         <Stat title="NBR" value={this.state.statistics.nbr}/>
         <Stat title="Impressions" value={this.state.statistics.impressions}/>
         <Stat title="Expired Impressions" value={this.state.statistics.expiredImpressions}/>
+        <Stat title="Invalid Impressions" value={this.state.statistics.invalidImpressions}/>
+        <Stat title="Duplicate Impressions" value={this.state.statistics.duplicateImpressions}/>
         <Stat title="Clicks" value={this.state.statistics.clicks}/>
         <Stat title="eCPM" value={this.state.statistics.ecpm}/>
         <Stat title="Bid Price Total" value={this.state.statistics.bidPriceTotal}/>
