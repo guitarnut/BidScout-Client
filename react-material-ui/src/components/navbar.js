@@ -18,7 +18,8 @@ const NavBar = () => {
           <Link to="/campaign/view"><Button>View Campaign</Button></Link>
           <Link to="/creative/view"><Button>View Creative</Button></Link>
           <Link to="/bid/view"><Button>View Bid</Button></Link>
-          <Link to="/logins"><Button color="inherit">Login</Button></Link>
+          <Link to="/account"><Button>Account</Button></Link>
+          <Link to="/logins"><Button>Login</Button></Link>
         </Toolbar>
       </AppBar>
     </div>

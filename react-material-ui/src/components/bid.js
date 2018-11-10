@@ -1,35 +1,41 @@
 import React, {Component} from 'react'
-import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import {viewBid} from "../api/restapi";
+import {handleInputChange} from "../input/formInputHandler";
 import TextBox from './textfield';
+import UIButton from './button';
 
 class Bid extends Component {
 
   state = {
-    bid: []
+    id: null,
+    bid: null
   };
 
   constructor() {
     super();
-    this.getBid(this)
   }
 
-  getBid = (t) => {
-    axios.get('http://localhost:8080/api/bid/5a5511f8d43af74f4e0a4757')
-      .then(function (response) {
-        t.setState({bid: response.data});
+  getBid = () => {
+    viewBid(this.state.id)
+      .then((data)=>{
+        console.log(data);
+        this.setState({
+          bid: data
+        })
       })
-      .catch(function (error) {
-        console.log("Error occurred while fetching bid");
-        console.error(error)
-      });
   };
+
+  handleInputChange(event) {
+    handleInputChange(event, this);
+  }
 
   render() {
     return (
       <div>
-        {this.state.bid ? (
+        <p>5a5511f8d43af74f4e0a4757</p>
+        <TextBox name="id" label="Bid" handler={this.handleInputChange.bind(this)}/>
+        <UIButton action={this.getBid.bind(this)}/>
+        {this.state.bid !== null ? (
           <div>
             <h1>Bid {this.state.bid.id}</h1>
             <p><strong>Request User Agent</strong><br/>{this.state.bid.userAgent}</p>
@@ -39,7 +45,7 @@ class Bid extends Component {
             <p><strong>Host</strong><br/>{this.state.bid.host}</p>
             <p><strong>X-Forwarded</strong><br/>{this.state.bid.xForwardedFor}</p>
           </div>
-          ) : "No bid found"}
+        ) : <p>No bid found</p>}
       </div>
     )
   }

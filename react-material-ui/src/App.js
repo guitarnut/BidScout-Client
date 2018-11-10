@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 import NavBar from './components/navbar';
 import Campaign from './components/campaign';
@@ -10,6 +8,8 @@ import ViewCampaign from './components/viewcampaign';
 import ViewCreative from './components/viewcreative';
 import Bid from './components/bid';
 import LoginForm from './components/login';
+import Error from './components/error';
+import User from "./components/user";
 
 class App extends Component {
   render() {
@@ -25,7 +25,9 @@ class App extends Component {
                 <Route path='/campaign/view' component={ViewCampaign}/>
                 <Route path='/creative/view' component={ViewCreative}/>
                 <Route path='/bid/view' component={Bid}/>
+                <Route path='/account' component={User}/>
                 <Route path='/logins' component={LoginForm}/>
+                <Route path='/error' component={Error}/>
               </div>
             </div>
           </div>

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Redirect } from 'react-router-dom';
 import TextBox from './textfield';
 import {loginUser} from "../api/restapi";
 import {handleInputChange} from "../input/formInputHandler";
@@ -9,7 +8,8 @@ class LoginForm extends Component {
 
   state = {
     username: null,
-    password: null
+    password: null,
+    login: false
   };
 
   constructor() {
@@ -18,7 +18,7 @@ class LoginForm extends Component {
 
   loginUser = () => {
     loginUser(this.state.username, this.state.password)
-      .then((resp)=>{
+      .then(()=>{
         window.location.pathname = '/';
       });
   };

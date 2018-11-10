@@ -1,10 +1,10 @@
 const ModelUser = {
-  _id: null,
+  id: null,
   username: null,
   roles: [],
   enabled: null,
-  created: null,
-  lastLogin: null,
+  created: 0,
+  lastLogin: 0,
   Address: null,
   City: null,
   State: null,

@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
-import ModelCampaign from "../model/campaign";
-import {getCreative} from "../api/restapi";
+import ModelCreative from "../model/creative";
+import {getCreative, getCreativeNames} from "../api/restapi";
 import Stat from './stats';
 
 class ViewCreative extends Component {
-  state = ModelCampaign;
+  state = {
+    allCreatives: {},
+    creative: ModelCreative
+  };
 
   constructor() {
     super();
@@ -12,63 +15,76 @@ class ViewCreative extends Component {
   }
 
   componentDidMount() {
+    getCreativeNames()
+      .then(data=>{
+        this.setState({
+          allCreatives:data
+        })
+      });
     getCreative("5be0afb5ea3278f806fd08cc")
       .then(data => {
-        this.setState(data);
+        this.setState({
+          creative: data
+        });
       });
   }
 
   render() {
     return (
       <div>
-        <h1>{this.state.name}</h1>
-        <Stat title="Requests" value={this.state.statistics.requests}/>
-        <Stat title="Bids" value={this.state.statistics.bids}/>
-        <Stat title="NBR" value={this.state.statistics.nbr}/>
-        <Stat title="Impressions" value={this.state.statistics.impressions}/>
-        <Stat title="Expired Impressions" value={this.state.statistics.expiredImpressions}/>
-        <Stat title="Invalid Impressions" value={this.state.statistics.invalidImpressions}/>
-        <Stat title="Duplicate Impressions" value={this.state.statistics.duplicateImpressions}/>
-        <Stat title="Clicks" value={this.state.statistics.clicks}/>
-        <Stat title="eCPM" value={this.state.statistics.ecpm}/>
-        <Stat title="Bid Price Total" value={this.state.statistics.bidPriceTotal}/>
-        <Stat title="Total Spend" value={this.state.statistics.revenue}/>
-        <p>Enabled: {this.state.enabled}</p>
-        <p>Width: {this.state.cid}</p>
-        <p>Height: {this.state.publisher}</p>
-        <p>Type: {this.state.seat}</p>
-        <p>Nurl: {this.state.nurl}</p>
-        <p>IAB Categories: {this.state.impressionExpiry}</p>
-        <p>Attributes: {this.state.attr}</p>
-        <p>Banner Type: {this.state.btype}</p>
-        <p>Mimes: {this.state.mimes}</p>
-        <p>Ad ID: {this.state.adId}</p>
-        <p>Creative ID: {this.state.crid}</p>
-        <p>Ad Domain: {this.state.adDomain}</p>
-        <p>Creative URL: {this.state.creativeUrl}</p>
-        <p>Minimum Bid: {this.state.minBid}</p>
-        <p>Maximum Bid: {this.state.maxBid}</p>
+        {Object.keys(this.state.allCreatives).map((k) => {
+          return (
+            <p>{k} - {this.state.allCreatives[k]}</p>
+          )
+        })}
+        <h1>{this.state.creative.name}</h1>
+        <Stat title="Requests" value={this.state.creative.statistics.requests}/>
+        <Stat title="Bids" value={this.state.creative.statistics.bids}/>
+        <Stat title="NBR" value={this.state.creative.statistics.nbr}/>
+        <Stat title="Impressions" value={this.state.creative.statistics.impressions}/>
+        <Stat title="Expired Impressions" value={this.state.creative.statistics.expiredImpressions}/>
+        <Stat title="Invalid Impressions" value={this.state.creative.statistics.invalidImpressions}/>
+        <Stat title="Duplicate Impressions" value={this.state.creative.statistics.duplicateImpressions}/>
+        <Stat title="Clicks" value={this.state.creative.statistics.clicks}/>
+        <Stat title="eCPM" value={this.state.creative.statistics.ecpm}/>
+        <Stat title="Bid Price Total" value={this.state.creative.statistics.bidPriceTotal}/>
+        <Stat title="Total Spend" value={this.state.creative.statistics.revenue}/>
+        <p>Enabled: {this.state.creative.enabled}</p>
+        <p>Width: {this.state.creative.cid}</p>
+        <p>Height: {this.state.creative.publisher}</p>
+        <p>Type: {this.state.creative.seat}</p>
+        <p>Nurl: {this.state.creative.nurl}</p>
+        <p>IAB Categories: {this.state.creative.impressionExpiry}</p>
+        <p>Attributes: {this.state.creative.attr}</p>
+        <p>Banner Type: {this.state.creative.btype}</p>
+        <p>Mimes: {this.state.creative.mimes}</p>
+        <p>Ad ID: {this.state.creative.adId}</p>
+        <p>Creative ID: {this.state.creative.crid}</p>
+        <p>Ad Domain: {this.state.creative.adDomain}</p>
+        <p>Creative URL: {this.state.creative.creativeUrl}</p>
+        <p>Minimum Bid: {this.state.creative.minBid}</p>
+        <p>Maximum Bid: {this.state.creative.maxBid}</p>
         <h3>Whitelist/Blacklist</h3>
-        <p>Publisher Whitelist: {this.state.publisherWhitelist}</p>
-        <p>Domain Whitelist: {this.state.domainWhitelist}</p>
-        <p>Bundle Whitelist: {this.state.bundleWhitelist}</p>
-        <p>Publisher Whitelist: {this.state.publisherBlacklist}</p>
-        <p>Domain Whitelist: {this.state.domainBlacklist}</p>
-        <p>Bundle Whitelist: {this.state.bundleBlacklist}</p>
+        <p>Publisher Whitelist: {this.state.creative.publisherWhitelist}</p>
+        <p>Domain Whitelist: {this.state.creative.domainWhitelist}</p>
+        <p>Bundle Whitelist: {this.state.creative.bundleWhitelist}</p>
+        <p>Publisher Whitelist: {this.state.creative.publisherBlacklist}</p>
+        <p>Domain Whitelist: {this.state.creative.domainBlacklist}</p>
+        <p>Bundle Whitelist: {this.state.creative.bundleBlacklist}</p>
         <h3>Platforms</h3>
-        <p>Mobile: {this.state.mobile}</p>
-        <p>Desktop: {this.state.desktop}</p>
-        <p>InApp: {this.state.inapp}</p>
-        <p>CTV: {this.state.ctv}</p>
+        <p>Mobile: {this.state.creative.mobile}</p>
+        <p>Desktop: {this.state.creative.desktop}</p>
+        <p>InApp: {this.state.creative.inapp}</p>
+        <p>CTV: {this.state.creative.ctv}</p>
         <h3>Flight Dates</h3>
-        <p>Start: {this.state.start}</p>
-        <p>End: {this.state.end}</p>
+        <p>Start: {this.state.creative.start}</p>
+        <p>End: {this.state.creative.end}</p>
         <h3>Limits</h3>
-        <p>Requests: {this.state.requestLimit}</p>
-        <p>Bid Rate: {this.state.bidRate}</p>
-        <p>Bids: {this.state.bidLimit}</p>
-        <p>Impressions: {this.state.impressionLimit}</p>
-        <p>Spend: {this.state.revenueLimit}</p>
+        <p>Requests: {this.state.creative.requestLimit}</p>
+        <p>Bid Rate: {this.state.creative.bidRate}</p>
+        <p>Bids: {this.state.creative.bidLimit}</p>
+        <p>Impressions: {this.state.creative.impressionLimit}</p>
+        <p>Spend: {this.state.creative.revenueLimit}</p>
       </div>
     )
   }
