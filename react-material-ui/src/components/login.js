@@ -33,6 +33,8 @@ class LoginForm extends Component {
         <h1>Login</h1>
         <TextBox name="username" label="Username" handler={this.handleInputChange.bind(this)}/>
         <TextBox name="password" label="Password" handler={this.handleInputChange.bind(this)}/>
+        <p><a href="/campaign/view/5be0af66ea3278f806fd08cb">View Campaign</a></p>
+        <p><a href="/creative/view/5be0afb5ea3278f806fd08cc">View Creative</a></p>
         <UIButton action={this.loginUser.bind(this)}/>
       </div>
     )

@@ -22,8 +22,8 @@ class App extends Component {
               <div>
                 <Route path='/' exact component={Campaign}/>
                 <Route path='/creative' exact component={Creative}/>
-                <Route path='/campaign/view' component={ViewCampaign}/>
-                <Route path='/creative/view' component={ViewCreative}/>
+                <Route path='/campaign/view/:id' component={ViewCampaign}/>
+                <Route path='/creative/view/:id' component={ViewCreative}/>
                 <Route path='/bid/view' component={Bid}/>
                 <Route path='/account' component={User}/>
                 <Route path='/logins' component={LoginForm}/>

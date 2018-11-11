@@ -1,6 +1,8 @@
 const ModelUser = {
   id: null,
   username: null,
+  firstName: null,
+  lastName: null,
   roles: [],
   enabled: null,
   created: 0,

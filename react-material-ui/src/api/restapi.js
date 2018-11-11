@@ -6,7 +6,7 @@ let password = '';
 let userid = '';
 
 function generateAuthPostHeaders() {
-  if(username ==='' || password === '') {
+  if (username === '' || password === '') {
     username = window.sessionStorage.getItem('username');
     password = window.sessionStorage.getItem('password');
   }
@@ -21,7 +21,7 @@ function generateAuthPostHeaders() {
 }
 
 function handleError(e) {
-  if(!e.hasOwnProperty('response') || !e.response.hasOwnProperty('status')) {
+  if (!e.hasOwnProperty('response') || !e.response.hasOwnProperty('status')) {
     window.location.pathname = '/error';
     return;
   }
@@ -37,7 +37,7 @@ function handleError(e) {
 
 function postRequest(path, data) {
   let postData = data === undefined ? {} : data;
-  return new Promise((resolve, reject)=>{
+  return new Promise((resolve, reject) => {
     axios.post(path, postData, {headers: generateAuthPostHeaders()})
       .then(function (response) {
         resolve(response.data);
@@ -50,7 +50,7 @@ function postRequest(path, data) {
 }
 
 export function loginUser(u, p) {
-  return new Promise((resolve, reject)=>{
+  return new Promise((resolve, reject) => {
     username = u;
     password = p;
     axios.post(host + '/user/login', {username: 'admin'}, {headers: generateAuthPostHeaders()})
@@ -97,12 +97,20 @@ export function getCampaign(id) {
   return postRequest(host + '/api/campaign/get/' + id);
 }
 
+export function getCampaignWithCreative(id) {
+  return postRequest(host + '/api/campaign/getby/creative/' + id);
+}
+
 export function getCreative(id) {
-    return postRequest(host + '/api/creative/get/' + id);
+  return postRequest(host + '/api/creative/get/' + id);
 }
 
 export function getCreativeNames() {
   return postRequest(host + '/api/creative/all');
+}
+
+export function getCreativeNamesByCampaign(id) {
+  return postRequest(host + '/api/creative/all/' + id);
 }
 
 export function getUser() {

@@ -35,9 +35,10 @@ class User extends Component {
       <div>
         <h1>Account</h1>
         <p><strong>Username</strong><br/>{this.state.user.username}</p>
+        <p><strong>Name</strong><br/>{this.state.user.firstName} {this.state.user.lastName}</p>
         <p><strong>Roles</strong><br/>{this.state.user.roles.map(v => {
           return (
-            <span>{v} </span>
+            <span key={v}>{v} </span>
           )
         })}</p>
         <p><strong>Created</strong><br/>{new Date().toDateString(this.state.user.created)}</p>

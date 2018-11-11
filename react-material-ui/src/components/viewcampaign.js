@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import ModelCampaign from '../model/campaign';
-import {getCampaign, getCampaignNames} from '../api/restapi';
+import {getCampaign, getCampaignNames, getCreativeNames, getCreativeNamesByCampaign} from '../api/restapi';
 import Stat from './stats';
 
 class ViewCampaign extends Component {
   state = {
     allCampaigns: [],
-    campaign: ModelCampaign
+    campaign: ModelCampaign,
+    allCreativesForCampaign: []
   };
 
   constructor() {
@@ -14,27 +15,42 @@ class ViewCampaign extends Component {
   }
 
   componentDidMount() {
+    const {id} = this.props.match.params;
+
     getCampaignNames()
       .then(data => {
         this.setState({
           allCampaigns: data
         })
       });
-    getCampaign('5be0af66ea3278f806fd08cb')
+    getCampaign(id)
       .then(data => {
-        console.log(data);
         this.setState({
           campaign: data
         });
+        getCreativeNamesByCampaign(this.state.campaign.id)
+          .then(data => {
+            this.setState({
+              allCreativesForCampaign: data
+            })
+          })
       });
+
   }
 
   render() {
     return (
       <div>
+        <h1>All Campaigns</h1>
         {Object.keys(this.state.allCampaigns).map((k) => {
           return (
             <p>{k} - {this.state.allCampaigns[k]}</p>
+          )
+        })}
+        <h1>All Creatives for {this.state.campaign.name}</h1>
+        {Object.keys(this.state.allCreativesForCampaign).map((k) => {
+          return (
+            <p>{k} - {this.state.allCreativesForCampaign[k]}</p>
           )
         })}
         <div>
