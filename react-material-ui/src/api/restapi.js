@@ -37,6 +37,7 @@ function handleError(e) {
 
 function postRequest(path, data) {
   let postData = data === undefined ? {} : data;
+
   return new Promise((resolve, reject) => {
     axios.post(path, postData, {headers: generateAuthPostHeaders()})
       .then(function (response) {
@@ -51,14 +52,13 @@ function postRequest(path, data) {
 
 export function loginUser(u, p) {
   return new Promise((resolve, reject) => {
-    username = u;
-    password = p;
     axios.post(host + '/user/login', {username: 'admin'}, {headers: generateAuthPostHeaders()})
       .then(function (response) {
-        console.log(response);
         window.sessionStorage.setItem('username', username);
         window.sessionStorage.setItem('password', password);
         window.sessionStorage.setItem('userid', response.data.id);
+        username = u;
+        password = p;
         userid = response.id;
         //resolve(response);
       })
@@ -78,39 +78,47 @@ export function logout() {
 }
 
 export function viewBid(id) {
-  return postRequest(host + '/api/bid/' + id);
+  return postRequest(host + '/api/bid/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
 export function saveCreative(json) {
-  return postRequest(host + '/api/creative/create', json);
+  return postRequest(host + '/api/creative/create/' + window.sessionStorage.getItem('userid'), json);
 }
 
 export function saveCampaign(json) {
-  return postRequest(host + '/api/campaign/create', json);
+  return postRequest(host + '/api/campaign/create/' + window.sessionStorage.getItem('userid'), json);
 }
 
 export function getCampaignNames() {
-  return postRequest(host + '/api/campaign/all');
+  return postRequest(host + '/api/campaign/all/' + window.sessionStorage.getItem('userid'));
 }
 
 export function getCampaign(id) {
-  return postRequest(host + '/api/campaign/get/' + id);
+  return postRequest(host + '/api/campaign/get/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
 export function getCampaignWithCreative(id) {
-  return postRequest(host + '/api/campaign/getby/creative/' + id);
+  return postRequest(host + '/api/campaign/getby/' + window.sessionStorage.getItem('userid') + '/creative/' + id);
 }
 
 export function getCreative(id) {
-  return postRequest(host + '/api/creative/get/' + id);
+  return postRequest(host + '/api/creative/get/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
 export function getCreativeNames() {
-  return postRequest(host + '/api/creative/all');
+  return postRequest(host + '/api/creative/all/' + window.sessionStorage.getItem('userid'));
 }
 
 export function getCreativeNamesByCampaign(id) {
-  return postRequest(host + '/api/creative/all/' + id);
+  return postRequest(host + '/api/creative/all/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function addCreativeToCampaign(campaignId, creativeId) {
+  return postRequest(host + '/api/campaign/add/creative/' + window.sessionStorage.getItem('userid') + '/' + campaignId + '/' + creativeId);
+}
+
+export function removeCreativeFromCampaign(campaignId, creativeId) {
+  return postRequest(host + '/api/campaign/remove/creative/' + window.sessionStorage.getItem('userid') + '/' + campaignId + '/' + creativeId);
 }
 
 export function getUser() {

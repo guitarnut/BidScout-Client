@@ -3,6 +3,8 @@ import ModelLimits from "./limits";
 import ModelStatistics from "./statistics";
 
 const ModelCampaign = {
+  id: null,
+  owner: null,
   name: null,
   enabled: false,
   cid: null,

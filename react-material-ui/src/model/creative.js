@@ -3,6 +3,8 @@ import ModelLimits from "./limits";
 import ModelStatistics from "./statistics";
 
 const ModelCreative = {
+  id: null,
+  owner: null,
   name: null,
   type: null,
   w: null,
