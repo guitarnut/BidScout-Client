@@ -1,27 +1,28 @@
 import React, {Component} from 'react'
 import TextField from '@material-ui/core/TextField';
-import TextBox from './textfield';
-import Switcher from './switch'
-import {handleInputChange, handleInputChangeArray} from "../input/formInputHandler";
-import {saveCampaign} from "../api/restapi";
-import ModelCampaign from "../model/campaign";
+import TextBox from '../ui/textfield';
+import Switcher from '../ui/switch'
+import {handleInputChange, handleInputChangeArray} from "../../input/formInputHandler";
+import {saveCampaign} from "../../api/restapi";
+import ModelCampaign from "../../model/campaign";
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import UIButton from './button';
-import SelectCheck from './selectcheck';
-import ProgressChip from "./progresschip";
+import UIButton from '../ui/button';
 
 class Campaign extends Component {
   state = ModelCampaign;
 
   constructor() {
     super();
+  }
+
+  componentDidMount() {
     this.setState({
       ['expanded']: null
-    });
+    })
   }
 
   save = () => {
@@ -50,6 +51,12 @@ class Campaign extends Component {
     return (
       <div>
         <h1>Campaign</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
+          Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
+          rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
+          vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
+          Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
+          neque. Ut placerat est mauris.</p>
         <p>Build campaign settings and targeting</p>
         <ExpansionPanel expanded={this.isExpanded('name')}
                         onChange={this.handlePanel('name')}>
@@ -149,7 +156,8 @@ class Campaign extends Component {
             <TextBox name="limits.bidLimit" label="Bid Limit" handler={this.handleInputChange.bind(this)}/>
             <TextBox name="limits.impressionLimit" label="Impression Limit"
                      handler={this.handleInputChange.bind(this)}/>
-            <TextBox name="limits.revenueLimit" label="Revenue Limit" handler={this.handleInputChange.bind(this)} prefix="$"/>
+            <TextBox name="limits.revenueLimit" label="Revenue Limit" handler={this.handleInputChange.bind(this)}
+                     prefix="$"/>
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
@@ -186,7 +194,7 @@ class Campaign extends Component {
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <br/>
-        <UIButton action={this.save.bind(this)}/>
+        <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
       </div>
     )
   }

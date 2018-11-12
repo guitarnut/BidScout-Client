@@ -5,9 +5,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 function TextBox(props) {
-  if(props.prefix !== undefined){
-    console.log(props);
-  }
   if (props.prefix !== undefined) {
     return (
       <TextField

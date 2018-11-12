@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
-import NavBar from './components/navbar';
-import Campaign from './components/campaign';
-import Creative from './components/creative';
-import ViewCampaign from './components/viewcampaign';
-import ViewCreative from './components/viewcreative';
-import Bid from './components/bid';
-import LoginForm from './components/login';
-import Error from './components/error';
-import User from "./components/user";
+import NavBar from './components/ui/navbar';
+import Campaign from './components/pages/campaign';
+import Creative from './components/pages/creative';
+import ViewCampaign from './components/pages/viewcampaign';
+import ViewCreative from './components/pages/viewcreative';
+import Bid from './components/pages/bid';
+import LoginForm from './components/pages/login';
+import Error from './components/pages/error';
+import User from "./components/pages/user";
+import ViewBidder from "./components/pages/viewbidder";
 
 class App extends Component {
   render() {
@@ -21,7 +22,9 @@ class App extends Component {
             <div className='Content'>
               <div>
                 <Route path='/' exact component={Campaign}/>
+                <Route path='/campaign' exact component={Campaign}/>
                 <Route path='/creative' exact component={Creative}/>
+                <Route path='/view' exact component={ViewBidder}/>
                 <Route path='/campaign/view/:id' component={ViewCampaign}/>
                 <Route path='/creative/view/:id' component={ViewCreative}/>
                 <Route path='/bid/view' component={Bid}/>

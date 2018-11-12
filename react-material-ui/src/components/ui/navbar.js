@@ -13,11 +13,10 @@ const NavBar = () => {
           <Typography variant="title" color="inherit">
             BidScout v1.0
           </Typography>
-          <Link to="/"><Button>Build Campaign</Button></Link>
-          <Link to="/creative"><Button>Build Creative</Button></Link>
-          <Link to="/campaign/view"><Button>View Campaign</Button></Link>
-          <Link to="/creative/view"><Button>View Creative</Button></Link>
-          <Link to="/bid/view"><Button>View Bid</Button></Link>
+          <Link to="/campaign"><Button>Campaign</Button></Link>
+          <Link to="/creative"><Button>Creative</Button></Link>
+          <Link to="/view"><Button>Bidder</Button></Link>
+          <Link to="/bid/view"><Button>Auction</Button></Link>
           <Link to="/account"><Button>Account</Button></Link>
           <Link to="/logins"><Button>Login</Button></Link>
         </Toolbar>

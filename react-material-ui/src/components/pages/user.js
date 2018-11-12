@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {handleInputChange} from "../input/formInputHandler";
-import {getUser} from "../api/restapi";
-import ModelUser from "../model/user";
-import UIButton from './button';
+import {handleInputChange} from "../../input/formInputHandler";
+import {getUser} from "../../api/restapi";
+import ModelUser from "../../model/user";
+import UIButton from '../ui/button';
 
 class User extends Component {
   state = {
@@ -34,6 +34,12 @@ class User extends Component {
     return (
       <div>
         <h1>Account</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
+          Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
+          rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
+          vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
+          Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
+          neque. Ut placerat est mauris.</p>
         <p><strong>Username</strong><br/>{this.state.user.username}</p>
         <p><strong>Name</strong><br/>{this.state.user.firstName} {this.state.user.lastName}</p>
         <p><strong>Roles</strong><br/>{this.state.user.roles.map(v => {
@@ -49,7 +55,7 @@ class User extends Component {
         <p><strong>Zip</strong><br/>{this.state.user.zip}</p>
         <p><strong>Email</strong><br/>{this.state.user.email}</p>
         <p><strong>Phone</strong><br/>{this.state.user.phone}</p>
-        <UIButton/>
+        <UIButton text="Save Changes" icon="save"/>
       </div>
     )
   }

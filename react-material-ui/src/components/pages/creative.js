@@ -1,18 +1,16 @@
 import React, {Component} from 'react'
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/TextField';
-import TextBox from './textfield';
-import Switcher from './switch'
-import ModelCreative from "../model/creative";
-import {saveCreative} from "../api/restapi";
-import {handleInputChange, handleInputChangeArray} from "../input/formInputHandler";
+import TextBox from '../ui/textfield';
+import Switcher from '../ui/switch'
+import ModelCreative from "../../model/creative";
+import {saveCreative} from "../../api/restapi";
+import {handleInputChange, handleInputChangeArray} from "../../input/formInputHandler";
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import UIButton from './button';
+import UIButton from '../ui/button';
 
 class Creative extends Component {
 
@@ -48,7 +46,12 @@ class Creative extends Component {
     return (
       <div>
         <h1>Creative</h1>
-
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
+          Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
+          rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
+          vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
+          Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
+          neque. Ut placerat est mauris.</p>
         <ExpansionPanel expanded={this.isExpanded('name')}
                         onChange={this.handlePanel('name')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
@@ -216,7 +219,7 @@ class Creative extends Component {
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <br/>
-        <UIButton action={this.save.bind(this)}/>
+        <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
       </div>
     )
   }
