@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {handleInputChange} from "../../input/formInputHandler";
-import {getUser} from "../../api/restapi";
+import {getUser, updateUser} from "../../api/restapi";
 import ModelUser from "../../model/user";
 import UIButton from '../ui/button';
+import TextBox from "../ui/textfield";
 
 class User extends Component {
   state = {
@@ -23,7 +24,7 @@ class User extends Component {
   }
 
   save = () => {
-    //saveCampaign(this.state);
+    updateUser(this.state.user);
   };
 
   handleInputChange(event) {
@@ -34,28 +35,23 @@ class User extends Component {
     return (
       <div>
         <h1>Account</h1>
+        <p><strong>Last Login</strong><br/>{new Date().toDateString(this.state.user.lastLogin)}</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
           Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
           rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
           vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
           Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
           neque. Ut placerat est mauris.</p>
-        <p><strong>Username</strong><br/>{this.state.user.username}</p>
-        <p><strong>Name</strong><br/>{this.state.user.firstName} {this.state.user.lastName}</p>
-        <p><strong>Roles</strong><br/>{this.state.user.roles.map(v => {
-          return (
-            <span key={v}>{v} </span>
-          )
-        })}</p>
-        <p><strong>Created</strong><br/>{new Date().toDateString(this.state.user.created)}</p>
-        <p><strong>Last Login</strong><br/>{new Date().toDateString(this.state.user.lastLogin)}</p>
-        <p><strong>Address</strong><br/>{this.state.user.address}</p>
-        <p><strong>City</strong><br/>{this.state.user.city}</p>
-        <p><strong>State</strong><br/>{this.state.user.state}</p>
-        <p><strong>Zip</strong><br/>{this.state.user.zip}</p>
-        <p><strong>Email</strong><br/>{this.state.user.email}</p>
-        <p><strong>Phone</strong><br/>{this.state.user.phone}</p>
-        <UIButton text="Save Changes" icon="save"/>
+        <TextBox name="user.username" label="Username" handler={this.handleInputChange.bind(this)} value={this.state.user.username}/>
+        <TextBox name="user.firstName" label="First Name" handler={this.handleInputChange.bind(this)} value={this.state.user.firstName}/>
+        <TextBox name="user.lastName" label="Last Name" handler={this.handleInputChange.bind(this)} value={this.state.user.lastName}/>
+        <TextBox name="user.address" label="Address" handler={this.handleInputChange.bind(this)} value={this.state.user.address}/>
+        <TextBox name="user.city" label="City" handler={this.handleInputChange.bind(this)} value={this.state.user.city}/>
+        <TextBox name="user.state" label="State" handler={this.handleInputChange.bind(this)} value={this.state.user.state}/>
+        <TextBox name="user.zip" label="Email" handler={this.handleInputChange.bind(this)} value={this.state.user.zip}/>
+        <TextBox name="user.email" label="Email" handler={this.handleInputChange.bind(this)} value={this.state.user.email}/>
+        <TextBox name="user.phone" label="Phone" handler={this.handleInputChange.bind(this)} value={this.state.user.phone}/>
+        <UIButton text="Save Changes" icon="save" action={this.save.bind(this)}/>
       </div>
     )
   }

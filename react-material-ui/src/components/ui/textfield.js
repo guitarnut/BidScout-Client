@@ -11,6 +11,7 @@ function TextBox(props) {
         id="standard-full-width"
         name={props.name}
         label={props.label}
+        value={props.value}
         style={{margin: 8}}
         placeholder=""
         helperText={props.tip}
@@ -31,8 +32,9 @@ function TextBox(props) {
         id="standard-full-width"
         name={props.name}
         label={props.label}
+        value={props.value}
         style={{margin: 8}}
-        placeholder=""
+        placeholder={props.value}
         helperText={props.tip}
         margin="normal"
         onChange={props.handler}

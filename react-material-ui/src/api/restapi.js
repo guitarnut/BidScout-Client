@@ -116,3 +116,7 @@ export function getCreativeNamesByCampaign(id) {
 export function getUser() {
   return postRequest(host + '/user/get/' + window.sessionStorage.getItem('userid'));
 }
+
+export function updateUser(json) {
+  return postRequest(host + '/user/update/' + window.sessionStorage.getItem('userid'), json);
+}
