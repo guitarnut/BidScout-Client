@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {getCampaignNames, getCreativeNames} from '../../api/restapi';
 import ListWithButton from "../ui/listwithbutton";
+import {withRouter} from 'react-router-dom';
 
 class ViewBidder extends Component {
   state = {
@@ -31,7 +32,6 @@ class ViewBidder extends Component {
 
   setCampaign(e) {
     if (e.target.value !== '') {
-      console.log(e.target.value);
       this.setState({
         selectedCampaign: e.target.value
       })
@@ -40,7 +40,7 @@ class ViewBidder extends Component {
 
   viewCampaign() {
     if (this.state.selectedCampaign !== '') {
-      window.location.pathname = '/campaign/view/' + this.state.selectedCampaign;
+      this.props.history.push('/campaign/view/' + this.state.selectedCampaign);
     }
   }
 
@@ -54,7 +54,7 @@ class ViewBidder extends Component {
 
   viewCreative() {
     if (this.state.selectedCreative !== '') {
-      window.location.pathname = '/creative/view/' + this.state.selectedCreative;
+      this.props.history.push('/creative/view/' + this.state.selectedCreative);
     }
   }
 
@@ -85,4 +85,4 @@ class ViewBidder extends Component {
   }
 }
 
-export default ViewBidder;
+export default withRouter(ViewBidder);

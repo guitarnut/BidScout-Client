@@ -1,23 +1,31 @@
 import axios from "axios/index";
 
+const sessionTimeout = 1000 * 60 * 60;
 const host = 'http://localhost:8080';
+let session = null;
+
 let username = '';
 let password = '';
 let userid = '';
 
-function generateAuthPostHeaders() {
+function generateAuthPostHeaders(noAuth) {
   if (username === '' || password === '') {
     username = window.sessionStorage.getItem('username');
     password = window.sessionStorage.getItem('password');
   }
 
-  return {
+  let headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH",
     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-    'Content-Type': 'application/json',
-    'Authorization': 'Basic ' + btoa(username + ':' + password)
+    'Content-Type': 'application/json'
+  };
+
+  if (!noAuth) {
+    headers['Authorization'] = 'Basic ' + btoa(username + ':' + password);
   }
+
+  return headers;
 }
 
 function handleError(e) {
@@ -35,37 +43,51 @@ function handleError(e) {
   }
 }
 
-function postRequest(path, data) {
+function resetSession() {
+  if(session !== undefined) {
+    clearTimeout(session);
+  }
+
+  session = setTimeout(()=>{
+    logout();
+  }, sessionTimeout);
+}
+
+function postRequest(path, data, noAuth) {
+  resetSession();
+
   let postData = data === undefined ? {} : data;
+  noAuth = noAuth !== undefined ? noAuth : false;
 
   return new Promise((resolve, reject) => {
-    axios.post(path, postData, {headers: generateAuthPostHeaders()})
+    axios.post(path, postData, {headers: generateAuthPostHeaders(noAuth)})
       .then(function (response) {
         resolve(response.data);
       })
       .catch(function (error) {
-        console.log(error);
-        //handleError(error);
+        handleError(error);
       });
   });
 }
 
 export function loginUser(u, p) {
   return new Promise((resolve, reject) => {
-    axios.post(host + '/user/login', {username: 'admin'}, {headers: generateAuthPostHeaders()})
+    username = u;
+    password = p;
+    axios.post(host + '/user/login', {username: u}, {headers: generateAuthPostHeaders()})
       .then(function (response) {
+        resetSession();
         window.sessionStorage.setItem('username', username);
         window.sessionStorage.setItem('password', password);
         window.sessionStorage.setItem('userid', response.data.id);
         username = u;
         password = p;
         userid = response.id;
-        //resolve(response);
+        resolve();
       })
       .catch(function (error) {
         console.log(error);
-        console.log("Error occurred while logging in");
-        //resolve(error);
+        reject();
       });
   })
 }
@@ -73,8 +95,10 @@ export function loginUser(u, p) {
 export function logout() {
   username = '';
   password = '';
-  window.sessionStorage.removeItem(username);
-  window.sessionStorage.removeItem(password);
+  userid = '';
+  window.sessionStorage.removeItem('username');
+  window.sessionStorage.removeItem('password');
+  window.sessionStorage.removeItem('userid');
 }
 
 export function viewBid(id) {
@@ -122,9 +146,13 @@ export function removeCreativeFromCampaign(campaignId, creativeId) {
 }
 
 export function getUser() {
-  return postRequest(host + '/user/get/' + window.sessionStorage.getItem('userid'));
+  return postRequest(host + '/user/account/get/' + window.sessionStorage.getItem('userid'));
 }
 
 export function updateUser(json) {
-  return postRequest(host + '/user/update/' + window.sessionStorage.getItem('userid'), json);
+  return postRequest(host + '/user/account/update/' + window.sessionStorage.getItem('userid'), json);
+}
+
+export function createUser(json) {
+  return postRequest(host + '/user/create', json, true);
 }

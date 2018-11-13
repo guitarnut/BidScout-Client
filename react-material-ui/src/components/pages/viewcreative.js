@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import ModelCreative from "../../model/creative";
 import {getCampaignWithCreative, getCreative, getCreativeNames} from "../../api/restapi";
 import ModelCampaign from "../../model/campaign";
-import SelectList from "../ui/selectlist";
-import UIButton from "../ui/button";
 import Limits from "./components/limits";
 import Platforms from "./components/platforms";
 import Lists from "./components/lists";
@@ -11,6 +9,7 @@ import Stats from "./components/stats";
 import Flight from "./components/flight";
 import CreativeProps from "./components/creativeproperties";
 import ListWithButton from "../ui/listwithbutton";
+import {withRouter} from 'react-router-dom';
 
 class ViewCreative extends Component {
   state = {
@@ -61,7 +60,7 @@ class ViewCreative extends Component {
 
   viewCreative() {
     if (this.state.selectedCreative !== '') {
-      window.location.pathname = '/creative/view/' + this.state.selectedCreative;
+      this.props.history.push('/creative/view/' + this.state.selectedCreative);
     }
   }
 
@@ -85,4 +84,4 @@ class ViewCreative extends Component {
   }
 }
 
-export default ViewCreative;
+export default withRouter(ViewCreative);

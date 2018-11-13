@@ -1,14 +1,17 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function Settings(props) {
-  return (
-    <div>
-      <h3>Settings</h3>
-      <p>User Match: {props.data.userMatch.toString()}</p>
-      <p>Secure Bids: {props.data.secure.toString()}</p>
-    </div>
-  )
-}
+const Settings = ({data}) =>
+  <div>
+    <h3>Settings</h3>
+    <p>User Match: {data.userMatch.toString()}</p>
+    <p>Secure Bids: {data.secure.toString()}</p>
+  </div>;
+
+Settings.propTypes = {
+  data: PropTypes.object.isRequired,
+};
+
 export default Settings;
 
 

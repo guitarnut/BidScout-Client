@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import ModelCampaign from '../../model/campaign';
+import {withRouter} from 'react-router-dom';
 import {
   addCreativeToCampaign,
   getCampaign,
@@ -8,8 +9,6 @@ import {
   getCreativeNamesByCampaign,
   removeCreativeFromCampaign
 } from '../../api/restapi';
-import SelectList from "../ui/selectlist";
-import UIButton from "../ui/button";
 import Limits from "./components/limits";
 import Platforms from "./components/platforms";
 import Lists from "./components/lists";
@@ -81,21 +80,7 @@ class ViewCampaign extends Component {
 
   viewCampaign() {
     if (this.state.selectedCreative !== '') {
-      window.location.pathname = '/campaign/view/' + this.state.selectedCreative;
-    }
-  }
-
-  setCreative(e) {
-    if (e.target.value !== '') {
-      this.setState({
-        selectedCreative: e.target.value
-      })
-    }
-  }
-
-  viewCreative() {
-    if (this.state.selectedCreative !== '') {
-      window.location.pathname = '/creative/view/' + this.state.selectedCreative;
+      this.props.history.push('/campaign/view/' + this.state.selectedCreative);
     }
   }
 
@@ -184,4 +169,4 @@ class ViewCampaign extends Component {
   }
 }
 
-export default ViewCampaign;
+export default withRouter(ViewCampaign);

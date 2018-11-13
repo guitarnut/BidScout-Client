@@ -11,6 +11,13 @@ import LoginForm from './components/pages/login';
 import Error from './components/pages/error';
 import User from "./components/pages/user";
 import ViewBidder from "./components/pages/viewbidder";
+import Logout from "./components/pages/logout";
+
+import store from './store/index';
+import {storeLoginUser} from "./store/actions";
+
+window.store = store;
+window.storeLoginUser = storeLoginUser;
 
 class App extends Component {
   render() {
@@ -29,7 +36,8 @@ class App extends Component {
                 <Route path='/creative/view/:id' component={ViewCreative}/>
                 <Route path='/bid/view' component={Bid}/>
                 <Route path='/account' component={User}/>
-                <Route path='/logins' component={LoginForm}/>
+                <Route path='/login' component={LoginForm}/>
+                <Route path='/logout' component={Logout}/>
                 <Route path='/error' component={Error}/>
               </div>
             </div>

@@ -1,25 +1,59 @@
 import React, {Component} from 'react';
 import TextBox from '../ui/textfield';
-import {loginUser} from "../../api/restapi";
+import {createUser, loginUser} from "../../api/restapi";
 import {handleInputChange} from "../../input/formInputHandler";
 import UIButton from '../ui/button';
+import {storeLoginUser} from '../../store/actions';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
-class LoginForm extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    storeLoginUser: login => dispatch(storeLoginUser(login))
+  }
+};
+
+class _LoginForm extends Component {
 
   state = {
     username: null,
     password: null,
-    login: false
+    message: ''
   };
-
-  constructor() {
-    super();
-  }
 
   loginUser = () => {
     loginUser(this.state.username, this.state.password)
-      .then(()=>{
-        window.location.pathname = '/';
+      .then(() => {
+        this.props.storeLoginUser({
+          username: this.state.username,
+          loggedIn: true
+        });
+        this.props.history.push('/')
+      })
+      .catch(() => {
+        this.props.storeLoginUser({
+          username: '',
+          loggedIn: false
+        });
+        this.setState({
+          message: 'Login failed. Invalid username or password.'
+        })
+      });
+  };
+
+  createUser = () => {
+    createUser(this.state)
+      .then((data) => {
+        if (!data.hasOwnProperty('username')) {
+          this.setState({
+            message: 'Username already exists.'
+          })
+        } else {
+          this.setState({
+            username: data.username,
+            message: 'Account created. Enter your password to login.'
+          })
+        }
       });
   };
 
@@ -34,9 +68,13 @@ class LoginForm extends Component {
         <TextBox name="username" label="Username" handler={this.handleInputChange.bind(this)}/>
         <TextBox name="password" label="Password" handler={this.handleInputChange.bind(this)}/>
         <UIButton text="Login" action={this.loginUser.bind(this)}/>
+        <UIButton text="Create" action={this.createUser.bind(this)}/>
+        <p>{this.state.message}</p>
       </div>
     )
   }
 }
 
-export default LoginForm;
+const LoginForm = connect(null, mapDispatchToProps)(_LoginForm);
+
+export default withRouter(LoginForm);
