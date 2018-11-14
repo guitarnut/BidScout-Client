@@ -1,41 +1,63 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import {Link} from "react-router-dom";
-import Button from '@material-ui/core/Button';
+import {Nav, Navbar, NavItem} from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
+
+const navigate = ()=> {
+  console.log(1);
+  return <Redirect to='/'/>
+}
 
 const _NavBar = ({loggedIn, username}) =>
-  <div>
-    <AppBar position="static" color="default">
-      {loggedIn ? (
-        <Toolbar>
-          <Typography variant="title" color="inherit">
-            BidScout v1.0
-          </Typography>
-          <Link to="/campaign"><Button>Campaign</Button></Link>
-          <Link to="/creative"><Button>Creative</Button></Link>
-          <Link to="/view"><Button>Bidder</Button></Link>
-          <Link to="/bid/view"><Button>Auction</Button></Link>
-          <Link to="/account"><Button>Account {username}</Button></Link>
-          <Link to="/logout"><Button>Logout</Button></Link>
-        </Toolbar>
+  <Navbar collapseOnSelect fixedTop>
+    <Navbar.Header>
+      <Navbar.Brand>
+        BidScout
+      </Navbar.Brand>
+      <Navbar.Toggle/>
+    </Navbar.Header>
+    {loggedIn ? (
+    <Navbar.Collapse>
+      <Nav>
+        <NavItem eventKey={1} href="/campaign">
+          Campaign
+        </NavItem>
+        <NavItem eventKey={2} href="/creative">
+          Creative
+        </NavItem>
+        <NavItem eventKey={3} href="/bidder">
+          Bidder
+        </NavItem>
+        <NavItem eventKey={4} href="/auction">
+          Auction
+        </NavItem>
+        <NavItem eventKey={5} href="/account">
+          Account
+        </NavItem>
+      </Nav>
+      <Nav pullRight>
+        <NavItem eventKey={6} href="/logout">
+          Logout {username}
+        </NavItem>
+      </Nav>
+    </Navbar.Collapse>
       ) : (
-        <Toolbar>
-          <Typography variant="title" color="inherit">
-            BidScout v1.0
-          </Typography>
-        </Toolbar>
+      <Navbar.Collapse>
+        <Nav pullRight>
+          <NavItem eventKey={7} href="/login">
+            Login
+          </NavItem>
+        </Nav>
+      </Navbar.Collapse>
       )}
-    </AppBar>
-  </div>;
+  </Navbar>;
 
-const NavBar = connect(
+const NavigationMenu = connect(
   state => ({
     loggedIn: state.login.loggedIn,
     username: state.login.username
   })
 )(_NavBar);
 
-export default NavBar;
+export default NavigationMenu;
+

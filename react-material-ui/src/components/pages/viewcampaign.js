@@ -70,12 +70,10 @@ class ViewCampaign extends Component {
       });
   }
 
-  setCampaign(e) {
-    if (e.target.value !== '') {
-      this.setState({
-        selectedCreative: e.target.value
-      })
-    }
+  setCampaign(v) {
+    this.setState({
+      selectedCreative: v
+    })
   }
 
   viewCampaign() {
@@ -84,32 +82,28 @@ class ViewCampaign extends Component {
     }
   }
 
-  setCreativeToRemove(e) {
-    if (e.target.value !== '') {
-      this.setState({
-        selectedCreativeToRemove: e.target.value
-      })
-    }
+  setCreativeToRemove(v) {
+    this.setState({
+      selectedCreativeToRemove: v
+    })
   }
 
   removeCreativeFromCampaign(v) {
     removeCreativeFromCampaign(this.state.campaign.id, this.state.selectedCreativeToRemove)
-      .then(data=>{
+      .then(data => {
         this.refreshMenus();
       });
   }
 
-  setCreativeToAdd(e) {
-    if (e.target.value !== '') {
-      this.setState({
-        selectedCreativeToAdd: e.target.value
-      })
-    }
+  setCreativeToAdd(v) {
+    this.setState({
+      selectedCreativeToAdd: v
+    })
   }
 
   addCreativeToCampaign() {
     addCreativeToCampaign(this.state.campaign.id, this.state.selectedCreativeToAdd)
-      .then(data=>{
+      .then(data => {
         this.refreshMenus();
       });
   }

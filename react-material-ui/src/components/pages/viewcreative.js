@@ -50,12 +50,10 @@ class ViewCreative extends Component {
       });
   }
 
-  setCreative(e) {
-    if (e.target.value !== '') {
-      this.setState({
-        selectedCreative: e.target.value
-      })
-    }
+  setCreative(v) {
+    this.setState({
+      selectedCreative: v
+    })
   }
 
   viewCreative() {

@@ -28,6 +28,7 @@ class User extends Component {
   };
 
   handleInputChange(event) {
+    console.log(event.target);
     handleInputChange(event, this);
   }
 

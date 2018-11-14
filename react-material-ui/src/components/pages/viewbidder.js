@@ -30,12 +30,10 @@ class ViewBidder extends Component {
       });
   }
 
-  setCampaign(e) {
-    if (e.target.value !== '') {
-      this.setState({
-        selectedCampaign: e.target.value
-      })
-    }
+  setCampaign(v) {
+    this.setState({
+      selectedCampaign: v
+    })
   }
 
   viewCampaign() {
@@ -44,12 +42,10 @@ class ViewBidder extends Component {
     }
   }
 
-  setCreative(e) {
-    if (e.target.value !== '') {
-      this.setState({
-        selectedCreative: e.target.value
-      })
-    }
+  setCreative(v) {
+    this.setState({
+      selectedCreative: v
+    })
   }
 
   viewCreative() {
@@ -65,16 +61,17 @@ class ViewBidder extends Component {
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
           Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
           rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
-          vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
+          vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper
+          nisi.
           Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
           neque. Ut placerat est mauris.</p>
         <ListWithButton data={this.state.allCampaigns} name="Select Campaign" handler={this.setCampaign.bind(this)}
                         value={this.state.selectedCampaign} buttonText="View" action={this.viewCampaign.bind(this)}/>
-
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
           Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
           rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
-          vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
+          vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper
+          nisi.
           Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
           neque. Ut placerat est mauris.</p>
         <ListWithButton data={this.state.allCreatives} name="Select Creative"
