@@ -6,7 +6,7 @@ import Campaign from './components/pages/campaign';
 import Creative from './components/pages/creative';
 import ViewCampaign from './components/pages/viewcampaign';
 import ViewCreative from './components/pages/viewcreative';
-import Bid from './components/pages/bid';
+import ViewAuction from './components/pages/viewauction';
 import LoginForm from './components/pages/login';
 import Error from './components/pages/error';
 import User from "./components/pages/user";
@@ -34,7 +34,8 @@ class App extends Component {
               <Route path='/bidder' exact component={ViewBidder}/>
               <Route path='/campaign/view/:id' component={ViewCampaign}/>
               <Route path='/creative/view/:id' component={ViewCreative}/>
-              <Route path='/auction' component={Bid}/>
+              <Route path='/auction/:id' exact component={ViewAuction}/>
+              <Route path='/auction' exact component={ViewAuction}/>
               <Route path='/account' component={User}/>
             </div>
           </div>

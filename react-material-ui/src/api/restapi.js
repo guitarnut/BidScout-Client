@@ -101,6 +101,10 @@ export function logout() {
   window.sessionStorage.removeItem('userid');
 }
 
+export function getUserId() {
+  return window.sessionStorage.getItem('userid');
+}
+
 export function viewBid(id) {
   return postRequest(host + '/api/bid/' + window.sessionStorage.getItem('userid') + '/' + id);
 }

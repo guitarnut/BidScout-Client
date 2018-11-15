@@ -29,7 +29,7 @@ const _NavBar = ({loggedIn, username}) =>
           Bidder
         </NavItem>
         <NavItem eventKey={4} href="/auction">
-          Auction
+          Auctions
         </NavItem>
         <NavItem eventKey={5} href="/account">
           Account

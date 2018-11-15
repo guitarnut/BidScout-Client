@@ -5,7 +5,7 @@ import TextBox from '../ui/textfield';
 import UIButton from '../ui/button';
 import ModelAuction from "../../model/auction";
 
-class Bid extends Component {
+class ViewAuction extends Component {
 
   state = {
     id: null,
@@ -16,6 +16,21 @@ class Bid extends Component {
 
   constructor() {
     super();
+  }
+
+  componentWillMount() {
+    const {id} = this.props.match.params;
+    if (id !== undefined) {
+      this.setState({
+        id: id
+      })
+    }
+  }
+
+  componentDidMount() {
+    if (this.state.id !== null) {
+      this.getBid();
+    }
   }
 
   getBid = () => {
@@ -46,10 +61,10 @@ class Bid extends Component {
   }
 
   renderBid() {
-    if (this.state.bid.id !== null) {
+    if (this.state.bid.id !== undefined) {
       return (
         <div>
-          <h3>Bid {this.state.bid.id}</h3>
+          <h3>Bid {this.state.bid.bidRequestId}</h3>
           <p><strong>Campaign</strong><br/>{this.state.bid.campaign}</p>
           <p><strong>Creative</strong><br/>{this.state.bid.creative}</p>
           <p><strong>Request User Agent</strong><br/>{this.state.bid.userAgent}</p>
@@ -83,25 +98,36 @@ class Bid extends Component {
           })}
         </div>
       )
+    } else {
+      return (
+        <h3>Bid {this.state.id} Not Found</h3>
+      )
     }
   }
 
   render() {
-    return (
-      <div>
-        <h1>Lookup Auction Record</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
-          Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
-          rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
-          vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
-          Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
-          neque. Ut placerat est mauris. 5a5511f8d43af74f4e0a4757</p>
-        <TextBox name="id" label="Bid Id" handler={this.handleInputChange.bind(this)}/>
-        <UIButton text="Search" action={this.getBid.bind(this)} icon="search"/>
-        {this.renderBid()}
-      </div>
-    )
+    if(this.state.id) {
+      return(
+        this.renderBid()
+      )
+    } else {
+      return (
+        <div>
+          <h1>Lookup Auction Record</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
+            Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
+            rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
+            vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
+            Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
+            neque. Ut placerat est mauris. 5a5511f8d43af74f4e0a4757</p>
+          <TextBox name="id" label="Bid Id" handler={this.handleInputChange.bind(this)}/>
+          <UIButton text="Search" action={this.getBid.bind(this)} icon="search"/>
+
+        </div>
+      )
+    }
+
   }
 }
 
-export default Bid;
+export default ViewAuction;
