@@ -105,6 +105,14 @@ export function viewBid(id) {
   return postRequest(host + '/api/bid/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
+export function viewImpressions(id) {
+  return postRequest(host + '/api/impressions/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function viewClicks(id) {
+  return postRequest(host + '/api/clicks/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
 export function saveCreative(json) {
   return postRequest(host + '/api/creative/create/' + window.sessionStorage.getItem('userid'), json);
 }

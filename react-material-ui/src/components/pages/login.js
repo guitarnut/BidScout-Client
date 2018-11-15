@@ -28,7 +28,7 @@ class _LoginForm extends Component {
           username: this.state.username,
           loggedIn: true
         });
-        this.props.history.push('/')
+        this.props.history.push('/bidder')
       })
       .catch(() => {
         this.props.storeLoginUser({

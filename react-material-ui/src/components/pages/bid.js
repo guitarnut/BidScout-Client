@@ -1,14 +1,17 @@
 import React, {Component} from 'react'
-import {viewBid} from "../../api/restapi";
+import {viewBid, viewClicks, viewImpressions} from "../../api/restapi";
 import {handleInputChange} from "../../input/formInputHandler";
 import TextBox from '../ui/textfield';
 import UIButton from '../ui/button';
+import ModelAuction from "../../model/auction";
 
 class Bid extends Component {
 
   state = {
     id: null,
-    bid: null
+    bid: ModelAuction,
+    impressions: [],
+    clicks: []
   };
 
   constructor() {
@@ -17,11 +20,24 @@ class Bid extends Component {
 
   getBid = () => {
     viewBid(this.state.id)
-      .then((data)=>{
-        console.log(data);
+      .then((data) => {
         this.setState({
-          bid: data
-        })
+          bid: data,
+          request: JSON.stringify(data.bidRequest),
+          response: JSON.stringify(data.bidResponse)
+        });
+        viewImpressions(this.state.id)
+          .then((data) => {
+            this.setState({
+              impressions: data
+            });
+          });
+        viewClicks(this.state.id)
+          .then((data) => {
+            this.setState({
+              clicks: data
+            });
+          })
       })
   };
 
@@ -30,16 +46,41 @@ class Bid extends Component {
   }
 
   renderBid() {
-    if(this.state.bid !== null && this.state.bid.id !== undefined) {
+    if (this.state.bid.id !== null) {
       return (
         <div>
-          <h1>Bid {this.state.bid.id}</h1>
+          <h3>Bid {this.state.bid.id}</h3>
+          <p><strong>Campaign</strong><br/>{this.state.bid.campaign}</p>
+          <p><strong>Creative</strong><br/>{this.state.bid.creative}</p>
           <p><strong>Request User Agent</strong><br/>{this.state.bid.userAgent}</p>
           <p><strong>Response Timestamp</strong><br/>{this.state.bid.responseTimestamp}</p>
           <p><strong>Impression Timestamp</strong><br/>{this.state.bid.impressionTimestamp}</p>
           <p><strong>Cookies</strong><br/>{this.state.bid.cookies}</p>
           <p><strong>Host</strong><br/>{this.state.bid.host}</p>
           <p><strong>X-Forwarded</strong><br/>{this.state.bid.xForwardedFor}</p>
+          <p><strong>Markup</strong><br/>{this.state.bid.markup}</p>
+          <p><strong>Bid Request</strong><br/>{this.state.request}</p>
+          <p><strong>Bid Response</strong><br/>{this.state.response}</p>
+          <h3>Impressions</h3>
+          {this.state.impressions.map((v) => {
+            return (
+              <p>{v.url}<br/>
+                Timestamp: {v.impressionTimestamp}<br/>
+                User Agent: {v.userAgent}<br/>
+                Bid Price: {v.bidPrice} - Clearing Price: {v.cp}<br/>
+                Host: {v.host}<br/>
+              </p>
+            )
+          })}
+          <h3>Clicks</h3>
+          {this.state.clicks.map((v) => {
+            return (
+              <p>{v.url}<br/>
+                Timestamp: {v.clickTimestamp}<br/>
+                User Agent: {v.userAgent}<br/>
+                Host: {v.host}<br/></p>
+            )
+          })}
         </div>
       )
     }

@@ -25,6 +25,13 @@ class Creative extends Component {
   };
 
   handleInputChange(event) {
+    if(!event.hasOwnProperty('target')) {
+      event = {
+        target: {
+          value: event
+        }
+      }
+    }
     handleInputChange(event, this);
   }
 
