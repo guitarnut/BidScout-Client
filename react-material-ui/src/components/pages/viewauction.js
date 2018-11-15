@@ -4,11 +4,13 @@ import {handleInputChange} from "../../input/formInputHandler";
 import TextBox from '../ui/textfield';
 import UIButton from '../ui/button';
 import ModelAuction from "../../model/auction";
+import {withRouter} from 'react-router-dom';
 
 class ViewAuction extends Component {
 
   state = {
     id: null,
+    searchId: null,
     bid: ModelAuction,
     impressions: [],
     clicks: []
@@ -33,7 +35,13 @@ class ViewAuction extends Component {
     }
   }
 
-  getBid = () => {
+  handleClick()  {
+    if (this.state.searchId !== undefined) {
+      this.props.history.push('/auction/' + this.state.searchId);
+    }
+  };
+
+  getBid () {
     viewBid(this.state.id)
       .then((data) => {
         this.setState({
@@ -120,8 +128,8 @@ class ViewAuction extends Component {
             vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
             Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
             neque. Ut placerat est mauris. 5a5511f8d43af74f4e0a4757</p>
-          <TextBox name="id" label="Bid Id" handler={this.handleInputChange.bind(this)}/>
-          <UIButton text="Search" action={this.getBid.bind(this)} icon="search"/>
+          <TextBox name="searchId" label="Bid Id" handler={this.handleInputChange.bind(this)}/>
+          <UIButton text="Search" action={this.handleClick.bind(this)} icon="search"/>
 
         </div>
       )
