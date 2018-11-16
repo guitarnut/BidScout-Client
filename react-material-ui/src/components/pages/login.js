@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import TextBox from '../ui/textfield';
-import {createUser, loginUser} from "../../api/restapi";
+import {createUser, getCampaignNames, getCreativeNames, loginUser} from "../../api/restapi";
 import {handleInputChange} from "../../input/formInputHandler";
 import UIButton from '../ui/button';
-import {storeLoginUser} from '../../store/actions';
+import {storeLoginUser, storeAllCampaigns, storeAllCreatives} from '../../store/actions';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => {
   return {
-    storeLoginUser: login => dispatch(storeLoginUser(login))
+    storeLoginUser: login => dispatch(storeLoginUser(login)),
+    storeAllCampaigns: creatives => dispatch(storeAllCampaigns(creatives)),
+    storeAllCreatives: creatives => dispatch(storeAllCreatives(creatives))
   }
 };
 
@@ -23,12 +25,17 @@ class _LoginForm extends Component {
 
   loginUser = () => {
     loginUser(this.state.username, this.state.password)
-      .then(() => {
-        this.props.storeLoginUser({
-          username: this.state.username,
-          loggedIn: true
-        });
-        this.props.history.push('/bidder')
+      .then((data) => {
+        this.props.storeLoginUser(data);
+        getCreativeNames()
+          .then((data)=>{
+            this.props.storeAllCreatives(data);
+            getCampaignNames()
+              .then((data)=>{
+                this.props.storeAllCampaigns(data);
+                this.props.history.push('/bidder')
+              });
+          });
       })
       .catch(() => {
         this.props.storeLoginUser({

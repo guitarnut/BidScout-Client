@@ -44,11 +44,11 @@ function handleError(e) {
 }
 
 function resetSession() {
-  if(session !== undefined) {
+  if (session !== undefined) {
     clearTimeout(session);
   }
 
-  session = setTimeout(()=>{
+  session = setTimeout(() => {
     logout();
   }, sessionTimeout);
 }
@@ -83,7 +83,7 @@ export function loginUser(u, p) {
         username = u;
         password = p;
         userid = response.id;
-        resolve();
+        resolve(response.data);
       })
       .catch(function (error) {
         console.log(error);

@@ -2,14 +2,15 @@ import React, {Component} from 'react'
 import {getCampaignNames, getCreativeNames, getUserId} from '../../api/restapi';
 import ListWithButton from "../ui/listwithbutton";
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-class ViewBidder extends Component {
+class _ViewBidder extends Component {
   state = {
-    allCampaigns: [],
-    allCreatives: {},
+    campaigns: {},
+    creatives: {},
     selectedCampaign: '',
     selectedCreative: '',
-    userid: ''
+    user: {}
   };
 
   constructor() {
@@ -17,22 +18,12 @@ class ViewBidder extends Component {
   }
 
   componentDidMount() {
-    getCampaignNames()
-      .then(data => {
-        console.log(getUserId());
-        this.setState({
-          userid: getUserId()
-        });
-        this.setState({
-          allCampaigns: data
-        })
-      });
-    getCreativeNames()
-      .then(data => {
-        this.setState({
-          allCreatives: data
-        })
-      });
+    console.log(this.props);
+    this.setState({
+      campaigns: this.props.campaigns,
+      creatives: this.props.creatives,
+      user: this.props.user
+    });
   }
 
   setCampaign(v) {
@@ -41,21 +32,15 @@ class ViewBidder extends Component {
     })
   }
 
-  viewCampaign() {
-    if (this.state.selectedCampaign !== '') {
-      this.props.history.push('/campaign/view/' + this.state.selectedCampaign);
-    }
-  }
-
   setCreative(v) {
     this.setState({
       selectedCreative: v
     })
   }
 
-  viewCreative() {
-    if (this.state.selectedCreative !== '') {
-      this.props.history.push('/creative/view/' + this.state.selectedCreative);
+  viewSelected(v) {
+    if(v[0].split('/').length === 4) {
+      this.props.history.push(v[0]);
     }
   }
 
@@ -63,22 +48,29 @@ class ViewBidder extends Component {
     return (
       <div>
         <h1>Bidder</h1>
-        <p>Endpoint: [host]/bid/{this.state.userid}/[OPTIONAL]</p>
-        <ListWithButton data={this.state.allCampaigns} name="Select Campaign" handler={this.setCampaign.bind(this)}
-                        value={this.state.selectedCampaign} buttonText="View" action={this.viewCampaign.bind(this)}/>
+        <p>Endpoint: [host]/bid/{this.state.user.id}/[OPTIONAL]</p>
+        <ListWithButton data={this.state.campaigns} name="Select Campaign" handler={this.setCampaign.bind(this)}
+                        value={this.state.selectedCampaign} buttonText="View"
+                        action={this.viewSelected.bind(this, ['/campaign/view/' + this.state.selectedCampaign])}/>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
           Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
           rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
           vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper
-          nisi.
-          Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
-          neque. Ut placerat est mauris.</p>
-        <ListWithButton data={this.state.allCreatives} name="Select Creative"
-                        handler={this.setCreative.bind(this)} value={this.state.selectedCreative} buttonText="View"
-                        action={this.viewCreative.bind(this)}/>
+          nisi.</p>
+        <ListWithButton data={this.state.creatives} name="Select Creative" handler={this.setCreative.bind(this)}
+                        value={this.state.selectedCreative} buttonText="View"
+                        action={this.viewSelected.bind(this, ['/creative/view/' + this.state.selectedCreative])}/>
       </div>
     )
   }
 }
+
+const ViewBidder = connect(
+  state => ({
+    campaigns: state.campaigns,
+    creatives: state.creatives,
+    user: state.user
+  })
+)(_ViewBidder);
 
 export default withRouter(ViewBidder);

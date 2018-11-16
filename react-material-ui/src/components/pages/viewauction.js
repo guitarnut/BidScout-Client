@@ -5,15 +5,18 @@ import TextBox from '../ui/textfield';
 import UIButton from '../ui/button';
 import ModelAuction from "../../model/auction";
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-class ViewAuction extends Component {
+class _ViewAuction extends Component {
 
   state = {
     id: null,
     searchId: null,
     bid: ModelAuction,
     impressions: [],
-    clicks: []
+    clicks: [],
+    campaigns: {},
+    creatives: {}
   };
 
   constructor() {
@@ -30,6 +33,11 @@ class ViewAuction extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
+    this.setState({
+      campaigns: this.props.campaigns,
+      creatives: this.props.creatives
+    });
     if (this.state.id !== null) {
       this.getBid();
     }
@@ -73,13 +81,14 @@ class ViewAuction extends Component {
       return (
         <div>
           <h3>Bid {this.state.bid.bidRequestId}</h3>
-          <p><strong>Campaign</strong><br/>{this.state.bid.campaign}</p>
-          <p><strong>Creative</strong><br/>{this.state.bid.creative}</p>
+          <p><strong>Campaign</strong><br/>{this.state.campaigns[this.state.bid.campaign]}</p>
+          <p><strong>Creative</strong><br/>{this.state.creatives[this.state.bid.creative]}</p>
           <p><strong>Request User Agent</strong><br/>{this.state.bid.userAgent}</p>
           <p><strong>Response Timestamp</strong><br/>{this.state.bid.responseTimestamp}</p>
           <p><strong>Impression Timestamp</strong><br/>{this.state.bid.impressionTimestamp}</p>
           <p><strong>Cookies</strong><br/>{this.state.bid.cookies}</p>
           <p><strong>Host</strong><br/>{this.state.bid.host}</p>
+          <p><strong>IP</strong><br/>{this.state.bid.ip}</p>
           <p><strong>X-Forwarded</strong><br/>{this.state.bid.xForwardedFor}</p>
           <p><strong>Markup</strong><br/>{this.state.bid.markup}</p>
           <p><strong>Bid Request</strong><br/>{this.state.request}</p>
@@ -92,6 +101,7 @@ class ViewAuction extends Component {
                 User Agent: {v.userAgent}<br/>
                 Bid Price: {v.bidPrice} - Clearing Price: {v.cp}<br/>
                 Host: {v.host}<br/>
+                IP: {v.ip}
               </p>
             )
           })}
@@ -101,7 +111,9 @@ class ViewAuction extends Component {
               <p>{v.url}<br/>
                 Timestamp: {v.clickTimestamp}<br/>
                 User Agent: {v.userAgent}<br/>
-                Host: {v.host}<br/></p>
+                Host: {v.host}<br/>
+                IP: {v.ip}
+              </p>
             )
           })}
         </div>
@@ -122,12 +134,7 @@ class ViewAuction extends Component {
       return (
         <div>
           <h1>Lookup Auction Record</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
-            Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
-            rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
-            vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
-            Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
-            neque. Ut placerat est mauris. 5a5511f8d43af74f4e0a4757</p>
+          <p>View end-to-end auction results using your Bid Request ID as the lookup key. 5a5511f8d43af74f4e0a4757</p>
           <TextBox name="searchId" label="Bid Id" handler={this.handleInputChange.bind(this)}/>
           <UIButton text="Search" action={this.handleClick.bind(this)} icon="search"/>
 
@@ -137,5 +144,12 @@ class ViewAuction extends Component {
 
   }
 }
+
+const ViewAuction = connect(
+  state => ({
+    campaigns: state.campaigns,
+    creatives: state.creatives
+  })
+)(_ViewAuction);
 
 export default ViewAuction;

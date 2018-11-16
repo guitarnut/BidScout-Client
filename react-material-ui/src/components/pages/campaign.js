@@ -51,14 +51,10 @@ class Campaign extends Component {
       return (
         <div>
           <h1>Campaign</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
-            Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
-            rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
-            vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper
-            nisi.
-            Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
-            neque. Ut placerat est mauris.</p>
-          <p>Build campaign settings and targeting</p>
+          <p>Your campaign is the top level item that makes decisions about your bid responses. A campaign must have one
+            or more creatives associated with it. If you're looking to get up and running quickly, BidScout can generate
+            a 100% fill campaign that will automatically return a bid response for any size bid, for any request.</p>
+          <p>Build campaign settings and targeting.</p>
 
           <PanelName handleInput={this.handleInputChange.bind(this)}/>
           <PanelConfig enabled={this.state.enabled} requirements={this.state.requirements}

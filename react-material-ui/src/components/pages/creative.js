@@ -61,12 +61,9 @@ class Creative extends Component {
       return (
         <div>
           <h1>Creative</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
-            Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
-            rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
-            vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper nisi.
-            Nulla sit amet laoreet est. Vivamus nec tincidunt orci. Ut ex leo, aliquet faucibus maximus sed, varius eu
-            neque. Ut placerat est mauris.</p>
+          <p>Creatives are the second level item responsible for controlling bid responses. Creatives will be returned
+          based on a size match with the bid request. If you do not wish to create multiple creatives, BidScout can
+          instead create a 100% fill campaign that will return a creative for every bid request.</p>
 
           <PanelName handleInput={this.handleInputChange.bind(this)}/>
           <PanelConfig enabled={this.state.enabled} requirements={this.state.requirements} handleInput={this.handleInputChange.bind(this)}/>
