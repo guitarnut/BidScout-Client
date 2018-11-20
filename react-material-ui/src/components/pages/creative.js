@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import ModelCreative from "../../model/creative";
-import {saveCreative} from "../../api/restapi";
+import {getCreativeNames, saveCreative} from "../../api/restapi";
 import {handleInputChange, handleInputChangeArray} from "../../input/formInputHandler";
 import UIButton from '../ui/button';
 import PanelAuctionSettings from "./components/panel_auctionsettings";
@@ -11,10 +11,17 @@ import PanelPacing from "./components/panel_pacing";
 import PanelTracking from "./components/panel_tracking";
 import PanelName from "./components/panel_name";
 import PanelConfig from "./components/panel_config";
-import {withRouter} from 'react-router-dom';
 import PanelDeals from "./components/panel_deals";
+import {storeAllCreatives} from "../../store/actions";
+import {connect} from 'react-redux';
 
-class Creative extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    storeAllCreatives: creatives => dispatch(storeAllCreatives(creatives))
+  }
+};
+
+class _Creative extends Component {
 
   state = ModelCreative;
 
@@ -32,11 +39,15 @@ class Creative extends Component {
   save = () => {
     saveCreative(this.state)
       .then(()=>{
-        this.props.history.push('/bidder')
+        getCreativeNames()
+          .then((data)=>{
+            this.props.storeAllCreatives(data);
+            this.props.history.push('/bidder')
+          });
       });
   };
 
-  handleInputChange(event) {
+  handleInput(event) {
     if(!event.hasOwnProperty('target')) {
       event = {
         target: {
@@ -47,7 +58,7 @@ class Creative extends Component {
     handleInputChange(event, this);
   }
 
-  handleInputChangeArray(event) {
+  handleInputArray(event) {
     handleInputChangeArray(event, this);
   }
 
@@ -66,15 +77,15 @@ class Creative extends Component {
           based on a size match with the bid request. If you do not wish to create multiple creatives, BidScout can
           instead create a 100% fill campaign that will return a creative for every bid request.</p>
 
-          <PanelName handleInput={this.handleInputChange.bind(this)}/>
-          <PanelConfig enabled={this.state.enabled} requirements={this.state.requirements} handleInput={this.handleInputChange.bind(this)}/>
-          <PanelProperties handleInput={this.handleInputChange.bind(this)} handleInputArray={this.handleInputChangeArray.bind(this)}/>
-          <PanelAuctionSettings handleInput={this.handleInputChange.bind(this)}/>
-          <PanelTracking handleInput={this.handleInputChange.bind(this)}/>
-          <PanelLists handleInput={this.handleInputChangeArray.bind(this)}/>
-          <PanelDeals handleInput={this.handleInputChangeArray.bind(this)}/>
-          <PanelPacing handleInput={this.handleInputChange.bind(this)}/>
-          <PanelPlatforms handleInput={this.handleInputChange.bind(this)} requirements={this.state.requirements}/>
+          <PanelName handleInput={this.handleInput.bind(this)}/>
+          <PanelConfig enabled={this.state.enabled} requirements={this.state.requirements} handleInput={this.handleInput.bind(this)}/>
+          <PanelProperties handleInput={this.handleInput.bind(this)} handleInputArray={this.handleInputArray.bind(this)}/>
+          <PanelAuctionSettings handleInput={this.handleInput.bind(this)}/>
+          <PanelTracking handleInput={this.handleInput.bind(this)}/>
+          <PanelLists handleInput={this.handleInputArray.bind(this)}/>
+          <PanelDeals handleInput={this.handleInputArray.bind(this)}/>
+          <PanelPacing handleInput={this.handleInput.bind(this)}/>
+          <PanelPlatforms handleInput={this.handleInput.bind(this)} requirements={this.state.requirements}/>
 
           <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
         </div>
@@ -82,5 +93,7 @@ class Creative extends Component {
     }
   }
 }
+
+const Creative = connect(null, mapDispatchToProps)(_Creative);
 
 export default Creative;

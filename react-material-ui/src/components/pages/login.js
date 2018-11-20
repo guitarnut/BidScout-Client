@@ -10,7 +10,7 @@ import {withRouter} from 'react-router-dom';
 const mapDispatchToProps = dispatch => {
   return {
     storeLoginUser: login => dispatch(storeLoginUser(login)),
-    storeAllCampaigns: creatives => dispatch(storeAllCampaigns(creatives)),
+    storeAllCampaigns: campaigns => dispatch(storeAllCampaigns(campaigns)),
     storeAllCreatives: creatives => dispatch(storeAllCreatives(creatives))
   }
 };

@@ -4,9 +4,10 @@ import {SplitButton, MenuItem} from 'react-bootstrap';
 const SelectList = (props) =>
   <SplitButton
     title={props.name}
+    name={props.name}
     key={props.value}
-    id={props.value}
     onSelect={props.handler}
+    value={props.value}
   >
     {Object.keys(props.data).map(k => {
       return (

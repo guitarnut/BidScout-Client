@@ -1,7 +1,9 @@
 import axios from "axios/index";
 
 const sessionTimeout = 1000 * 60 * 60;
-const host = 'http://ec2-18-222-180-75.us-east-2.compute.amazonaws.com:8080';
+const host = 'http://localhost:8080';
+//const host = 'http://ec2-18-222-180-75.us-east-2.compute.amazonaws.com:8080';
+
 let session = null;
 
 let username = '';

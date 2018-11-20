@@ -21,6 +21,8 @@ export function handleInputChangeArray(event, context) {
   const value = target.value.split(',');
   const name = target.name;
 
+  console.log(target.value);
+
   let keys = name.split('.');
   if (keys.length === 1) {
     context.setState({

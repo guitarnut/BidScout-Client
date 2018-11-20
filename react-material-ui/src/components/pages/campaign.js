@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {handleInputChange, handleInputChangeArray} from "../../input/formInputHandler";
-import {saveCampaign} from "../../api/restapi";
+import {getCampaignNames, saveCampaign} from "../../api/restapi";
 import ModelCampaign from "../../model/campaign";
 import UIButton from '../ui/button';
 import PanelName from "./components/panel_name";
@@ -9,10 +9,17 @@ import PanelPacing from "./components/panel_pacing";
 import PanelPlatforms from "./components/panel_platforms";
 import PanelConfig from "./components/panel_config";
 import PanelTracking from "./components/panel_tracking";
-import {withRouter} from 'react-router-dom';
 import PanelDeals from "./components/panel_deals";
+import {storeAllCampaigns} from "../../store/actions";
+import {connect} from 'react-redux';
 
-class Campaign extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    storeAllCampaigns: campaigns => dispatch(storeAllCampaigns(campaigns)),
+  }
+};
+
+class _Campaign extends Component {
   state = ModelCampaign;
 
   constructor() {
@@ -29,7 +36,11 @@ class Campaign extends Component {
   save = () => {
     saveCampaign(this.state)
       .then(() => {
-        this.props.history.push('/bidder')
+        getCampaignNames()
+          .then((data)=>{
+            this.props.storeAllCampaigns(data);
+            this.props.history.push('/bidder')
+          });
       });
   };
 
@@ -72,5 +83,7 @@ class Campaign extends Component {
     }
   }
 }
+
+const Campaign = connect(null, mapDispatchToProps)(_Campaign);
 
 export default Campaign;
