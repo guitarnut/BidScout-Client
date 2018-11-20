@@ -17,6 +17,7 @@ import Flight from "./components/flight";
 import CampaignProps from "./components/campaignproperties";
 import Settings from "./components/settings";
 import ListWithButton from "../ui/listwithbutton";
+import Deals from "./components/deals";
 
 class ViewCampaign extends Component {
   state = {
@@ -154,6 +155,7 @@ class ViewCampaign extends Component {
           <CampaignProps data={this.state.campaign}/>
           <Settings data={this.state.campaign.requirements}/>
           <Lists data={this.state.campaign.requirements}/>
+          <Deals data={this.state.campaign.requirements}/>
           <Platforms data={this.state.campaign.requirements}/>
           <Flight data={this.state.campaign}/>
           <Limits data={this.state.campaign.limits}/>

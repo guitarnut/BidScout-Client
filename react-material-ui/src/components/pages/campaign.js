@@ -10,6 +10,7 @@ import PanelPlatforms from "./components/panel_platforms";
 import PanelConfig from "./components/panel_config";
 import PanelTracking from "./components/panel_tracking";
 import {withRouter} from 'react-router-dom';
+import PanelDeals from "./components/panel_deals";
 
 class Campaign extends Component {
   state = ModelCampaign;
@@ -61,6 +62,7 @@ class Campaign extends Component {
                        handleInput={this.handleInputChange.bind(this)}/>
           <PanelTracking handleInput={this.handleInputChange.bind(this)} isCampaign={true}/>
           <PanelLists handleInput={this.handleInputChangeArray.bind(this)}/>
+          <PanelDeals handleInput={this.handleInputChangeArray.bind(this)}/>
           <PanelPacing handleInput={this.handleInputChange.bind(this)}/>
           <PanelPlatforms handleInput={this.handleInputChange.bind(this)} requirements={this.state.requirements}/>
 

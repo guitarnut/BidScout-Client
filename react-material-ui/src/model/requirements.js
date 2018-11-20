@@ -7,6 +7,7 @@ const ModelRequirements = {
   publisherBlacklist: [],
   domainBlacklist: [],
   bundleBlacklist: [],
+  dealIds: [],
   mobile: false,
   desktop: false,
   inapp: false,

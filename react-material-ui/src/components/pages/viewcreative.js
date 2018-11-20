@@ -10,6 +10,7 @@ import Flight from "./components/flight";
 import CreativeProps from "./components/creativeproperties";
 import ListWithButton from "../ui/listwithbutton";
 import {withRouter} from 'react-router-dom';
+import Deals from "./components/deals";
 
 class ViewCreative extends Component {
   state = {
@@ -74,8 +75,9 @@ class ViewCreative extends Component {
         <Stats data={this.state.creative.statistics}/>
         <CreativeProps data={this.state.creative}/>
         <Lists data={this.state.creative.requirements}/>
+        <Deals data={this.state.creative.requirements}/>
         <Platforms data={this.state.creative.requirements}/>
-        <Flight data={this.state.campaign}/>
+        <Flight data={this.state.creative}/>
         <Limits data={this.state.creative.limits}/>
       </div>
     )

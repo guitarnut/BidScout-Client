@@ -12,6 +12,7 @@ import PanelTracking from "./components/panel_tracking";
 import PanelName from "./components/panel_name";
 import PanelConfig from "./components/panel_config";
 import {withRouter} from 'react-router-dom';
+import PanelDeals from "./components/panel_deals";
 
 class Creative extends Component {
 
@@ -71,6 +72,7 @@ class Creative extends Component {
           <PanelAuctionSettings handleInput={this.handleInputChange.bind(this)}/>
           <PanelTracking handleInput={this.handleInputChange.bind(this)}/>
           <PanelLists handleInput={this.handleInputChangeArray.bind(this)}/>
+          <PanelDeals handleInput={this.handleInputChangeArray.bind(this)}/>
           <PanelPacing handleInput={this.handleInputChange.bind(this)}/>
           <PanelPlatforms handleInput={this.handleInputChange.bind(this)} requirements={this.state.requirements}/>
 
