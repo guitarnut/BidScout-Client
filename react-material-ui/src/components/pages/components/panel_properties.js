@@ -15,14 +15,14 @@ const PanelProperties = (props) =>
         <TextBox name="creativeUrl" label="Asset URL" handler={props.handleInput}/>
         <TextBox name="w" label="Width" handler={props.handleInput}/>
         <TextBox name="h" label="Height" handler={props.handleInput}/>
-        <SelectList name="mimes" label="Mime Type" data={DisplayMimes} handler={props.handleInput}/>
         <TextBox name="iabCategories" label="IAB Categories" handler={props.handleInputArray}/>
-        <MultiSelect name="attr" label="Attributes" data={Attributes} handler={props.handleInput}/>
-        <MultiSelect name="btype" label="Banner Type" data={BannerTypes} handler={props.handleInput}/>
         <TextBox name="adDomain" label="Ad Domains" handler={props.handleInputArray}/>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;
 
+// <SelectList name="mimes" label="Mime Type" data={DisplayMimes} handler={props.handleInput}/>
 // <TextBox name="type" label="Type" handler={props.handleInput}/>
+// <MultiSelect name="attr" label="Attributes" data={Attributes} handler={props.handleInput}/>
+// <MultiSelect name="btype" label="Banner Type" data={BannerTypes} handler={props.handleInput}/>
 export default PanelProperties;

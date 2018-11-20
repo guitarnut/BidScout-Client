@@ -3,6 +3,7 @@ import {SplitButton, MenuItem} from 'react-bootstrap';
 
 const SelectList = (props) =>
   <SplitButton
+    id={props.name}
     title={props.name}
     name={props.name}
     key={props.value}
