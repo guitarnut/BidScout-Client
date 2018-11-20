@@ -29,7 +29,7 @@ function generateAuthPostHeaders(noAuth) {
 }
 
 function handleError(e) {
-  if (!e.hasOwnProperty('response') || !e.response.hasOwnProperty('status')) {
+  if (e === undefined || !e.hasOwnProperty('response') || !e.response.hasOwnProperty('status')) {
     window.location.pathname = '/error';
     return;
   }
