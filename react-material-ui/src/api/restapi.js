@@ -29,18 +29,17 @@ function generateAuthPostHeaders(noAuth) {
 }
 
 function handleError(e) {
-  if (e === undefined || !e.hasOwnProperty('response') || !e.response.hasOwnProperty('status')) {
     window.location.pathname = '/error';
-    return;
-  }
-  switch (e.response.status) {
-    case 401:
-      window.location.pathname = '/login';
-      break;
-    default:
-      window.location.pathname = '/error';
-      break;
-  }
+    //return;
+
+  // switch (e.response.status) {
+  //   case 401:
+  //     window.location.pathname = '/login';
+  //     break;
+  //   default:
+  //     window.location.pathname = '/error';
+  //     break;
+  // }
 }
 
 function resetSession() {
