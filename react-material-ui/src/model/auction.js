@@ -13,7 +13,9 @@ const ModelAuction = {
   markup: null,
   cookies: null,
   host: null,
-  xForwardedFor: null
+  xForwardedFor: null,
+  targetingFailures: {},
+  bidRequestErrors: []
 };
 
 export default ModelAuction;

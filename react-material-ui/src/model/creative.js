@@ -19,6 +19,7 @@ const ModelCreative = {
   crid: null,
   adDomain: [],
   creativeUrl: null,
+  adm: null,
   xml: null,
   minBid: null,
   maxBid: null,

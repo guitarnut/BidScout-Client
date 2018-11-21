@@ -43,13 +43,13 @@ class _ViewAuction extends Component {
     }
   }
 
-  handleClick()  {
+  handleClick() {
     if (this.state.searchId !== undefined) {
       this.props.history.push('/auction/' + this.state.searchId);
     }
   };
 
-  getBid () {
+  getBid() {
     viewBid(this.state.id)
       .then((data) => {
         this.setState({
@@ -81,6 +81,26 @@ class _ViewAuction extends Component {
       return (
         <div>
           <h3>Bid {this.state.bid.bidRequestId}</h3>
+          <p>Bid Request Errors</p>
+          <p>
+            <ul>
+              {this.state.bidRequestErrors.map((v) => {
+                return (
+                  <li>{v}</li>
+                )
+              })}
+            </ul>
+          </p>
+          <p>Targeting Failures</p>
+          <p>
+            <ul>
+              {Object.keys(this.state.targetingFailures).map((v) => {
+                return (
+                  <li>{v}: {this.state.targetingFailures[v]}</li>
+                )
+              })}
+            </ul>
+          </p>
           <p><strong>Campaign</strong><br/>{this.state.campaigns[this.state.bid.campaign]}</p>
           <p><strong>Creative</strong><br/>{this.state.creatives[this.state.bid.creative]}</p>
           <p><strong>Request User Agent</strong><br/>{this.state.bid.userAgent}</p>
@@ -126,8 +146,8 @@ class _ViewAuction extends Component {
   }
 
   render() {
-    if(this.state.id) {
-      return(
+    if (this.state.id) {
+      return (
         this.renderBid()
       )
     } else {
