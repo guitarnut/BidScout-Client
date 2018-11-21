@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {handleInputChange, handleInputChangeArray} from "../../input/formInputHandler";
-import {getCampaignNames, saveCampaign} from "../../api/restapi";
+import {deleteCampaign, getCampaign, getCampaignNames, saveCampaign} from "../../api/restapi";
 import ModelCampaign from "../../model/campaign";
 import UIButton from '../ui/button';
 import PanelName from "./components/panel_name";
@@ -12,7 +12,7 @@ import PanelTracking from "./components/panel_tracking";
 import PanelDeals from "./components/panel_deals";
 import {storeAllCampaigns} from "../../store/actions";
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import ModelCreative from "../../model/creative";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -21,7 +21,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 class _Campaign extends Component {
-  state = ModelCampaign;
+  state = {
+    id: null,
+    model: ModelCampaign
+  };
 
   constructor() {
     super();
@@ -30,9 +33,7 @@ class _Campaign extends Component {
   componentWillMount() {
     const {id} = this.props.match.params;
     if (id !== undefined) {
-      this.setState({
-        id: id
-      })
+      this.getCampaign(id);
     }
   }
 
@@ -43,22 +44,51 @@ class _Campaign extends Component {
     })
   }
 
+  getCampaign(id) {
+    getCampaign(id)
+      .then((data) => {
+        this.setState({
+          failed: false,
+          model: data,
+          id: id
+        })
+      })
+      .catch(() => {
+        this.setState({
+          failed: true,
+          creative: ModelCreative
+        })
+      })
+  }
+
+  deleteCampaign() {
+    deleteCampaign(this.state.id)
+      .then(() => {
+
+      })
+      .catch(() => {
+        this.setState({
+          failed: true
+        })
+      })
+  }
+
   save = () => {
-    saveCampaign(this.state)
+    saveCampaign(this.state.model)
       .then(() => {
         getCampaignNames()
-          .then((data)=>{
+          .then((data) => {
             this.props.storeAllCampaigns(data);
             this.props.history.push('/bidder')
           });
       });
   };
 
-  handleInputChange(event) {
+  handleInput(event) {
     handleInputChange(event, this);
   }
 
-  handleInputChangeArray(event) {
+  handleInputArray(event) {
     handleInputChangeArray(event, this);
   }
 
@@ -66,28 +96,37 @@ class _Campaign extends Component {
     if (this.state.saving) {
       return (
         <div>
-          <h1>Saving {this.state.name}</h1>
+          <h1>Saving {this.state.model.name}</h1>
         </div>
       )
     } else {
       return (
         <div>
-          <h1>Campaign</h1>
+          {this.state.id ? (
+            <h1>Edit {this.state.model.name}</h1>
+          ) : (
+            <h1>Build Campaign</h1>
+          )}
           <p>Your campaign is the top level item that makes decisions about your bid responses. A campaign must have one
             or more creatives associated with it. If you're looking to get up and running quickly, BidScout can generate
             a 100% fill campaign that will automatically return a bid response for any size bid, for any request.</p>
           <p>Build campaign settings and targeting.</p>
 
-          <PanelName handleInput={this.handleInputChange.bind(this)}/>
-          <PanelConfig enabled={this.state.enabled} requirements={this.state.requirements}
-                       handleInput={this.handleInputChange.bind(this)}/>
-          <PanelTracking handleInput={this.handleInputChange.bind(this)} isCampaign={true}/>
-          <PanelLists handleInput={this.handleInputChangeArray.bind(this)}/>
-          <PanelDeals handleInput={this.handleInputChangeArray.bind(this)}/>
-          <PanelPacing handleInput={this.handleInputChange.bind(this)}/>
-          <PanelPlatforms handleInput={this.handleInputChange.bind(this)} requirements={this.state.requirements}/>
+          <PanelName handleInput={this.handleInput.bind(this)} value={this.state.model.name}/>
+          <PanelConfig enabled={this.state.model.enabled} requirements={this.state.model.requirements}
+                       handleInput={this.handleInput.bind(this)}/>
+          <PanelTracking handleInput={this.handleInput.bind(this)} model={this.state.model}/>
+          <PanelLists handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>
+          <PanelDeals handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>
+          <PanelPacing handleInput={this.handleInput.bind(this)} limits={this.state.model.limits}/>
+          <PanelPlatforms handleInput={this.handleInput.bind(this)}
+                          requirements={this.state.model.requirements}/>
 
-          <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
+          {this.state.id ? (
+            <UIButton text="Update" action={this.save.bind(this)} icon="save"/>
+          ) : (
+            <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
+          )}
         </div>
       )
     }

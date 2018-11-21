@@ -18,6 +18,7 @@ import CampaignProps from "./components/campaignproperties";
 import Settings from "./components/settings";
 import ListWithButton from "../ui/listwithbutton";
 import Deals from "./components/deals";
+import UIButton from "../ui/button";
 
 class ViewCampaign extends Component {
   state = {
@@ -102,6 +103,10 @@ class ViewCampaign extends Component {
     })
   }
 
+  edit() {
+    this.props.history.push('/campaign/edit/' + this.state.campaign.id);
+  }
+
   addCreativeToCampaign() {
     addCreativeToCampaign(this.state.campaign.id, this.state.selectedCreativeToAdd)
       .then(data => {
@@ -151,6 +156,7 @@ class ViewCampaign extends Component {
                         action={this.addCreativeToCampaign.bind(this)}/>
         <div>
           <h1>{this.state.campaign.name}</h1>
+          <UIButton text="Edit" action={this.edit.bind(this)}/>
           <Stats data={this.state.campaign.statistics}/>
           <CampaignProps data={this.state.campaign}/>
           <Settings data={this.state.campaign.requirements}/>

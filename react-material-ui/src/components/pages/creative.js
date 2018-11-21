@@ -64,18 +64,6 @@ class _Creative extends Component {
       })
   }
 
-  updateCreative() {
-    deleteCreative(this.state.id)
-      .then(() => {
-
-      })
-      .catch(() => {
-        this.setState({
-          failed: true
-        })
-      })
-  }
-
   deleteCreative() {
     deleteCreative(this.state.id)
       .then(() => {
