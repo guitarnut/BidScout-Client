@@ -84,7 +84,7 @@ class _ViewAuction extends Component {
           <p>Bid Request Errors</p>
           <p>
             <ul>
-              {this.state.bidRequestErrors.map((v) => {
+              {this.state.bid.bidRequestErrors.map((v) => {
                 return (
                   <li>{v}</li>
                 )
@@ -94,9 +94,9 @@ class _ViewAuction extends Component {
           <p>Targeting Failures</p>
           <p>
             <ul>
-              {Object.keys(this.state.targetingFailures).map((v) => {
+              {Object.keys(this.state.bid.targetingFailures).map((v) => {
                 return (
-                  <li>{v}: {this.state.targetingFailures[v]}</li>
+                  <li>{v}: {this.state.bid.targetingFailures[v]}</li>
                 )
               })}
             </ul>

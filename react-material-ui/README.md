@@ -44,5 +44,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 
-  yarn global add serve
+yarn global add serve
+yarn run build
 serve -s build -p [port]
