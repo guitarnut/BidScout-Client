@@ -4,7 +4,6 @@ import {Nav, Navbar, NavItem} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 
 const navigate = () => {
-  console.log(1);
   return <Redirect to='/'/>
 };
 
@@ -31,12 +30,15 @@ const _NavBar = ({user, loggedIn}) =>
           <NavItem eventKey={4} href="/auction">
             Auctions
           </NavItem>
-          <NavItem eventKey={5} href="/account">
+          <NavItem eventKey={5} href="/biderrors">
+            Bid Errors
+          </NavItem>
+          <NavItem eventKey={6} href="/account">
             Account
           </NavItem>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={6} href="/logout">
+          <NavItem eventKey={7} href="/logout">
             Logout {user.firstName}
           </NavItem>
         </Nav>
@@ -44,7 +46,7 @@ const _NavBar = ({user, loggedIn}) =>
     ) : (
       <Navbar.Collapse>
         <Nav pullRight>
-          <NavItem eventKey={7} href="/login">
+          <NavItem eventKey={8} href="/login">
             Login
           </NavItem>
         </Nav>

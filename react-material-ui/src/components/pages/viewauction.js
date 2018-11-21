@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {viewBid, viewClicks, viewImpressions} from "../../api/restapi";
+import {viewBid, viewClicks, viewImpressions, viewBidErrors} from "../../api/restapi";
 import {handleInputChange} from "../../input/formInputHandler";
 import TextBox from '../ui/textfield';
 import UIButton from '../ui/button';
@@ -16,7 +16,8 @@ class _ViewAuction extends Component {
     impressions: [],
     clicks: [],
     campaigns: {},
-    creatives: {}
+    creatives: {},
+    errors: []
   };
 
   constructor() {
@@ -33,7 +34,6 @@ class _ViewAuction extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.setState({
       campaigns: this.props.campaigns,
       creatives: this.props.creatives
@@ -81,26 +81,28 @@ class _ViewAuction extends Component {
       return (
         <div>
           <h3>Bid {this.state.bid.bidRequestId}</h3>
-          <p>Bid Request Errors</p>
-          <p>
-            <ul>
-              {this.state.bid.bidRequestErrors.map((v) => {
-                return (
-                  <li>{v}</li>
-                )
-              })}
-            </ul>
-          </p>
-          <p>Targeting Failures</p>
-          <p>
+          <p><strong>Targeting Failures</strong></p>
+          {this.state.bid.targetingFailures.length > 0 ?
             <ul>
               {Object.keys(this.state.bid.targetingFailures).map((v) => {
                 return (
-                  <li>{v}: {this.state.bid.targetingFailures[v]}</li>
+                  <li key={v}>{v}: {this.state.bid.targetingFailures[v]}</li>
                 )
               })}
             </ul>
-          </p>
+            : <p>No targeting failures found.</p>
+          }
+          <p><strong>Bid Request Errors</strong></p>
+          {this.state.bid.bidRequestErrors.length > 0 ?
+            <ul>
+              {Object.keys(this.state.bid.bidRequestErrors).map((v) => {
+                return (
+                  <li key={v}>{this.state.bid.bidRequestErrors[v]}</li>
+                )
+              })}
+            </ul>
+            : <p>No bid request errors found.</p>
+          }
           <p><strong>Campaign</strong><br/>{this.state.campaigns[this.state.bid.campaign]}</p>
           <p><strong>Creative</strong><br/>{this.state.creatives[this.state.bid.creative]}</p>
           <p><strong>Request User Agent</strong><br/>{this.state.bid.userAgent}</p>
@@ -116,7 +118,7 @@ class _ViewAuction extends Component {
           <h3>Impressions</h3>
           {this.state.impressions.map((v) => {
             return (
-              <p>{v.url}<br/>
+              <p key={v}>{v.url}<br/>
                 Timestamp: {v.impressionTimestamp}<br/>
                 User Agent: {v.userAgent}<br/>
                 Bid Price: {v.bidPrice} - Clearing Price: {v.cp}<br/>
@@ -128,7 +130,7 @@ class _ViewAuction extends Component {
           <h3>Clicks</h3>
           {this.state.clicks.map((v) => {
             return (
-              <p>{v.url}<br/>
+              <p key={v}>{v.url}<br/>
                 Timestamp: {v.clickTimestamp}<br/>
                 User Agent: {v.userAgent}<br/>
                 Host: {v.host}<br/>

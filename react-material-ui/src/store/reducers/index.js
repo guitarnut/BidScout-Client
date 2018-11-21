@@ -1,12 +1,5 @@
 import {CAMPAIGNS, CREATIVES, LOGIN} from "../actions";
 
-const initialState = {
-  loggedIn: false,
-  user: {},
-  campaigns: {},
-  creatives: {}
-};
-
 const rootReducer = (state = {}, action) => {
   switch (action.type) {
     case LOGIN:
