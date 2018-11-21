@@ -26,6 +26,7 @@ class _LoginForm extends Component {
   loginUser = () => {
     loginUser(this.state.username, this.state.password)
       .then((data) => {
+        console.log(data);
         this.props.storeLoginUser(data);
         getCreativeNames()
           .then((data)=>{

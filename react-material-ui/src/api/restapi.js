@@ -1,8 +1,8 @@
 import axios from "axios/index";
 
 const sessionTimeout = 1000 * 60 * 60;
-//const host = 'http://localhost:8080';
-const host = 'http://ec2-18-222-180-75.us-east-2.compute.amazonaws.com:8080';
+const host = 'http://localhost:8080';
+//const host = 'http://ec2-18-222-180-75.us-east-2.compute.amazonaws.com:8080';
 
 let session = null;
 
@@ -126,8 +126,20 @@ export function saveCreative(json) {
   return postRequest(host + '/api/creative/create/' + window.sessionStorage.getItem('userid'), json);
 }
 
+export function deleteCreative(id) {
+  return postRequest(host + '/api/creative/delete/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function updateCreative(id) {
+  return postRequest(host + '/api/creative/update/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
 export function saveCampaign(json) {
   return postRequest(host + '/api/campaign/create/' + window.sessionStorage.getItem('userid'), json);
+}
+
+export function deleteCampaign(id) {
+  return postRequest(host + '/api/campaign/delete/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
 export function getCampaignNames() {

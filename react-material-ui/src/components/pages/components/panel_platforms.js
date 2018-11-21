@@ -10,25 +10,25 @@ const PanelPlatforms = (props) =>
     <Panel.Collapse>
       <Panel.Body>
         <Switcher
-          name="requirements.desktop"
+          name="model.requirements.desktop"
           label="Desktop"
           value={props.requirements.desktop}
           handler={props.handleInput}
         />
         <Switcher
-          name="requirements.mobile"
+          name="model.requirements.mobile"
           label="Mobile"
           value={props.requirements.mobile}
           handler={props.handleInput}
         />
         <Switcher
-          name="requirements.inapp"
+          name="model.requirements.inapp"
           label="InApp"
           value={props.requirements.inapp}
           handler={props.handleInput}
         />
         <Switcher
-          name="requirements.ctv"
+          name="model.requirements.ctv"
           label="CTV"
           value={props.requirements.ctv}
           handler={props.handleInput}

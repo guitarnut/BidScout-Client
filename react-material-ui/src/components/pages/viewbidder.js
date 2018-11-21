@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {getCampaignNames, getCreativeNames, getUserId} from '../../api/restapi';
 import ListWithButton from "../ui/listwithbutton";
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';

@@ -9,12 +9,12 @@ const PanelPacing = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <TextBox name="limits.requestLimit" label="Request Limit" handler={props.handleInput}/>
-        <TextBox name="limits.bidRate" label="Bid Rate" handler={props.handleInput}/>
-        <TextBox name="limits.bidLimit" label="Bid Limit" handler={props.handleInput}/>
-        <TextBox name="limits.impressionLimit" label="Impression Limit"
-                 handler={props.handleInput}/>
-        <TextBox name="limits.revenueLimit" label="Revenue Limit" handler={props.handleInput}/>
+        <TextBox name="model.limits.requestLimit" label="Request Limit" handler={props.handleInput} value={props.limits.requestLimit}/>
+        <TextBox name="model.limits.bidRate" label="Bid Rate" handler={props.handleInput} value={props.limits.bidRate}/>
+        <TextBox name="model.limits.bidLimit" label="Bid Limit" handler={props.handleInput} value={props.limits.bidLimit}/>
+        <TextBox name="model.limits.impressionLimit" label="Impression Limit"
+                 handler={props.handleInput} value={props.limits.impressionLimit}/>
+        <TextBox name="model.limits.revenueLimit" label="Revenue Limit" handler={props.handleInput} value={props.limits.revenueLimit}/>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

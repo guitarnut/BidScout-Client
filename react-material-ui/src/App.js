@@ -32,6 +32,8 @@ class App extends Component {
               <Route path='/error' component={Error}/>
               <Route path='/campaign' exact component={Campaign}/>
               <Route path='/creative' exact component={Creative}/>
+              <Route path='/campaign/edit/:id' exact component={Campaign}/>
+              <Route path='/creative/edit/:id' exact component={Creative}/>
               <Route path='/bidder' exact component={ViewBidder}/>
               <Route path='/campaign/view/:id' component={ViewCampaign}/>
               <Route path='/creative/view/:id' component={ViewCreative}/>

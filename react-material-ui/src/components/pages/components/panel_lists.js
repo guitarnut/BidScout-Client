@@ -9,18 +9,18 @@ const PanelLists = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <TextBox name="requirements.publisherWhitelist" label="Publisher Whitelist"
-                 handler={props.handleInput}/>
-        <TextBox name="requirements.domainWhitelist" label="Domain Whitelist"
-                 handler={props.handleInput}/>
-        <TextBox name="requirements.bundleWhitelist" label="Bundle Whitelist"
-                 handler={props.handleInput}/>
-        <TextBox name="requirements.publisherBlacklist" label="Publisher Blacklist"
-                 handler={props.handleInput}/>
-        <TextBox name="requirements.domainBlacklist" label="Domain Blacklist"
-                 handler={props.handleInput}/>
-        <TextBox name="requirements.bundleBlacklist" label="Bundle Blacklist"
-                 handler={props.handleInput}/>
+        <TextBox name="model.requirements.publisherWhitelist" label="Publisher Whitelist"
+                 handler={props.handleInput} value={props.requirements.publisherWhitelist}/>
+        <TextBox name="model.requirements.domainWhitelist" label="Domain Whitelist"
+                 handler={props.handleInput} value={props.requirements.domainWhitelist}/>
+        <TextBox name="model.requirements.bundleWhitelist" label="Bundle Whitelist"
+                 handler={props.handleInput} value={props.requirements.bundleWhitelist}/>
+        <TextBox name="model.requirements.publisherBlacklist" label="Publisher Blacklist"
+                 handler={props.handleInput} value={props.requirements.publisherBlacklist}/>
+        <TextBox name="model.requirements.domainBlacklist" label="Domain Blacklist"
+                 handler={props.handleInput} value={props.requirements.domainBlacklist}/>
+        <TextBox name="model.requirements.bundleBlacklist" label="Bundle Blacklist"
+                 handler={props.handleInput} value={props.requirements.bundleBlacklist}/>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

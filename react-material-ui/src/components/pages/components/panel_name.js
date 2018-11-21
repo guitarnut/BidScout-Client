@@ -9,7 +9,7 @@ const PanelName = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <TextBox name="name" label="Name" handler={props.handleInput}/>
+        <TextBox name="model.name" label="Name" value={props.value} handler={props.handleInput}/>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

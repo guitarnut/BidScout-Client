@@ -12,14 +12,14 @@ const PanelProperties = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <TextBox name="type" label="Type (DISPLAY, VPAID, VAST)" handler={props.handleInput}/>
-        <TextBox name="creativeUrl" label="Asset URL" handler={props.handleInput}/>
-        <TextBox name="adm" label="Custom Ad Markup" handler={props.handleInput}/>
-        <TextBox name="xml" label="XML" handler={props.handleInput}/>
-        <TextBox name="w" label="Width" handler={props.handleInput}/>
-        <TextBox name="h" label="Height" handler={props.handleInput}/>
-        <TextBox name="iabCategories" label="IAB Categories" handler={props.handleInputArray}/>
-        <TextBox name="adDomain" label="Ad Domains" handler={props.handleInputArray}/>
+        <TextBox name="model.type" label="Type (DISPLAY, VPAID, VAST)" handler={props.handleInput} value={props.model.type}/>
+        <TextBox name="model.creativeUrl" label="Asset URL" handler={props.handleInput} value={props.model.creativeUrl}/>
+        <TextBox name="model.adm" label="Custom Ad Markup" handler={props.handleInput} value={props.model.adm}/>
+        <TextBox name="model.xml" label="XML" handler={props.handleInput} value={props.model.xml}/>
+        <TextBox name="model.w" label="Width" handler={props.handleInput} value={props.model.w}/>
+        <TextBox name="model.h" label="Height" handler={props.handleInput} value={props.model.h}/>
+        <TextBox name="model.iabCategories" label="IAB Categories" handler={props.handleInputArray} value={props.model.iabCategories}/>
+        <TextBox name="model.adDomain" label="Ad Domains" handler={props.handleInputArray} value={props.model.adDomain}/>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

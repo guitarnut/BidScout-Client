@@ -12,6 +12,7 @@ import PanelTracking from "./components/panel_tracking";
 import PanelDeals from "./components/panel_deals";
 import {storeAllCampaigns} from "../../store/actions";
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -24,6 +25,15 @@ class _Campaign extends Component {
 
   constructor() {
     super();
+  }
+
+  componentWillMount() {
+    const {id} = this.props.match.params;
+    if (id !== undefined) {
+      this.setState({
+        id: id
+      })
+    }
   }
 
   componentDidMount() {
