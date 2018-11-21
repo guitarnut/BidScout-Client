@@ -11,12 +11,13 @@ import CreativeProps from "./components/creativeproperties";
 import ListWithButton from "../ui/listwithbutton";
 import {withRouter} from 'react-router-dom';
 import Deals from "./components/deals";
+import UIButton from "../ui/button";
 
 class ViewCreative extends Component {
   state = {
     allCreatives: {},
     creative: ModelCreative,
-    campaign: ModelCampaign,
+    campaign: null,
     selectedCreative: '',
     campaignLink: ''
   };
@@ -42,6 +43,9 @@ class ViewCreative extends Component {
         });
         getCampaignWithCreative(id)
           .then(data => {
+            if(data === '') {
+              return;
+            }
             let link = '/campaign/view/' + data.id;
             this.setState({
               campaign: data,
@@ -55,6 +59,10 @@ class ViewCreative extends Component {
     this.setState({
       selectedCreative: v
     })
+  }
+
+  edit() {
+    this.props.history.push('/creative/edit/' + this.state.creative.id);
   }
 
   viewCreative() {
@@ -71,7 +79,12 @@ class ViewCreative extends Component {
                         handler={this.setCreative.bind(this)} value={this.state.selectedCreative} buttonText="View"
                         action={this.viewCreative.bind(this)}/>
         <h1>{this.state.creative.name}</h1>
-        <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
+        <UIButton text="Edit" action={this.edit.bind(this)}/>
+        {this.state.campaign !== null ? (
+          <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
+        ):(
+          <p>No parent campaign aligned with this creative.</p>
+        )}
         <Stats data={this.state.creative.statistics}/>
         <CreativeProps data={this.state.creative}/>
         <Lists data={this.state.creative.requirements}/>

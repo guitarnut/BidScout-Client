@@ -2,7 +2,7 @@ import React from 'react'
 
 function Lists(props) {
   if (
-    props.data.publisherWhitelist.length === 0 &&
+    props.data.publisherWhitelist && props.data.publisherWhitelist.length === 0 &&
     props.data.domainWhitelist.length === 0 &&
     props.data.bundleWhitelist.length === 0 &&
     props.data.publisherBlacklist.length === 0 &&

@@ -15,8 +15,8 @@ export function handleInputChange(event, context) {
     });
   } else if (keys.length === 3) {
     let nestedProperty = {...context.state[keys[0]]};
-    nestedProperty[keys[1]] = {...context.state[keys[1]]};
     nestedProperty[keys[1]][keys[2]] = value;
+
     context.setState({
       [keys[0]]: nestedProperty
     });
@@ -43,6 +43,7 @@ export function handleInputChangeArray(event, context) {
     let nestedProperty = {...context.state[keys[0]]};
     nestedProperty[keys[1]] = {...context.state[keys[1]]};
     nestedProperty[keys[1]][keys[2]] = value;
+
     context.setState({
       [keys[0]]: nestedProperty
     });

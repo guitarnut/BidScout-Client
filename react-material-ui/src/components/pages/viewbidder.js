@@ -54,17 +54,26 @@ class _ViewBidder extends Component {
           vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper
           nisi.</p>
         <hr/>
-        <div className="row">
-          <ListWithButton data={this.state.campaigns} name="Select Campaign" handler={this.setCampaign.bind(this)}
-                          value={this.state.selectedCampaign} buttonText="View"
-                          action={this.viewSelected.bind(this, ['/campaign/view/' + this.state.selectedCampaign])}/>
-        </div>
+        {Object.keys(this.state.campaigns).length === 0 ? (
+          <p>You have no campaigns. <a href="/campaign">Build a campaign.</a></p>
+        ):(
+          <div className="row">
+            <ListWithButton data={this.state.campaigns} name="Select Campaign" handler={this.setCampaign.bind(this)}
+                            value={this.state.selectedCampaign} buttonText="View"
+                            action={this.viewSelected.bind(this, ['/campaign/view/' + this.state.selectedCampaign])}/>
+          </div>
+        )}
         <hr/>
-        <div className="row">
-          <ListWithButton data={this.state.creatives} name="Select Creative" handler={this.setCreative.bind(this)}
-                          value={this.state.selectedCreative} buttonText="View"
-                          action={this.viewSelected.bind(this, ['/creative/view/' + this.state.selectedCreative])}/>
-        </div>
+        {Object.keys(this.state.creatives).length === 0 ? (
+          <p>You have no creatives. <a href="/creatives">Build a creative.</a></p>
+        ):(
+          <div className="row">
+            <ListWithButton data={this.state.creatives} name="Select Creative" handler={this.setCreative.bind(this)}
+                            value={this.state.selectedCreative} buttonText="View"
+                            action={this.viewSelected.bind(this, ['/creative/view/' + this.state.selectedCreative])}/>
+          </div>
+        )}
+
       </div>
     )
   }
