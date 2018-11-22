@@ -3,6 +3,7 @@ import ModelCampaign from '../../model/campaign';
 import {withRouter} from 'react-router-dom';
 import {
   addCreativeToCampaign,
+  deleteCampaign,
   getCampaign,
   getCampaignNames,
   getCreativeNames,
@@ -19,17 +20,21 @@ import Settings from "./components/settings";
 import ListWithButton from "../ui/listwithbutton";
 import Deals from "./components/deals";
 import UIButton from "../ui/button";
+import {connect} from 'react-redux';
+import {storeAllCampaigns} from "../../store/actions";
 
-class ViewCampaign extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    storeAllCampaigns: campaigns => dispatch(storeAllCampaigns(campaigns))
+  }
+};
+
+class _ViewCampaign extends Component {
   state = {
     campaign: ModelCampaign,
     allCampaigns: [],
     allCreativesForCampaign: [],
     allCreatives: [],
-    selectedCampaign: '',
-    selectedCreativeToView: '',
-    selectedCreativeToAdd: '',
-    selectedCreativeToRemove: ''
   };
 
   constructor() {
@@ -72,43 +77,23 @@ class ViewCampaign extends Component {
       });
   }
 
-  setCampaign(v) {
-    this.setState({
-      selectedCreative: v
-    })
-  }
-
-  viewCampaign() {
-    if (this.state.selectedCreative !== '') {
-      this.props.history.push('/campaign/view/' + this.state.selectedCreative);
-    }
-  }
-
-  setCreativeToRemove(v) {
-    this.setState({
-      selectedCreativeToRemove: v
-    })
+  view(v) {
+    this.props.history.push('/campaign/view/' + v);
   }
 
   removeCreativeFromCampaign(v) {
-    removeCreativeFromCampaign(this.state.campaign.id, this.state.selectedCreativeToRemove)
+    removeCreativeFromCampaign(this.state.campaign.id, v)
       .then(data => {
         this.refreshMenus();
       });
-  }
-
-  setCreativeToAdd(v) {
-    this.setState({
-      selectedCreativeToAdd: v
-    })
   }
 
   edit() {
     this.props.history.push('/campaign/edit/' + this.state.campaign.id);
   }
 
-  addCreativeToCampaign() {
-    addCreativeToCampaign(this.state.campaign.id, this.state.selectedCreativeToAdd)
+  addCreativeToCampaign(v) {
+    addCreativeToCampaign(this.state.campaign.id, v)
       .then(data => {
         this.refreshMenus();
       });
@@ -138,25 +123,62 @@ class ViewCampaign extends Component {
       });
   }
 
+  remove() {
+    deleteCampaign(this.state.campaign.id)
+      .then(() => {
+        getCampaignNames()
+          .then((data) => {
+            this.props.storeAllCampaigns(data);
+            this.props.history.push('/bidder')
+          });
+      })
+      .catch(() => {
+        this.setState({
+          failed: true
+        })
+      })
+  }
+
   render() {
     return (
       <div>
-        <h1>All Campaigns</h1>
-        <ListWithButton data={this.state.allCampaigns} name="Select Campaign" handler={this.setCampaign.bind(this)}
-                        value={this.state.selectedCampaign} buttonText="View" action={this.viewCampaign.bind(this)}/>
-        <h1>Creatives Aligned to {this.state.campaign.name}</h1>
-        <ListWithButton data={this.state.allCreativesForCampaign} name="Select Creative"
-                        handler={this.setCreativeToRemove.bind(this)} value={this.state.selectedCreativeToRemove}
-                        buttonText="Remove"
-                        action={this.removeCreativeFromCampaign.bind(this)}/>
-        <h1>Available Creatives</h1>
-        <ListWithButton data={this.state.allCreatives} name="Select Creative"
-                        handler={this.setCreativeToAdd.bind(this)} value={this.state.selectedCreativeToAdd}
-                        buttonText="Add"
-                        action={this.addCreativeToCampaign.bind(this)}/>
-        <div>
-          <h1>{this.state.campaign.name}</h1>
-          <UIButton text="Edit" action={this.edit.bind(this)}/>
+        <div class="row">
+          <h4>All Campaigns</h4>
+          {Object.keys(this.state.allCampaigns).map((v) => {
+            return (
+              <p><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCampaigns[v]}</p>
+            )
+          })}
+
+          <h4>Creatives Aligned to {this.state.campaign.name}</h4>
+          {Object.keys(this.state.allCreativesForCampaign).length > 0 ? (
+            Object.keys(this.state.allCreativesForCampaign).map((v) => {
+              return (
+                <p><a onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove
+                  from {this.state.campaign.name}</a> - {this.state.allCreativesForCampaign[v]}</p>
+              )
+            })
+          ) : (
+            <p>No creatives aligned to this campaign.</p>
+          )}
+
+          <h4>Available Creatives</h4>
+          {Object.keys(this.state.allCreatives).length > 0 ? (
+            Object.keys(this.state.allCreatives).map((v) => {
+              return (
+                <p><a onClick={this.addCreativeToCampaign.bind(this, v)}>Add
+                  to {this.state.campaign.name}</a> - {this.state.allCreatives[v]}</p>
+              )
+            })
+          ) : (
+            <p>No creatives available.</p>
+          )}
+
+          <h4>Campaign {this.state.campaign.name}</h4>
+          <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
+            onClick={this.remove.bind(this)}>Delete</a></p>
+        </div>
+        <div class="row">
           <Stats data={this.state.campaign.statistics}/>
           <CampaignProps data={this.state.campaign}/>
           <Settings data={this.state.campaign.requirements}/>
@@ -170,5 +192,7 @@ class ViewCampaign extends Component {
     )
   }
 }
+
+const ViewCampaign = connect(null, mapDispatchToProps)(_ViewCampaign);
 
 export default withRouter(ViewCampaign);

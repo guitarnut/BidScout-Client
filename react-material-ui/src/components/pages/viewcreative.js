@@ -1,24 +1,28 @@
 import React, {Component} from 'react'
 import ModelCreative from "../../model/creative";
-import {getCampaignWithCreative, getCreative, getCreativeNames} from "../../api/restapi";
-import ModelCampaign from "../../model/campaign";
+import {deleteCreative, getCampaignWithCreative, getCreative, getCreativeNames} from "../../api/restapi";
 import Limits from "./components/limits";
 import Platforms from "./components/platforms";
 import Lists from "./components/lists";
 import Stats from "./components/stats";
 import Flight from "./components/flight";
 import CreativeProps from "./components/creativeproperties";
-import ListWithButton from "../ui/listwithbutton";
 import {withRouter} from 'react-router-dom';
 import Deals from "./components/deals";
-import UIButton from "../ui/button";
+import {connect} from "react-redux";
+import {storeAllCreatives} from "../../store/actions";
 
-class ViewCreative extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    storeAllCreatives: creatives => dispatch(storeAllCreatives(creatives))
+  }
+};
+
+class _ViewCreative extends Component {
   state = {
     allCreatives: {},
     creative: ModelCreative,
     campaign: null,
-    selectedCreative: '',
     campaignLink: ''
   };
 
@@ -43,7 +47,7 @@ class ViewCreative extends Component {
         });
         getCampaignWithCreative(id)
           .then(data => {
-            if(data === '') {
+            if (data === '') {
               return;
             }
             let link = '/campaign/view/' + data.id;
@@ -55,46 +59,65 @@ class ViewCreative extends Component {
       });
   }
 
-  setCreative(v) {
-    this.setState({
-      selectedCreative: v
-    })
-  }
-
   edit() {
     this.props.history.push('/creative/edit/' + this.state.creative.id);
   }
 
-  viewCreative() {
-    if (this.state.selectedCreative !== '') {
-      this.props.history.push('/creative/view/' + this.state.selectedCreative);
-    }
+  view(v) {
+    this.props.history.push('/creative/view/' + v);
+  }
+
+  remove() {
+    deleteCreative(this.state.creative.id)
+      .then(() => {
+        getCreativeNames()
+          .then((data) => {
+            this.props.storeAllCreatives(data);
+            this.props.history.push('/bidder')
+          });
+      })
+      .catch(() => {
+        this.setState({
+          failed: true
+        })
+      })
   }
 
   render() {
     return (
       <div>
-        <h1>All Creatives</h1>
-        <ListWithButton data={this.state.allCreatives} name="Select Creative"
-                        handler={this.setCreative.bind(this)} value={this.state.selectedCreative} buttonText="View"
-                        action={this.viewCreative.bind(this)}/>
-        <h1>{this.state.creative.name}</h1>
-        <UIButton text="Edit" action={this.edit.bind(this)}/>
-        {this.state.campaign !== null ? (
-          <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
-        ):(
-          <p>No parent campaign aligned with this creative.</p>
-        )}
-        <Stats data={this.state.creative.statistics}/>
-        <CreativeProps data={this.state.creative}/>
-        <Lists data={this.state.creative.requirements}/>
-        <Deals data={this.state.creative.requirements}/>
-        <Platforms data={this.state.creative.requirements}/>
-        <Flight data={this.state.creative}/>
-        <Limits data={this.state.creative.limits}/>
+        <div class="row">
+          <h4>All Creatives</h4>
+          {Object.keys(this.state.allCreatives).map((v) => {
+            return (
+              <p><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCreatives[v]}</p>
+            )
+          })}
+
+          <h4>Creative {this.state.creative.name}</h4>
+          <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
+            onClick={this.remove.bind(this)}>Delete</a></p>
+
+          {this.state.campaign !== null ? (
+            <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
+          ) : (
+            <p>No parent campaign aligned with this creative.</p>
+          )}
+        </div>
+        <div className="row">
+          <Stats data={this.state.creative.statistics}/>
+          <CreativeProps data={this.state.creative}/>
+          <Lists data={this.state.creative.requirements}/>
+          <Deals data={this.state.creative.requirements}/>
+          <Platforms data={this.state.creative.requirements}/>
+          <Flight data={this.state.creative}/>
+          <Limits data={this.state.creative.limits}/>
+        </div>
       </div>
     )
   }
 }
+
+const ViewCreative = connect(null, mapDispatchToProps)(_ViewCreative);
 
 export default withRouter(ViewCreative);

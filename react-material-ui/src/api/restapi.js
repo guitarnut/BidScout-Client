@@ -130,10 +130,6 @@ export function deleteCreative(id) {
   return postRequest(host + '/api/creative/delete/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
-export function updateCreative(id) {
-  return postRequest(host + '/api/creative/update/' + window.sessionStorage.getItem('userid') + '/' + id);
-}
-
 export function saveCampaign(json) {
   return postRequest(host + '/api/campaign/create/' + window.sessionStorage.getItem('userid'), json);
 }
