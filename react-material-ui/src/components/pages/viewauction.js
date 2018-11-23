@@ -1,10 +1,6 @@
 import React, {Component} from 'react'
-import {viewBid, viewClicks, viewImpressions, viewBidErrors} from "../../api/restapi";
-import {handleInputChange} from "../../input/formInputHandler";
-import TextBox from '../ui/textfield';
-import UIButton from '../ui/button';
+import {deleteAllBids, deleteBid, getAllBids, viewBid, viewClicks, viewImpressions} from "../../api/restapi";
 import ModelAuction from "../../model/auction";
-import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 class _ViewAuction extends Component {
@@ -13,6 +9,7 @@ class _ViewAuction extends Component {
     id: null,
     searchId: null,
     bid: ModelAuction,
+    bids: {},
     impressions: [],
     clicks: [],
     campaigns: {},
@@ -40,14 +37,15 @@ class _ViewAuction extends Component {
     });
     if (this.state.id !== null) {
       this.getBid();
+    } else {
+      getAllBids()
+        .then((data) => {
+          this.setState({
+            bids: data
+          })
+        });
     }
   }
-
-  handleClick() {
-    if (this.state.searchId !== undefined) {
-      this.props.history.push('/auction/' + this.state.searchId);
-    }
-  };
 
   getBid() {
     viewBid(this.state.id)
@@ -72,8 +70,31 @@ class _ViewAuction extends Component {
       })
   };
 
-  handleInputChange(event) {
-    handleInputChange(event, this);
+  deleteBidRecord(id) {
+    deleteBid(id);
+    getAllBids()
+      .then((data) => {
+        this.setState({
+          bids: data
+        });
+        this.props.history.push('/auction')
+      });
+  }
+
+  deleteAllBidRecords() {
+    deleteAllBids()
+      .then(()=>{
+        this.setState({
+          bids: {}
+        });
+      });
+  }
+
+  formatDate(v) {
+    if (v === 0) {
+      return 'Not available';
+    }
+    return new Date(v).toLocaleDateString() + ' ' + new Date(v).toLocaleTimeString();
   }
 
   renderBid() {
@@ -81,8 +102,9 @@ class _ViewAuction extends Component {
       return (
         <div>
           <h3>Bid {this.state.bid.bidRequestId}</h3>
+          <p><a onClick={this.deleteBidRecord.bind(this, this.state.bid.id)}>Delete</a></p>
           <p><strong>Targeting Failures</strong></p>
-          {this.state.bid.targetingFailures.length > 0 ?
+          {this.state.bid.targetingFailures && this.state.bid.targetingFailures.length > 0 ?
             <ul>
               {Object.keys(this.state.bid.targetingFailures).map((v) => {
                 return (
@@ -93,7 +115,7 @@ class _ViewAuction extends Component {
             : <p>No targeting failures found.</p>
           }
           <p><strong>Bid Request Errors</strong></p>
-          {this.state.bid.bidRequestErrors.length > 0 ?
+          {this.state.bid.bidRequestErrors && this.state.bid.bidRequestErrors.length > 0 ?
             <ul>
               {Object.keys(this.state.bid.bidRequestErrors).map((v) => {
                 return (
@@ -106,8 +128,9 @@ class _ViewAuction extends Component {
           <p><strong>Campaign</strong><br/>{this.state.campaigns[this.state.bid.campaign]}</p>
           <p><strong>Creative</strong><br/>{this.state.creatives[this.state.bid.creative]}</p>
           <p><strong>Request User Agent</strong><br/>{this.state.bid.userAgent}</p>
-          <p><strong>Response Timestamp</strong><br/>{this.state.bid.responseTimestamp}</p>
-          <p><strong>Impression Timestamp</strong><br/>{this.state.bid.impressionTimestamp}</p>
+          <p><strong>Request Timestamp</strong><br/>{this.formatDate(this.state.bid.requestTimestamp)}</p>
+          <p><strong>Response Timestamp</strong><br/>{this.formatDate(this.state.bid.responseTimestamp)}</p>
+          <p><strong>Impression Timestamp</strong><br/>{this.formatDate(this.state.bid.impressionTimestamp)}</p>
           <p><strong>Cookies</strong><br/>{this.state.bid.cookies}</p>
           <p><strong>Host</strong><br/>{this.state.bid.host}</p>
           <p><strong>IP</strong><br/>{this.state.bid.ip}</p>
@@ -155,11 +178,14 @@ class _ViewAuction extends Component {
     } else {
       return (
         <div>
-          <h1>Lookup Auction Record</h1>
-          <p>View end-to-end auction results using your Bid Request ID as the lookup key. 5a5511f8d43af74f4e0a4757</p>
-          <TextBox name="searchId" label="Bid Id" handler={this.handleInputChange.bind(this)}/>
-          <UIButton text="Search" action={this.handleClick.bind(this)} icon="search"/>
-
+          <h1>Auction Records</h1>
+          <p>View end-to-end auction results.</p>
+          <p><a onClick={this.deleteAllBidRecords.bind(this)}>Delete all</a></p>
+          {Object.keys(this.state.bids).map((v) => {
+            return (
+              <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
+            )
+          })}
         </div>
       )
     }
