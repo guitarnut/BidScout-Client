@@ -72,7 +72,7 @@ class _LoginForm extends Component {
   render() {
     return (
       <div>
-        <h1>Login</h1>
+        <h2>Login</h2>
         <TextBox name="username" label="Username" handler={this.handleInputChange.bind(this)}/>
         <TextBox name="password" label="Password" handler={this.handleInputChange.bind(this)}/>
         <UIButton text="Login" action={this.loginUser.bind(this)}/>

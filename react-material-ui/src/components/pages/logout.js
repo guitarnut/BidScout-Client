@@ -32,7 +32,7 @@ class _Logout extends Component {
   render() {
     return (
       <div>
-        <h1>You have been successfully logged out.</h1>
+        <h2>You have been successfully logged out.</h2>
         <p onClick={this.gotoLogin.bind(this)}>Return to login page.</p>
       </div>
     )

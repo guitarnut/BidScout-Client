@@ -42,32 +42,31 @@ class _User extends Component {
   render() {
     return (
       <div>
-        <h1>Account</h1>
+        <h2>Account</h2>
         <p><strong>Last Login</strong><br/>{new Date().toDateString(this.state.user.lastLogin)}</p>
-        <div className="col-md-4"><TextBox name="user.username" label="Username"
+        <div><TextBox name="user.username" label="Username"
                                            handler={this.handleInputChange.bind(this)}
                                            value={this.state.user.username}/></div>
-        <div className="col-md-4"><TextBox name="user.firstName" label="First Name"
+        <div><TextBox name="user.firstName" label="First Name"
                                            handler={this.handleInputChange.bind(this)}
                                            value={this.state.user.firstName}/></div>
-        <div className="col-md-4"><TextBox name="user.lastName" label="Last Name"
+        <div><TextBox name="user.lastName" label="Last Name"
                                            handler={this.handleInputChange.bind(this)}
                                            value={this.state.user.lastName}/></div>
-        <div className="col-md-12"><TextBox name="user.address" label="Address"
+        <div><TextBox name="user.address" label="Address"
                                             handler={this.handleInputChange.bind(this)}
                                             value={this.state.user.address}/></div>
-        <div className="col-md-4"><TextBox name="user.city" label="City" handler={this.handleInputChange.bind(this)}
+        <div><TextBox name="user.city" label="City" handler={this.handleInputChange.bind(this)}
                                            value={this.state.user.city}/></div>
-        <div className="col-md-4"><TextBox name="user.state" label="State" handler={this.handleInputChange.bind(this)}
+        <div><TextBox name="user.state" label="State" handler={this.handleInputChange.bind(this)}
                                            value={this.state.user.state}/></div>
-        <div className="col-md-4"><TextBox name="user.zip" label="Zip" handler={this.handleInputChange.bind(this)}
+        <div><TextBox name="user.zip" label="Zip" handler={this.handleInputChange.bind(this)}
                                            value={this.state.user.zip}/></div>
-        <div className="col-md-4"><TextBox name="user.email" label="Email" handler={this.handleInputChange.bind(this)}
+        <div><TextBox name="user.email" label="Email" handler={this.handleInputChange.bind(this)}
                                            value={this.state.user.email}/></div>
-        <div className="col-md-4"><TextBox name="user.phone" label="Phone" handler={this.handleInputChange.bind(this)}
+        <div><TextBox name="user.phone" label="Phone" handler={this.handleInputChange.bind(this)}
                                            value={this.state.user.phone}/></div>
-
-        <div className="col-md-12"><UIButton text="Save Changes" icon="save" action={this.save.bind(this)}/></div>
+        <div><UIButton text="Save Changes" icon="save" action={this.save.bind(this)}/></div>
       </div>
     )
   }

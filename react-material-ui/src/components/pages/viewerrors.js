@@ -27,11 +27,11 @@ class ViewErrors extends Component {
   render() {
     return (
       <div>
-        <h1>Bid Request Errors</h1>
+        <h2>Bid Request Errors</h2>
         {this.state.errors.map((v) => {
-              return (
-                <p key={Math.random() * 1000}>{v}</p>
-              )
+          return (
+            <p key={Math.random() * 1000}>{v}</p>
+          )
         })}
       </div>
     )

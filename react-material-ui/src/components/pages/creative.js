@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
 import ModelCreative from "../../model/creative";
-import {getCreativeNames, saveCreative, getCreative, deleteCreative} from "../../api/restapi";
-import {handleInputChange, handleInputChangeArray} from "../../input/formInputHandler";
+import {getCreative, getCreativeNames, saveCreative} from "../../api/restapi";
+import {
+  handleInputChange,
+  handleInputChangeArray,
+  handleInputChangeMulti,
+  removeInputChangeMulti
+} from "../../input/formInputHandler";
 import UIButton from '../ui/button';
 import PanelAuctionSettings from "./components/panel_auctionsettings";
 import PanelProperties from "./components/panel_properties";
@@ -14,7 +19,6 @@ import PanelConfig from "./components/panel_config";
 import PanelDeals from "./components/panel_deals";
 import {storeAllCreatives} from "../../store/actions";
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -26,7 +30,8 @@ class _Creative extends Component {
 
   state = {
     id: null,
-    model: ModelCreative
+    model: ModelCreative,
+    creativeType: ''
   };
 
   constructor() {
@@ -43,7 +48,7 @@ class _Creative extends Component {
   componentDidMount() {
     this.setState({
       saving: false,
-      failed: false
+      failed: false,
     })
   }
 
@@ -75,19 +80,23 @@ class _Creative extends Component {
       });
   };
 
-  handleInput(event) {
-    if (!event.hasOwnProperty('target')) {
-      event = {
-        target: {
-          value: event
-        }
-      }
+  handleInput(event, e) {
+    if (typeof event === 'string') {
+      event = e;
     }
     handleInputChange(event, this);
   }
 
   handleInputArray(event) {
     handleInputChangeArray(event, this);
+  }
+
+  handleInputMulti(event) {
+    handleInputChangeMulti(event, this);
+  }
+
+  removeInputMulti(event) {
+    removeInputChangeMulti(event, this);
   }
 
   render() {
@@ -101,9 +110,9 @@ class _Creative extends Component {
       return (
         <div>
           {this.state.id ? (
-            <h1>Edit {this.state.model.name}</h1>
+            <h2>Edit {this.state.model.name}</h2>
           ) : (
-            <h1>Build Creative</h1>
+            <h2>Build Creative</h2>
           )}
           <p>Creatives are the second level item responsible for controlling bid responses. Creatives will be
             returned
@@ -114,8 +123,10 @@ class _Creative extends Component {
           <PanelName handleInput={this.handleInput.bind(this)} value={this.state.model.name}/>
           <PanelConfig enabled={this.state.model.enabled} requirements={this.state.model.requirements}
                        handleInput={this.handleInput.bind(this)}/>
-          <PanelProperties handleInput={this.handleInput.bind(this)}
-                           handleInputArray={this.handleInputArray.bind(this)} model={this.state.model}/>
+          <PanelProperties creativeType={this.state.creativeType} handleInput={this.handleInput.bind(this)}
+                           handleInputArray={this.handleInputArray.bind(this)} model={this.state.model}
+                           handleInputMulti={this.handleInputMulti.bind(this)} currentState={this.state.model}
+                           remove={this.removeInputMulti.bind(this)}/>
           <PanelAuctionSettings handleInput={this.handleInput.bind(this)} model={this.state.model}/>
           <PanelTracking handleInput={this.handleInput.bind(this)} model={this.state.model}/>
           <PanelLists handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>

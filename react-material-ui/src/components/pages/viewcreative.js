@@ -86,33 +86,29 @@ class _ViewCreative extends Component {
   render() {
     return (
       <div>
-        <div class="row">
-          <h4>All Creatives</h4>
-          {Object.keys(this.state.allCreatives).map((v) => {
-            return (
-              <p><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCreatives[v]}</p>
-            )
-          })}
+        <h4>All Creatives</h4>
+        {Object.keys(this.state.allCreatives).map((v) => {
+          return (
+            <p><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCreatives[v]}</p>
+          )
+        })}
 
-          <h4>Creative {this.state.creative.name}</h4>
-          <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
-            onClick={this.remove.bind(this)}>Delete</a></p>
+        <h2>Creative {this.state.creative.name} ({this.state.creative.type})</h2>
+        <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
+          onClick={this.remove.bind(this)}>Delete</a></p>
 
-          {this.state.campaign !== null ? (
-            <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
-          ) : (
-            <p>No parent campaign aligned with this creative.</p>
-          )}
-        </div>
-        <div className="row">
-          <Stats data={this.state.creative.statistics}/>
-          <CreativeProps data={this.state.creative}/>
-          <Lists data={this.state.creative.requirements}/>
-          <Deals data={this.state.creative.requirements}/>
-          <Platforms data={this.state.creative.requirements}/>
-          <Flight data={this.state.creative}/>
-          <Limits data={this.state.creative.limits}/>
-        </div>
+        {this.state.campaign !== null ? (
+          <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
+        ) : (
+          <p>No parent campaign aligned with this creative.</p>
+        )}
+        <Stats data={this.state.creative.statistics}/>
+        <CreativeProps data={this.state.creative}/>
+        <Lists data={this.state.creative.requirements}/>
+        <Deals data={this.state.creative.requirements}/>
+        <Platforms data={this.state.creative.requirements}/>
+        <Flight data={this.state.creative}/>
+        <Limits data={this.state.creative.limits}/>
       </div>
     )
   }

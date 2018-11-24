@@ -101,7 +101,7 @@ class _ViewAuction extends Component {
     if (this.state.bid.id !== undefined) {
       return (
         <div>
-          <h3>Bid {this.state.bid.bidRequestId}</h3>
+          <h2>Bid {this.state.bid.bidRequestId}</h2>
           <p><a onClick={this.deleteBidRecord.bind(this, this.state.bid.id)}>Delete</a></p>
           <p><strong>Targeting Failures</strong></p>
           {this.state.bid.targetingFailures && this.state.bid.targetingFailures.length > 0 ?
@@ -165,7 +165,7 @@ class _ViewAuction extends Component {
       )
     } else {
       return (
-        <h3>Bid {this.state.id} Not Found</h3>
+        <h2>Bid {this.state.id} Not Found</h2>
       )
     }
   }
@@ -178,7 +178,7 @@ class _ViewAuction extends Component {
     } else {
       return (
         <div>
-          <h1>Auction Records</h1>
+          <h2>Auction Records</h2>
           <p>View end-to-end auction results.</p>
           <p><a onClick={this.deleteAllBidRecords.bind(this)}>Delete all</a></p>
           {Object.keys(this.state.bids).map((v) => {

@@ -142,7 +142,6 @@ class _ViewCampaign extends Component {
   render() {
     return (
       <div>
-        <div class="row">
           <h4>All Campaigns</h4>
           {Object.keys(this.state.allCampaigns).map((v) => {
             return (
@@ -174,11 +173,10 @@ class _ViewCampaign extends Component {
             <p>No creatives available.</p>
           )}
 
-          <h4>Campaign {this.state.campaign.name}</h4>
+          <h2>Campaign {this.state.campaign.name}</h2>
           <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
             onClick={this.remove.bind(this)}>Delete</a></p>
-        </div>
-        <div class="row">
+
           <Stats data={this.state.campaign.statistics}/>
           <CampaignProps data={this.state.campaign}/>
           <Settings data={this.state.campaign.requirements}/>
@@ -187,7 +185,6 @@ class _ViewCampaign extends Component {
           <Platforms data={this.state.campaign.requirements}/>
           <Flight data={this.state.campaign}/>
           <Limits data={this.state.campaign.limits}/>
-        </div>
       </div>
     )
   }

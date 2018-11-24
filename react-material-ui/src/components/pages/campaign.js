@@ -103,9 +103,9 @@ class _Campaign extends Component {
       return (
         <div>
           {this.state.id ? (
-            <h1>Edit {this.state.model.name}</h1>
+            <h2>Edit {this.state.model.name}</h2>
           ) : (
-            <h1>Build Campaign</h1>
+            <h2>Build Campaign</h2>
           )}
           <p>Your campaign is the top level item that makes decisions about your bid responses. A campaign must have one
             or more creatives associated with it. If you're looking to get up and running quickly, BidScout can generate
@@ -115,7 +115,7 @@ class _Campaign extends Component {
           <PanelName handleInput={this.handleInput.bind(this)} value={this.state.model.name}/>
           <PanelConfig enabled={this.state.model.enabled} requirements={this.state.model.requirements}
                        handleInput={this.handleInput.bind(this)}/>
-          <PanelTracking handleInput={this.handleInput.bind(this)} model={this.state.model}/>
+          <PanelTracking handleInput={this.handleInput.bind(this)} model={this.state.model} isCampaign={true}/>
           <PanelLists handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>
           <PanelDeals handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>
           <PanelPacing handleInput={this.handleInput.bind(this)} limits={this.state.model.limits}/>
