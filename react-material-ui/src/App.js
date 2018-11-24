@@ -26,8 +26,7 @@ class App extends Component {
           <div>
             <div className="jumbotron jumbotron-fluid">
               <div className="container">
-                <h1 className="display-4">BidScout Builder</h1>
-                <p className="lead">Build auction campaigns and creatives.</p>
+                <img src="./img/logo.png" style={{width: 50+'%', height: 50+'%'}}/>
               </div>
               <NavigationMenu/>
             </div>

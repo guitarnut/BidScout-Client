@@ -11,7 +11,7 @@ const _NavBar = ({user, loggedIn}) =>
   <Navbar collapseOnSelect fixedTop>
     <Navbar.Header>
       <Navbar.Brand>
-        BidScout
+        Admin
       </Navbar.Brand>
       <Navbar.Toggle/>
     </Navbar.Header>
