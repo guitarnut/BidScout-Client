@@ -1,7 +1,9 @@
 export const DisplayMimes = {
   'image/jpg': 'JPEG',
   'image/gif': 'GIF',
-  'image/png': 'PNG'
+  'image/png': 'PNG',
+  'application/javascript': 'Javascript',
+  'text/html': 'HTML/Text'
 };
 
 export const Attributes = {

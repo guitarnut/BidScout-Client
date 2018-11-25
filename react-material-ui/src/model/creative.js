@@ -24,7 +24,8 @@ const ModelCreative = {
   maxBid: null,
   requirements: ModelRequirements,
   limits: ModelLimits,
-  statistics: ModelStatistics
+  statistics: ModelStatistics,
+  bidFrequency: null
 };
 
 export default ModelCreative;

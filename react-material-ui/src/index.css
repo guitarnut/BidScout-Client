@@ -15,6 +15,6 @@ code {
 
 
 #footer {
-  background: #CCC;
-  margin-top: 20px;
+  background: rgba(0,0,0,.1);
+  margin-top: 80px;
 }

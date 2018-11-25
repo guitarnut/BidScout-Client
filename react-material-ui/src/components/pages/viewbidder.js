@@ -28,7 +28,7 @@ class _ViewBidder extends Component {
     return (
       <div>
         <h2>Bidder</h2>
-        <p>Endpoint: [host]/bid/{this.state.user.id}/[OPTIONAL]</p>
+        <p>Endpoint: app.auctionscout.net/bid/{this.state.user.id}/[OPTIONAL_CAMPAIGN]</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed turpis sit amet purus aliquam tempor.
           Etiam cursus, erat at sagittis semper, dui lectus lacinia nisl, eu imperdiet nisi arcu vitae lectus. Mauris
           rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,

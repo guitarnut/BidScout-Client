@@ -55,13 +55,13 @@ class _ViewAuction extends Component {
           request: JSON.stringify(data.bidRequest),
           response: JSON.stringify(data.bidResponse)
         });
-        viewImpressions(this.state.id)
+        viewImpressions(this.state.bid.bidRequestId)
           .then((data) => {
             this.setState({
               impressions: data
             });
           });
-        viewClicks(this.state.id)
+        viewClicks(this.state.bid.bidRequestId)
           .then((data) => {
             this.setState({
               clicks: data
@@ -83,7 +83,7 @@ class _ViewAuction extends Component {
 
   deleteAllBidRecords() {
     deleteAllBids()
-      .then(()=>{
+      .then(() => {
         this.setState({
           bids: {}
         });
@@ -129,8 +129,10 @@ class _ViewAuction extends Component {
           <p><strong>Creative</strong><br/>{this.state.creatives[this.state.bid.creative]}</p>
           <p><strong>Request User Agent</strong><br/>{this.state.bid.userAgent}</p>
           <p><strong>Request Timestamp</strong><br/>{this.formatDate(this.state.bid.requestTimestamp)}</p>
-          <p><strong>Response Timestamp</strong><br/>{this.formatDate(this.state.bid.responseTimestamp)}</p>
-          <p><strong>Impression Timestamp</strong><br/>{this.formatDate(this.state.bid.impressionTimestamp)}</p>
+          {this.state.bid.responseTimestamp &&
+          <p><strong>Response
+            Milliseconds</strong><br/>{this.state.bid.responseTimestamp - this.state.bid.requestTimestamp}</p>
+          }
           <p><strong>Cookies</strong><br/>{this.state.bid.cookies}</p>
           <p><strong>Host</strong><br/>{this.state.bid.host}</p>
           <p><strong>IP</strong><br/>{this.state.bid.ip}</p>
@@ -142,7 +144,7 @@ class _ViewAuction extends Component {
           {this.state.impressions.map((v) => {
             return (
               <p key={v}>{v.url}<br/>
-                Timestamp: {v.impressionTimestamp}<br/>
+                Timestamp: {this.formatDate(v.impressionTimestamp)}<br/>
                 User Agent: {v.userAgent}<br/>
                 Bid Price: {v.bidPrice} - Clearing Price: {v.cp}<br/>
                 Host: {v.host}<br/>
@@ -154,7 +156,7 @@ class _ViewAuction extends Component {
           {this.state.clicks.map((v) => {
             return (
               <p key={v}>{v.url}<br/>
-                Timestamp: {v.clickTimestamp}<br/>
+                Timestamp: {this.formatDate(v.clickTimestamp)}<br/>
                 User Agent: {v.userAgent}<br/>
                 Host: {v.host}<br/>
                 IP: {v.ip}
