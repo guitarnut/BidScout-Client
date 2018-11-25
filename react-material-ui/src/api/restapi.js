@@ -1,8 +1,8 @@
 import axios from "axios/index";
 
 const sessionTimeout = 1000 * 60 * 60;
-const host = 'http://localhost:8080';
-//const host = 'https://app.auctionscout.net';
+//const host = 'http://localhost:8080';
+const host = 'https://app.auctionscout.net';
 
 let session = null;
 
