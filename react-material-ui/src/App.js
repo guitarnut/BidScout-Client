@@ -26,7 +26,7 @@ class App extends Component {
           <div>
             <div className="jumbotron jumbotron-fluid">
               <div className="container">
-                <img src="./img/logo.png" style={{width: 50 + '%', height: 50 + '%'}}/>
+                <img src="/img/logo.png" style={{width: 50 + '%', height: 50 + '%'}}/>
               </div>
               <NavigationMenu/>
             </div>
