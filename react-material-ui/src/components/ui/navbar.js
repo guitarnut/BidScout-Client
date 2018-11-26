@@ -1,11 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import {Nav, Navbar, NavItem} from 'react-bootstrap';
-import {Redirect} from 'react-router-dom';
-
-const navigate = () => {
-  return <Redirect to='/'/>
-};
 
 const _NavBar = ({user, loggedIn}) =>
   <Navbar collapseOnSelect fixedTop>
@@ -24,21 +19,24 @@ const _NavBar = ({user, loggedIn}) =>
           <NavItem eventKey={2} href="/creative">
             Creative
           </NavItem>
-          <NavItem eventKey={3} href="/bidder">
+          <NavItem eventKey={3} href="/xml">
+            XML
+          </NavItem>
+          <NavItem eventKey={4} href="/bidder">
             Bidder
           </NavItem>
-          <NavItem eventKey={4} href="/auction">
+          <NavItem eventKey={5} href="/auction">
             Auctions
           </NavItem>
-          <NavItem eventKey={5} href="/biderrors">
+          <NavItem eventKey={6} href="/biderrors">
             Bid Errors
           </NavItem>
-          <NavItem eventKey={6} href="/account">
+          <NavItem eventKey={7} href="/account">
             Account
           </NavItem>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={7} href="/logout">
+          <NavItem eventKey={8} href="/logout">
             Logout {user.firstName}
           </NavItem>
         </Nav>

@@ -15,6 +15,7 @@ import ViewBidder from "./components/pages/viewbidder";
 import Logout from "./components/pages/logout";
 
 import store from './store/index';
+import XML from "./components/pages/xml";
 
 window.store = store;
 
@@ -37,6 +38,7 @@ class App extends Component {
               <Route path='/error' component={Error}/>
               <Route path='/campaign' exact component={Campaign}/>
               <Route path='/creative' exact component={Creative}/>
+              <Route path='/xml' exact component={XML}/>
               <Route path='/campaign/edit/:id' exact component={Campaign}/>
               <Route path='/creative/edit/:id' exact component={Creative}/>
               <Route path='/bidder' exact component={ViewBidder}/>

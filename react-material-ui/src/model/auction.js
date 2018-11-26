@@ -1,5 +1,3 @@
-
-
 const ModelAuction = {
   id: null,
   ip: null,

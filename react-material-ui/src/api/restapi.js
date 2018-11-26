@@ -1,8 +1,8 @@
 import axios from "axios/index";
 
 const sessionTimeout = 1000 * 60 * 60;
-//const host = 'http://localhost:8080';
-const host = 'https://app.auctionscout.net';
+const host = 'http://localhost:8080';
+//const host = 'https://app.auctionscout.net';
 
 let session = null;
 
@@ -172,6 +172,10 @@ export function getCreativeNames() {
 
 export function getCreativeNamesByCampaign(id) {
   return postRequest(host + '/api/creative/all/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function saveXML(json) {
+  return postRequest(host + '/api/xml/create/' + window.sessionStorage.getItem('userid'), json);
 }
 
 export function addCreativeToCampaign(campaignId, creativeId) {
