@@ -1,7 +1,7 @@
 const VAST = {
-  ad: {
-    inLine: {
-      adSystem: {
+  Ad: {
+    InLine: {
+      AdSystem: {
         version: null,
         value: null
       }

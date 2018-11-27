@@ -6,8 +6,8 @@ class XML extends Component {
 
   save() {
     let foo = VAST;
-    foo.ad.inLine.adSystem.value = "my value";
-    foo.ad.inLine.adSystem.version = "1.0";
+    foo.Ad.InLine.AdSystem.value = "my value";
+    foo.Ad.InLine.AdSystem.version = "1.0";
     saveXML(foo)
   }
 
