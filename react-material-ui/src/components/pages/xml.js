@@ -1,13 +1,44 @@
 import React, {Component} from 'react'
 import {saveXML} from "../../api/restapi";
-import VAST from "../../model/vast";
+import {VASTModel, VerificationModel} from "../../model/vast";
 
 class XML extends Component {
 
   save() {
-    let foo = VAST;
-    foo.Ad.InLine.AdSystem.value = "my value";
-    foo.Ad.InLine.AdSystem.version = "1.0";
+    let foo = {
+      Ad: {
+        InLine: {
+          AdSystem: {
+            value: "Ad system value",
+            version: "1.0"
+          },
+          Category: {
+            authority: "my auth",
+            value: "foo"
+          },
+          AdVerifications: {
+            Verification: [
+              {
+                vendor: "vendor",
+                FlashResource: {
+                  apiFramework: "flash",
+                  value: "flash resource"
+                }
+              },
+              {
+                vendor: "vendor2",
+                FlashResource: {
+                  apiFramework: "flash2",
+                  value: "flash resource 2"
+                }
+              }
+            ]
+          }
+        }
+      }
+    };
+
+
     saveXML(foo)
   }
 
