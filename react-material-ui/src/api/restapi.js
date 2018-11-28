@@ -178,6 +178,10 @@ export function saveXML(json) {
   return postRequest(host + '/api/xml/create/' + window.sessionStorage.getItem('userid'), json);
 }
 
+export function getAllXml() {
+  return postRequest(host + '/api/xml/all/' + window.sessionStorage.getItem('userid'));
+}
+
 export function addCreativeToCampaign(campaignId, creativeId) {
   return postRequest(host + '/api/campaign/add/creative/' + window.sessionStorage.getItem('userid') + '/' + campaignId + '/' + creativeId);
 }

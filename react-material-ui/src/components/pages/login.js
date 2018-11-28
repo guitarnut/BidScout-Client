@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import TextBox from '../ui/textfield';
-import {createUser, getCampaignNames, getCreativeNames, loginUser} from "../../api/restapi";
-import {handleInputChange} from "../../input/formInputHandler";
+import {createUser, getAllXml, getCampaignNames, getCreativeNames, loginUser} from "../../api/restapi";
 import UIButton from '../ui/button';
-import {storeAllCampaigns, storeAllCreatives, storeLoginUser} from '../../store/actions';
+import {storeAllCampaigns, storeAllCreatives, storeAllXml, storeLoginUser} from '../../store/actions';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
@@ -11,7 +10,8 @@ const mapDispatchToProps = dispatch => {
   return {
     storeLoginUser: login => dispatch(storeLoginUser(login)),
     storeAllCampaigns: campaigns => dispatch(storeAllCampaigns(campaigns)),
-    storeAllCreatives: creatives => dispatch(storeAllCreatives(creatives))
+    storeAllCreatives: creatives => dispatch(storeAllCreatives(creatives)),
+    storeAllXml: xml => dispatch(storeAllXml(xml))
   }
 };
 
@@ -34,7 +34,11 @@ class _LoginForm extends Component {
             getCampaignNames()
               .then((data)=>{
                 this.props.storeAllCampaigns(data);
-                this.props.history.push('/bidder')
+                getAllXml()
+                  .then((data)=>{
+                    this.props.storeAllXml(data);
+                    this.props.history.push('/bidder')
+                  });
               });
           });
       })

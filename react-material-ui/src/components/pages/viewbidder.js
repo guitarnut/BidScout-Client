@@ -6,6 +6,7 @@ class _ViewBidder extends Component {
   state = {
     campaigns: {},
     creatives: {},
+    xml: {},
     selectedCampaign: '',
     selectedCreative: '',
     user: {}
@@ -20,6 +21,7 @@ class _ViewBidder extends Component {
     this.setState({
       campaigns: this.props.campaigns,
       creatives: this.props.creatives,
+      xml: this.props.xml,
       user: this.props.user
     });
   }
@@ -60,6 +62,19 @@ class _ViewBidder extends Component {
             })}
           </div>
         )}
+        <hr/>
+        {Object.keys(this.state.xml).length === 0 ? (
+          <p>You have no XML documents. <a href="/xml">Build XML.</a></p>
+        ) : (
+          <div>
+            <h4>XML</h4>
+            {Object.keys(this.state.xml).map((v) => {
+              return (
+                <p><a href={'/xml/view/' + v}>{this.state.xml[v]}</a> - <a target='_blank' href={'//localhost:8080/vast/' + this.state.user.id + '/' + v}>View</a></p>
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }
@@ -69,6 +84,7 @@ const ViewBidder = connect(
   state => ({
     campaigns: state.campaigns,
     creatives: state.creatives,
+    xml: state.xml,
     user: state.user
   })
 )(_ViewBidder);

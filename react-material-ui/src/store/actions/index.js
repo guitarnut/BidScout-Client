@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const CREATIVES = 'CREATIVES';
 export const CAMPAIGNS = 'CAMPAIGNS';
+export const XML = 'XML';
 
 export const storeLoginUser = data => (
   {
@@ -17,5 +18,11 @@ export const storeAllCreatives = data => (
 export const storeAllCampaigns = data => (
   {
     type: CAMPAIGNS, payload: data
+  }
+);
+
+export const storeAllXml = data => (
+  {
+    type: XML, payload: data
   }
 );
