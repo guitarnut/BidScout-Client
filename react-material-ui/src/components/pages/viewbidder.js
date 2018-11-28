@@ -17,7 +17,6 @@ class _ViewBidder extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.setState({
       campaigns: this.props.campaigns,
       creatives: this.props.creatives,
@@ -36,11 +35,10 @@ class _ViewBidder extends Component {
           rutrum urna eu justo cursus porta. Sed viverra sodales tincidunt. Sed felis mi, semper eget arcu quis,
           vestibulum commodo erat. Vivamus ut nibh fringilla, pulvinar dolor quis, rhoncus est. Vivamus nec semper
           nisi.</p>
-        <hr/>
         {Object.keys(this.state.campaigns).length === 0 ? (
-          <p>You have no campaigns. <a href="/campaign">Build a campaign.</a></p>
+          <div className={"col-md-4"}><p>You have no campaigns. <a href="/campaign">Build a campaign.</a></p></div>
         ) : (
-          <div>
+          <div className={"col-md-4"}>
             <h4>Campaigns</h4>
             {Object.keys(this.state.campaigns).map((v) => {
               return (
@@ -49,11 +47,10 @@ class _ViewBidder extends Component {
             })}
           </div>
         )}
-        <hr/>
         {Object.keys(this.state.creatives).length === 0 ? (
-          <p>You have no creatives. <a href="/creatives">Build a creative.</a></p>
+          <div className={"col-md-4"}><p>You have no creatives. <a href="/creatives">Build a creative.</a></p></div>
         ) : (
-          <div>
+          <div className={"col-md-4"}>
             <h4>Creatives</h4>
             {Object.keys(this.state.creatives).map((v) => {
               return (
@@ -62,15 +59,16 @@ class _ViewBidder extends Component {
             })}
           </div>
         )}
-        <hr/>
         {Object.keys(this.state.xml).length === 0 ? (
-          <p>You have no XML documents. <a href="/xml">Build XML.</a></p>
+          <div className={"col-md-4"}><p>You have no XML documents. <a href="/xml">Build XML.</a></p></div>
         ) : (
-          <div>
+          <div className={"col-md-4"}>
             <h4>XML</h4>
             {Object.keys(this.state.xml).map((v) => {
               return (
-                <p><a href={'/xml/view/' + v}>{this.state.xml[v]}</a> - <a target='_blank' href={'//localhost:8080/vast/' + this.state.user.id + '/' + v}>View</a></p>
+                <p><a href={'/xml/view/' + v}>{this.state.xml[v]}</a> - <a target='_blank'
+                                                                           href={'//localhost:8080/vast/' + this.state.user.id + '/' + v}>View</a>
+                </p>
               )
             })}
           </div>

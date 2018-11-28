@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {handleInputChange, handleInputChangeArray} from "../../input/formInputHandler";
 import {getCampaign, getCampaignNames, saveCampaign} from "../../api/restapi";
 import UIButton from '../ui/button';
 import PanelName from "./components/panel_name";

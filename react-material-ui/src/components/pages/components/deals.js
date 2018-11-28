@@ -2,7 +2,7 @@ import React from 'react'
 
 function Deals(props) {
   if (
-    props.data.dealIds.length === 0
+    props.parentState.requirementsDealIds.length === 0
   ) {
     return (
       <div>
@@ -14,7 +14,7 @@ function Deals(props) {
     return (
       <div>
         <h3>Deal Ids</h3>
-        <p>{props.data.dealIds}</p>
+        <p>{props.parentState.requirementsDealIds}</p>
       </div>
     )
   }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ModelCampaign from '../../model/campaign';
 import {withRouter} from 'react-router-dom';
 import {
   addCreativeToCampaign,
@@ -10,18 +9,17 @@ import {
   getCreativeNamesByCampaign,
   removeCreativeFromCampaign
 } from '../../api/restapi';
-import Limits from "./components/limits";
-import Platforms from "./components/platforms";
-import Lists from "./components/lists";
 import Stats from "./components/stats";
-import Flight from "./components/flight";
-import CampaignProps from "./components/campaignproperties";
-import Settings from "./components/settings";
-import ListWithButton from "../ui/listwithbutton";
-import Deals from "./components/deals";
-import UIButton from "../ui/button";
 import {connect} from 'react-redux';
 import {storeAllCampaigns} from "../../store/actions";
+import {buildCampaignStateFromResponse} from "../../builder/campaign";
+import CampaignProps from "./components/campaignproperties";
+import Settings from "./components/settings";
+import Lists from "./components/lists";
+import Deals from "./components/deals";
+import Platforms from "./components/platforms";
+import Flight from "./components/flight";
+import Limits from "./components/limits";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -31,7 +29,51 @@ const mapDispatchToProps = dispatch => {
 
 class _ViewCampaign extends Component {
   state = {
-    campaign: ModelCampaign,
+    updateCampaignId: null,
+    id: null,
+    owner: null,
+    name: null,
+    enabled: false,
+    cid: null,
+    publisher: null,
+    seat: null,
+    nurl: null,
+    impressionExpiry: 0,
+
+    requirementsUserMatch: false,
+    requirementsSecure: false,
+    requirementsPublisherWhitelist: [],
+    requirementsDomainWhitelist: [],
+    requirementsBundleWhitelist: [],
+    requirementsPublisherBlacklist: [],
+    requirementsDomainBlacklist: [],
+    requirementsBundleBlacklist: [],
+    requirementsDealIds: [],
+    requirementsMobile: false,
+    requirementsDesktop: false,
+    requirementsInapp: false,
+    requirementsCtv: false,
+    requirementsStartDate: null,
+    requirementsEndDate: null,
+
+    limitsRequestLimit: 0,
+    limitsBidRate: 0,
+    limitsBidLimit: 0,
+    limitsImpressionLimit: 0,
+    limitsRevenueLimit: 0,
+
+    statsBids: 0,
+    statsNbr: 0,
+    statsImpressions: 0,
+    statsDuplicateImpressions: 0,
+    statsExpiredImpressions: 0,
+    statsInvalidImpressions: 0,
+    statsRevenue: 0,
+    statsEcpm: 0,
+    statsRequests: 0,
+    statsBidPriceTotal: 0,
+    statsClicks: 0,
+
     allCampaigns: [],
     allCreativesForCampaign: [],
     allCreatives: [],
@@ -52,10 +94,11 @@ class _ViewCampaign extends Component {
       });
     getCampaign(id)
       .then(data => {
+        let campaign = buildCampaignStateFromResponse(data);
         this.setState({
-          campaign: data
+          ...campaign
         });
-        getCreativeNamesByCampaign(this.state.campaign.id)
+        getCreativeNamesByCampaign(this.state.id)
           .then(data => {
             this.setState({
               allCreativesForCampaign: data,
@@ -83,7 +126,7 @@ class _ViewCampaign extends Component {
 
   removeCreativeFromCampaign(v) {
     removeCreativeFromCampaign(this.state.campaign.id, v)
-      .then(data => {
+      .then(() => {
         this.refreshMenus();
       });
   }
@@ -94,7 +137,7 @@ class _ViewCampaign extends Component {
 
   addCreativeToCampaign(v) {
     addCreativeToCampaign(this.state.campaign.id, v)
-      .then(data => {
+      .then(() => {
         this.refreshMenus();
       });
   }
@@ -142,49 +185,49 @@ class _ViewCampaign extends Component {
   render() {
     return (
       <div>
-          <h4>All Campaigns</h4>
-          {Object.keys(this.state.allCampaigns).map((v) => {
+        <h4>All Campaigns</h4>
+        {Object.keys(this.state.allCampaigns).map((v) => {
+          return (
+            <p key={v}><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCampaigns[v]}</p>
+          )
+        })}
+
+        <h4>Creatives Aligned to {this.state.name}</h4>
+        {Object.keys(this.state.allCreativesForCampaign).length > 0 ? (
+          Object.keys(this.state.allCreativesForCampaign).map((v) => {
             return (
-              <p><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCampaigns[v]}</p>
+              <p key={v}><a onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove
+                from {this.state.name}</a> - {this.state.allCreativesForCampaign[v]}</p>
             )
-          })}
+          })
+        ) : (
+          <p>No creatives aligned to this campaign.</p>
+        )}
 
-          <h4>Creatives Aligned to {this.state.campaign.name}</h4>
-          {Object.keys(this.state.allCreativesForCampaign).length > 0 ? (
-            Object.keys(this.state.allCreativesForCampaign).map((v) => {
-              return (
-                <p><a onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove
-                  from {this.state.campaign.name}</a> - {this.state.allCreativesForCampaign[v]}</p>
-              )
-            })
-          ) : (
-            <p>No creatives aligned to this campaign.</p>
-          )}
+        <h4>Available Creatives</h4>
+        {Object.keys(this.state.allCreatives).length > 0 ? (
+          Object.keys(this.state.allCreatives).map((v) => {
+            return (
+              <p key={v}><a onClick={this.addCreativeToCampaign.bind(this, v)}>Add
+                to {this.state.name}</a> - {this.state.allCreatives[v]}</p>
+            )
+          })
+        ) : (
+          <p>No creatives available.</p>
+        )}
 
-          <h4>Available Creatives</h4>
-          {Object.keys(this.state.allCreatives).length > 0 ? (
-            Object.keys(this.state.allCreatives).map((v) => {
-              return (
-                <p><a onClick={this.addCreativeToCampaign.bind(this, v)}>Add
-                  to {this.state.campaign.name}</a> - {this.state.allCreatives[v]}</p>
-              )
-            })
-          ) : (
-            <p>No creatives available.</p>
-          )}
+        <h2>Campaign {this.state.name}</h2>
+        <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
+          onClick={this.remove.bind(this)}>Delete</a></p>
 
-          <h2>Campaign {this.state.campaign.name}</h2>
-          <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
-            onClick={this.remove.bind(this)}>Delete</a></p>
-
-          <Stats data={this.state.campaign.statistics}/>
-          <CampaignProps data={this.state.campaign}/>
-          <Settings data={this.state.campaign.requirements}/>
-          <Lists data={this.state.campaign.requirements}/>
-          <Deals data={this.state.campaign.requirements}/>
-          <Platforms data={this.state.campaign.requirements}/>
-          <Flight data={this.state.campaign}/>
-          <Limits data={this.state.campaign.limits}/>
+        <Stats parentState={this.state}/>
+        <CampaignProps parentState={this.state}/>
+        <Settings parentState={this.state}/>
+        <Lists parentState={this.state}/>
+        <Deals parentState={this.state}/>
+        <Platforms parentState={this.state}/>
+        <Flight parentState={this.state}/>
+        <Limits parentState={this.state}/>
       </div>
     )
   }

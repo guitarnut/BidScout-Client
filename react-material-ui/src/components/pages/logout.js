@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {storeLoginUser} from "../../store/actions";
+import {storeLoginUser, storeLogout} from "../../store/actions";
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom';
 import {logout} from "../../api/restapi";
 
 const mapDispatchToProps = dispatch => {
   return {
-    storeLoginUser: login => dispatch(storeLoginUser(login))
+    storeLogout: () => dispatch(storeLogout())
   }
 };
 
@@ -18,10 +18,7 @@ class _Logout extends Component {
   };
 
   componentDidMount() {
-    this.props.storeLoginUser({
-      username: '',
-      loggedIn: false
-    });
+    this.props.storeLogout();
     logout();
   }
 

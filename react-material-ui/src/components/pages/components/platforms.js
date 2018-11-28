@@ -4,10 +4,10 @@ function Platforms(props) {
   return (
   <div>
     <h3>Platforms</h3>
-    <p>Mobile: {props.data.mobile.toString()}</p>
-    <p>Desktop: {props.data.desktop.toString()}</p>
-    <p>InApp: {props.data.inapp.toString()}</p>
-    <p>CTV: {props.data.ctv.toString()}</p>
+    <p>Mobile: {props.parentState.requirementsMobile.toString()}</p>
+    <p>Desktop: {props.parentState.requirementsDesktop.toString()}</p>
+    <p>InApp: {props.parentState.requirementsInapp.toString()}</p>
+    <p>CTV: {props.parentState.requirementsCtv.toString()}</p>
   </div>
   )
 }

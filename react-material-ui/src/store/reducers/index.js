@@ -1,4 +1,4 @@
-import {CAMPAIGNS, CREATIVES, LOGIN, XML} from "../actions";
+import {CAMPAIGNS, CREATIVES, LOGIN, LOGOUT, XML} from "../actions";
 
 const rootReducer = (state = {}, action) => {
   switch (action.type) {
@@ -6,6 +6,10 @@ const rootReducer = (state = {}, action) => {
       let login = { ...state, loggedIn: true, user: action.payload };
       persistState(login);
       return login;
+    case LOGOUT:
+      let logout = { ...state, loggedIn: false, user: {} };
+      persistState(logout);
+      return logout;
     case CAMPAIGNS:
       let campaigns = { ...state, campaigns: action.payload };
       persistState(campaigns);

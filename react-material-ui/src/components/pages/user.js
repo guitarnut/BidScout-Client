@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import {handleInputChange} from "../../input/formInputHandler";
-import {getUser, updateUser} from "../../api/restapi";
-import ModelUser from "../../model/user";
+import {updateUser} from "../../api/restapi";
 import UIButton from '../ui/button';
 import TextBox from "../ui/textfield";
 import {connect} from 'react-redux';
-import {storeAllCampaigns, storeAllCreatives, storeLoginUser} from "../../store/actions";
+import {storeLoginUser} from "../../store/actions";
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -17,29 +17,41 @@ const mapDispatchToProps = dispatch => {
 
 class _LoginForm extends Component {
 
+  loaded = 0;
+
   state = {
     username: null,
     password: null,
     message: ''
   };
 
+  success() {
+    this.loaded++;
+    if(this.loaded === 3) {
+      this.props.history.push('/bidder');
+    }
+  }
+
+  // Todo: Use async waterfall
   loginUser = () => {
+
     loginUser(this.state.username, this.state.password)
       .then((data) => {
-        console.log(data);
         this.props.storeLoginUser(data);
         getCreativeNames()
-          .then((data)=>{
+          .then((data) => {
             this.props.storeAllCreatives(data);
-            getCampaignNames()
-              .then((data)=>{
-                this.props.storeAllCampaigns(data);
-                getAllXml()
-                  .then((data)=>{
-                    this.props.storeAllXml(data);
-                    this.props.history.push('/bidder')
-                  });
-              });
+            this.success();
+          });
+        getCampaignNames()
+          .then((data) => {
+            this.props.storeAllCampaigns(data);
+            this.success();
+          });
+        getAllXml()
+          .then((data) => {
+            this.props.storeAllXml(data);
+            this.success();
           });
       })
       .catch(() => {

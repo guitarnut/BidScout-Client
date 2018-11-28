@@ -2,12 +2,12 @@ import React from 'react'
 
 function Lists(props) {
   if (
-    props.data.publisherWhitelist && props.data.publisherWhitelist.length === 0 &&
-    props.data.domainWhitelist.length === 0 &&
-    props.data.bundleWhitelist.length === 0 &&
-    props.data.publisherBlacklist.length === 0 &&
-    props.data.domainBlacklist.length === 0 &&
-    props.data.bundleBlacklist.length === 0
+    props.parentState.requirementsPublisherWhitelist && props.parentState.requirementsPublisherWhitelist.length === 0 &&
+    props.parentState.requirementsDomainWhitelist.length === 0 &&
+    props.parentState.requirementsBundleWhitelist.length === 0 &&
+    props.parentState.requirementsPublisherBlacklist.length === 0 &&
+    props.parentState.requirementsDomainBlacklist.length === 0 &&
+    props.parentState.requirementsBundleBlacklist.length === 0
   ) {
     return (
       <div>
@@ -19,18 +19,18 @@ function Lists(props) {
     return (
       <div>
         <h3>Whitelist/Blacklist</h3>
-        {props.data.publisherWhitelist ? <p>Publisher Whitelist: {props.data.publisherWhitelist}</p> :
+        {props.parentState.requirementsPublisherWhitelist ? <p>Publisher Whitelist: {props.parentState.requirementsPublisherWhitelist}</p> :
           <p>No publisher whitelist specified.</p>}
-        {props.data.domainWhitelist ? <p>Domain Whitelist: {props.data.domainWhitelist}</p> :
+        {props.parentState.requirementsDomainWhitelist ? <p>Domain Whitelist: {props.parentState.requirementsDomainWhitelist}</p> :
           <p>No domain whitelist specified.</p>}
-        {props.data.bundleWhitelist ? <p>Bundle Whitelist: {props.data.bundleWhitelist}</p> :
+        {props.parentState.requirementsBundleWhitelist ? <p>Bundle Whitelist: {props.parentState.requirementsBundleWhitelist}</p> :
           <p>No bundle whitelist specified.</p>}
-        {props.data.publisherBlacklist ? <p>Publisher Blacklist: {props.data.publisherWhitelist}</p> :
+        {props.parentState.requirementsPublisherBlacklist ? <p>Publisher Blacklist: {props.parentState.requirementsPublisherWhitelist}</p> :
           <p>No publisher blacklist specified.</p>}
-        {props.data.domainBlacklist ? <p>Publisher Blacklist: {props.data.publisherWhitelist}</p> :
-          <p>No publisher blacklist specified.</p>}
-        {props.data.bundleBlacklist ? <p>Publisher Blacklist: {props.data.publisherWhitelist}</p> :
-          <p>No publisher blacklist specified.</p>}
+        {props.parentState.requirementsDomainBlacklist ? <p>Publisher Blacklist: {props.parentState.requirementsDomainBlacklist}</p> :
+          <p>No domain blacklist specified.</p>}
+        {props.parentState.requirementsBundleBlacklist ? <p>Publisher Blacklist: {props.parentState.requirementsBundleBlacklist}</p> :
+          <p>No bundle blacklist specified.</p>}
       </div>
     )
   }

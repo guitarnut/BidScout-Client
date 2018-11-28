@@ -1,4 +1,5 @@
 export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 export const CREATIVES = 'CREATIVES';
 export const CAMPAIGNS = 'CAMPAIGNS';
 export const XML = 'XML';
@@ -6,6 +7,12 @@ export const XML = 'XML';
 export const storeLoginUser = data => (
   {
     type: LOGIN, payload: data
+  }
+);
+
+export const storeLogout = () => (
+  {
+    type: LOGOUT, payload: {}
   }
 );
 
