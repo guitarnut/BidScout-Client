@@ -10,16 +10,16 @@ const PanelTracking = (props) =>
     <Panel.Collapse>
       {props.isCampaign === true ? (
         <Panel.Body>
-          <TextBox name="model.publisher" label="Publisher Id" handler={props.handleInput}/>
-          <TextBox name="model.cid" label="Campaign Id" handler={props.handleInput}/>
-          <TextBox name="model.seat" label="Seat ID" handler={props.handleInput}/>
-          <TextBox name="model.nurl" label="Win Notice URL" handler={props.handleInput}/>
-          <TextBox name="model.impressionExpiry" label="Impression TTL" handler={props.handleInput}/>
+          <TextBox name="publisher" label="Publisher Id" context={props.context} value={props.parentState.publisher}/>
+          <TextBox name="cid" label="Campaign Id" context={props.context} value={props.parentState.cid}/>
+          <TextBox name="seat" label="Seat ID" context={props.context} value={props.parentState.seat}/>
+          <TextBox name="nurl" label="Win Notice URL" context={props.context} value={props.parentState.nurl}/>
+          <TextBox name="impressionExpiry" label="Impression TTL" context={props.context} value={props.parentState.impressionExpiry}/>
         </Panel.Body>
       ) : (
         <Panel.Body>
-          <TextBox name="model.crid" label="Creative ID" handler={props.handleInput} value={props.model.crid}/>
-          <TextBox name="model.adId" label="Ad ID" handler={props.handleInput} value={props.model.adId}/>
+          <TextBox name="crid" label="Creative ID" context={props.context} value={props.parentState.crid}/>
+          <TextBox name="adId" label="Ad ID" context={props.context} value={props.parentState.adId}/>
         </Panel.Body>
       )}
     </Panel.Collapse>

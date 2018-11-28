@@ -9,18 +9,18 @@ const PanelLists = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <TextBox name="model.requirements.publisherWhitelist" label="Publisher Whitelist"
-                 handler={props.handleInput} value={props.requirements.publisherWhitelist}/>
-        <TextBox name="model.requirements.domainWhitelist" label="Domain Whitelist"
-                 handler={props.handleInput} value={props.requirements.domainWhitelist}/>
-        <TextBox name="model.requirements.bundleWhitelist" label="Bundle Whitelist"
-                 handler={props.handleInput} value={props.requirements.bundleWhitelist}/>
-        <TextBox name="model.requirements.publisherBlacklist" label="Publisher Blacklist"
-                 handler={props.handleInput} value={props.requirements.publisherBlacklist}/>
-        <TextBox name="model.requirements.domainBlacklist" label="Domain Blacklist"
-                 handler={props.handleInput} value={props.requirements.domainBlacklist}/>
-        <TextBox name="model.requirements.bundleBlacklist" label="Bundle Blacklist"
-                 handler={props.handleInput} value={props.requirements.bundleBlacklist}/>
+        <TextBox name="requirementsPublisherWhitelist" label="Publisher Whitelist"
+                 context={props.context} value={props.parentState.requirementsPublisherWhitelist}/>
+        <TextBox name="requirementsDomainWhitelist" label="Domain Whitelist"
+                 context={props.context} value={props.parentState.requirementsDomainWhitelist}/>
+        <TextBox name="requirementsBundleWhitelist" label="Bundle Whitelist"
+                 context={props.context} value={props.parentState.requirementsBundleWhitelist}/>
+        <TextBox name="requirementsPublisherBlacklist" label="Publisher Blacklist"
+                 context={props.context} value={props.parentState.requirementsPublisherBlacklist}/>
+        <TextBox name="requirementsDomainBlacklist" label="Domain Blacklist"
+                 context={props.context} value={props.parentState.requirementsDomainBlacklist}/>
+        <TextBox name="requirementsBundleBlacklist" label="Bundle Blacklist"
+                 context={props.context} value={props.parentState.requirementsBundleBlacklist}/>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

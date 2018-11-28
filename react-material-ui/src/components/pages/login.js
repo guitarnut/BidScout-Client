@@ -3,7 +3,7 @@ import TextBox from '../ui/textfield';
 import {createUser, getCampaignNames, getCreativeNames, loginUser} from "../../api/restapi";
 import {handleInputChange} from "../../input/formInputHandler";
 import UIButton from '../ui/button';
-import {storeLoginUser, storeAllCampaigns, storeAllCreatives} from '../../store/actions';
+import {storeAllCampaigns, storeAllCreatives, storeLoginUser} from '../../store/actions';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
@@ -65,16 +65,12 @@ class _LoginForm extends Component {
       });
   };
 
-  handleInputChange(event) {
-    handleInputChange(event, this);
-  }
-
   render() {
     return (
       <div>
         <h2>Login</h2>
-        <TextBox name="username" label="Username" handler={this.handleInputChange.bind(this)}/>
-        <TextBox name="password" label="Password" handler={this.handleInputChange.bind(this)}/>
+        <TextBox name="username" label="Username" context={this} value={this.state.username}/>
+        <TextBox name="password" label="Password" context={this} value={this.state.password}/>
         <UIButton text="Login" action={this.loginUser.bind(this)}/>
         <UIButton text="Create" action={this.createUser.bind(this)}/>
         <p>{this.state.message}</p>

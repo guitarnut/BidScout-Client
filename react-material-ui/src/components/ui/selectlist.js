@@ -1,5 +1,6 @@
 import React from 'react';
 import {SplitButton, MenuItem} from 'react-bootstrap';
+import {handleInput} from "../../input/formInputHandler";
 
 function handleChange(v, props) {
   let event = {
@@ -8,14 +9,13 @@ function handleChange(v, props) {
       value: v
     }
   };
-  props.handler(event);
+  handleInput.call(props.context, event);
 }
 
 const SelectList = (props) =>
   <SplitButton
-    id={props.name}
+    id={(Math.random()*1000).toString()}
     title={props.label}
-    name={props.name}
     key={props.value}
     value={props.value}
   >

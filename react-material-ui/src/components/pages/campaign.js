@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {handleInputChange, handleInputChangeArray} from "../../input/formInputHandler";
-import {deleteCampaign, getCampaign, getCampaignNames, saveCampaign} from "../../api/restapi";
-import ModelCampaign from "../../model/campaign";
+import {getCampaign, getCampaignNames, saveCampaign} from "../../api/restapi";
 import UIButton from '../ui/button';
 import PanelName from "./components/panel_name";
 import PanelLists from "./components/panel_lists";
@@ -22,8 +21,38 @@ const mapDispatchToProps = dispatch => {
 
 class _Campaign extends Component {
   state = {
+    updateCampaignId: null,
     id: null,
-    model: ModelCampaign
+    owner: null,
+    name: null,
+    enabled: false,
+    cid: null,
+    publisher: null,
+    seat: null,
+    nurl: null,
+    impressionExpiry: 0,
+
+    requirementsUserMatch: false,
+    requirementsSecure: false,
+    requirementsPublisherWhitelist: [],
+    requirementsDomainWhitelist: [],
+    requirementsBundleWhitelist: [],
+    requirementsPublisherBlacklist: [],
+    requirementsDomainBlacklist: [],
+    requirementsBundleBlacklist: [],
+    requirementsDealIds: [],
+    requirementsMobile: false,
+    requirementsDesktop: false,
+    requirementsInapp: false,
+    requirementsCtv: false,
+    requirementsStartDate: null,
+    requirementsEndDate: null,
+
+    limitsRequestLimit: 0,
+    limitsBidRate: 0,
+    limitsBidLimit: 0,
+    limitsImpressionLimit: 0,
+    limitsRevenueLimit: 0
   };
 
   constructor() {
@@ -61,18 +90,6 @@ class _Campaign extends Component {
       })
   }
 
-  deleteCampaign() {
-    deleteCampaign(this.state.id)
-      .then(() => {
-
-      })
-      .catch(() => {
-        this.setState({
-          failed: true
-        })
-      })
-  }
-
   save = () => {
     saveCampaign(this.state.model)
       .then(() => {
@@ -84,14 +101,6 @@ class _Campaign extends Component {
       });
   };
 
-  handleInput(event) {
-    handleInputChange(event, this);
-  }
-
-  handleInputArray(event) {
-    handleInputChangeArray(event, this);
-  }
-
   render() {
     if (this.state.saving) {
       return (
@@ -102,7 +111,7 @@ class _Campaign extends Component {
     } else {
       return (
         <div>
-          {this.state.id ? (
+          {this.state.updateCampaignId ? (
             <h2>Edit {this.state.model.name}</h2>
           ) : (
             <h2>Build Campaign</h2>
@@ -112,17 +121,15 @@ class _Campaign extends Component {
             a 100% fill campaign that will automatically return a bid response for any size bid, for any request.</p>
           <p>Build campaign settings and targeting.</p>
 
-          <PanelName handleInput={this.handleInput.bind(this)} value={this.state.model.name}/>
-          <PanelConfig enabled={this.state.model.enabled} requirements={this.state.model.requirements}
-                       handleInput={this.handleInput.bind(this)}/>
-          <PanelTracking handleInput={this.handleInput.bind(this)} model={this.state.model} isCampaign={true}/>
-          <PanelLists handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>
-          <PanelDeals handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>
-          <PanelPacing handleInput={this.handleInput.bind(this)} limits={this.state.model.limits}/>
-          <PanelPlatforms handleInput={this.handleInput.bind(this)}
-                          requirements={this.state.model.requirements}/>
+          <PanelName value={this.state.name} context={this}/>
+          <PanelConfig parentState={this.state} context={this}/>
+          <PanelTracking isCampaign={true} context={this} parentState={this.state}/>
+          <PanelLists context={this} parentState={this.state}/>
+          <PanelDeals context={this} parentState={this.state}/>
+          <PanelPacing context={this} parentState={this.state}/>
+          <PanelPlatforms context={this} parentState={this.state}/>
 
-          {this.state.id ? (
+          {this.state.updateCampaignId ? (
             <UIButton text="Update" action={this.save.bind(this)} icon="save"/>
           ) : (
             <UIButton text="Save" action={this.save.bind(this)} icon="save"/>

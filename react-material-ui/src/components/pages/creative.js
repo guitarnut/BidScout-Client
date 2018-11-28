@@ -1,17 +1,10 @@
 import React, {Component} from 'react'
 import ModelCreative from "../../model/creative";
 import {getCreative, getCreativeNames, saveCreative} from "../../api/restapi";
-import {
-  handleInputChange,
-  handleInputChangeArray,
-  handleInputChangeMulti,
-  removeInputChangeMulti
-} from "../../input/formInputHandler";
 import UIButton from '../ui/button';
 import PanelAuctionSettings from "./components/panel_auctionsettings";
 import PanelProperties from "./components/panel_properties";
 import PanelLists from "./components/panel_lists";
-import PanelPlatforms from "./components/panel_platforms";
 import PanelPacing from "./components/panel_pacing";
 import PanelTracking from "./components/panel_tracking";
 import PanelName from "./components/panel_name";
@@ -19,6 +12,7 @@ import PanelConfig from "./components/panel_config";
 import PanelDeals from "./components/panel_deals";
 import {storeAllCreatives} from "../../store/actions";
 import {connect} from 'react-redux';
+import PanelPlatforms from "./components/panel_platforms";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -29,9 +23,52 @@ const mapDispatchToProps = dispatch => {
 class _Creative extends Component {
 
   state = {
-    id: null,
-    model: ModelCreative,
-    creativeType: ''
+    updateCreativeId: null,
+    creativeType: '',
+
+    id: '',
+    owner: '',
+    name: '',
+    type: 'DISPLAY',
+    w: '',
+    h: '',
+    enabled: false,
+    iabCategories: [],
+    attr: [],
+    btype: [],
+    mimes: [],
+    adId: '',
+    crid: '',
+    adDomain: [],
+    creativeUrl: '',
+    adm: '',
+    xml: '',
+    minBid: '',
+    maxBid: '',
+
+    requirementsUserMatch: false,
+    requirementsSecure: false,
+    requirementsPublisherWhitelist: [],
+    requirementsDomainWhitelist: [],
+    requirementsBundleWhitelist: [],
+    requirementsPublisherBlacklist: [],
+    requirementsDomainBlacklist: [],
+    requirementsBundleBlacklist: [],
+    requirementsDealIds: [],
+    requirementsMobile: false,
+    requirementsDesktop: false,
+    requirementsInapp: false,
+    requirementsCtv: false,
+    requirementsStartDate: null,
+    requirementsEndDate: null,
+
+    limitsRequestLimit: 0,
+    limitsBidRate: 0,
+    limitsBidLimit: 0,
+    limitsImpressionLimit: 0,
+    limitsRevenueLimit: 0,
+
+    bidFrequency: ''
   };
 
   constructor() {
@@ -58,7 +95,7 @@ class _Creative extends Component {
         this.setState({
           failed: false,
           model: data,
-          id: id
+          updateCreativeId: id
         })
       })
       .catch(() => {
@@ -80,25 +117,6 @@ class _Creative extends Component {
       });
   };
 
-  handleInput(event, e) {
-    if (typeof event === 'string') {
-      event = e;
-    }
-    handleInputChange(event, this);
-  }
-
-  handleInputArray(event) {
-    handleInputChangeArray(event, this);
-  }
-
-  handleInputMulti(event) {
-    handleInputChangeMulti(event, this);
-  }
-
-  removeInputMulti(event) {
-    removeInputChangeMulti(event, this);
-  }
-
   render() {
     if (this.state.saving) {
       return (
@@ -109,33 +127,26 @@ class _Creative extends Component {
     } else {
       return (
         <div>
-          {this.state.id ? (
+          {this.state.updateCreativeId ? (
             <h2>Edit {this.state.model.name}</h2>
           ) : (
             <h2>Build Creative</h2>
           )}
           <p>Creatives are the second level item responsible for controlling bid responses. Creatives will be
-            returned
-            based on a size match with the bid request. If you do not wish to create multiple creatives, BidScout
-            can
-            instead create a 100% fill campaign that will return a creative for every bid request.</p>
+            returned based on a size match with the bid request. If you do not wish to create multiple creatives,
+            BidScout can instead create a 100% fill campaign that will return a creative for every bid request.</p>
 
-          <PanelName handleInput={this.handleInput.bind(this)} value={this.state.model.name}/>
-          <PanelConfig enabled={this.state.model.enabled} requirements={this.state.model.requirements}
-                       handleInput={this.handleInput.bind(this)}/>
-          <PanelProperties creativeType={this.state.creativeType} handleInput={this.handleInput.bind(this)}
-                           handleInputArray={this.handleInputArray.bind(this)} model={this.state.model}
-                           handleInputMulti={this.handleInputMulti.bind(this)} currentState={this.state.model}
-                           remove={this.removeInputMulti.bind(this)}/>
-          <PanelAuctionSettings handleInput={this.handleInput.bind(this)} model={this.state.model}/>
-          <PanelTracking handleInput={this.handleInput.bind(this)} model={this.state.model}/>
-          <PanelLists handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>
-          <PanelDeals handleInput={this.handleInputArray.bind(this)} requirements={this.state.model.requirements}/>
-          <PanelPacing handleInput={this.handleInput.bind(this)} limits={this.state.model.limits}/>
-          <PanelPlatforms handleInput={this.handleInput.bind(this)}
-                          requirements={this.state.model.requirements}/>
+          <PanelName value={this.state.name} context={this}/>
+          <PanelConfig parentState={this.state} context={this}/>
+          <PanelProperties creativeType={this.state.creativeType} context={this} parentState={this.state}/>
+          <PanelAuctionSettings context={this} parentState={this.state}/>
+          <PanelTracking isCampaign={false} context={this} parentState={this.state}/>
+          <PanelLists context={this} parentState={this.state}/>
+          <PanelDeals context={this} parentState={this.state}/>
+          <PanelPacing context={this} parentState={this.state}/>
+          <PanelPlatforms context={this} parentState={this.state}/>
 
-          {this.state.id ? (
+          {this.state.updateCreativeId ? (
             <UIButton text="Update" action={this.save.bind(this)} icon="save"/>
           ) : (
             <UIButton text="Save" action={this.save.bind(this)} icon="save"/>

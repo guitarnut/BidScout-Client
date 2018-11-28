@@ -11,34 +11,34 @@ const PanelConfig = (props)=>
     <Panel.Collapse>
       <Panel.Body>
         <Switcher
-          name="model.enabled"
+          name="enabled"
           label="Enabled"
-          value={props.enabled}
-          handler={props.handleInput}
+          value={props.parentState.enabled}
+          context={props.context}
         />
         <Switcher
-          name="model.requirements.userMatch"
+          name="requirementsUserMatch"
           label="Require User Match"
-          value={props.requirements.userMatch}
-          handler={props.handleInput}
+          value={props.parentState.requirementsUserMatch}
+          context={props.context}
         />
         <Switcher
-          name="model.requirements.secure"
+          name="requirementsSecure"
           label="Require Secure Bids"
-          value={props.requirements.secure}
-          handler={props.handleInput}
+          value={props.parentState.requirementsSecure}
+          context={props.context}
         />
-        <TextField name="model.requirements.startDate" id="datetime-local" label="Start" type="datetime-local"
+        <TextField name="requirementsStartDate" id="datetime-local" label="Start" type="datetime-local"
                    InputLabelProps={{
                      shrink: true,
                    }}
-                   onChange={props.handleInput}
+                   context={props.context}
         />
-        <TextField name="model.requirements.endDate" id="datetime-local" label="End" type="datetime-local"
+        <TextField name="requirementsEndDate" id="datetime-local" label="End" type="datetime-local"
                    InputLabelProps={{
                      shrink: true,
                    }}
-                   onChange={props.handleInput}
+                   context={props.context}
         />
       </Panel.Body>
     </Panel.Collapse>

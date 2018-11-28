@@ -5,6 +5,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import {handleInput} from "../../input/formInputHandler";
 
 function Switcher(props) {
   return (
@@ -14,7 +15,7 @@ function Switcher(props) {
           <Switch
             name={props.name}
             checked={props.value}
-            onChange={props.handler}
+            onChange={handleInput.bind(props.context)}
             value={props.value}
           />
         }

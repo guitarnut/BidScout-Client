@@ -9,12 +9,14 @@ const PanelPacing = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <TextBox name="model.limits.requestLimit" label="Request Limit" handler={props.handleInput} value={props.limits.requestLimit}/>
-        <TextBox name="model.limits.bidRate" label="Bid Rate" handler={props.handleInput} value={props.limits.bidRate}/>
-        <TextBox name="model.limits.bidLimit" label="Bid Limit" handler={props.handleInput} value={props.limits.bidLimit}/>
-        <TextBox name="model.limits.impressionLimit" label="Impression Limit"
-                 handler={props.handleInput} value={props.limits.impressionLimit}/>
-        <TextBox name="model.limits.revenueLimit" label="Revenue Limit" handler={props.handleInput} value={props.limits.revenueLimit}/>
+        <TextBox name="limitsRequestLimit" label="Request Limit" context={props.context}
+                 value={props.parentState.limitsRequestLimit}/>
+        <TextBox name="limitsBidRate" label="Bid Rate" context={props.context} value={props.parentState.limitsBidRate}/>
+        <TextBox name="limitsBidLimit" label="Bid Limit" context={props.context} value={props.parentState.limitsBidLimit}/>
+        <TextBox name="limitsImpressionLimit" label="Impression Limit"
+                 context={props.context} value={props.parentState.limitsImpressionLimit}/>
+        <TextBox name="limitsRevenueLimit" label="Revenue Limit" context={props.context}
+                 value={props.parentState.limitsRevenueLimit}/>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

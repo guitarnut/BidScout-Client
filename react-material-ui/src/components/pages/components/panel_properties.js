@@ -15,56 +15,56 @@ const PanelProperties = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <SelectList name='model.type' data={CreativeType} label='Type (DISPLAY, VPAID, VAST)' value={props.model.type}
-                    handler={props.handleInput}/>
+        <SelectList name='type' data={CreativeType} label='Type (DISPLAY, VPAID, VAST)' value={props.parentState.type}
+                    context={props.context}/>
         <hr/>
-        {props.model.type === 'DISPLAY' ? (
+        {props.parentState.type === 'DISPLAY' ? (
           <div>
             <p>A value of 10 will bid on every eligible request. A value of 0 will never bid. Select a value between
               0-10 to determine bid frequency.</p>
-            <TextBox name="model.bidFrequency" label="Bid Frequency" handler={props.handleInput}
-                     value={props.model.bidFrequency}/>
+            <TextBox name="bidFrequency" label="Bid Frequency" context={props.context}
+                     value={props.parentState.bidFrequency}/>
             <SelectList name='creativeType' data={DisplayCreativeType} label='Display Creative Type'
-                        value={props.creativeType}
-                        handler={props.handleInput}/>
+                        value={props.parentState.creativeType}
+                        context={props.context}/>
             <hr/>
-            {props.creativeType === 'url' &&
-            <TextBox name="model.creativeUrl" label="Asset URL" handler={props.handleInput}
-                     value={props.model.creativeUrl}/>
+            {props.parentState.creativeType === 'url' &&
+            <TextBox name="creativeUrl" label="Asset URL" context={props.context}
+                     value={props.creativeUrl}/>
             }
-            {props.creativeType === 'custom' &&
+            {props.parentState.creativeType === 'custom' &&
             <div>
               <p>Click events cannot be tracked when using custom ad markup.</p>
-              <TextArea name="model.adm" label="Custom Ad Markup" handler={props.handleInput} value={props.model.adm}/>
+              <TextArea name="adm" label="Custom Ad Markup" context={props.context} value={props.adm}/>
             </div>
             }
-            {props.creativeType === 'auto' &&
+            {props.parentState.creativeType === 'auto' &&
             <p>BidScout will render a generic creative for you. Click events cannot be tracked when using a generic
               creative.</p>
             }
             <hr/>
-            <MultiSelect name="model.mimes" label="Mime Type" data={DisplayMimes} handler={props.handleInputMulti}
-                         value={props.model.mimes} currentState={props.currentState['mimes']} remove={props.remove}/>
+            <MultiSelect name="mimes" label="Mime Type" data={DisplayMimes} context={props.context}
+                         value={props.parentState.mimes}/>
             <hr/>
-            <MultiSelect name="model.attr" label="Attributes" data={Attributes} handler={props.handleInputMulti}
-                         value={props.model.attr} currentState={props.currentState['attr']} remove={props.remove}/>
+            <MultiSelect name="attr" label="Attributes" data={Attributes} context={props.context}
+                         value={props.parentState.attr}/>
             <hr/>
-            <MultiSelect name="model.btype" label="Banner Type" data={BannerTypes} handler={props.handleInputMulti}
-                         value={props.model.btype} currentState={props.currentState['btype']} remove={props.remove}/>
+            <MultiSelect name="btype" label="Banner Type" data={BannerTypes} context={props.context}
+                         value={props.parentState.btype}/>
           </div>
         ) : (
           <div>
-            <TextArea name="model.xml" label="XML" handler={props.handleInput} value={props.model.xml}/>
+            <TextArea name="xml" label="XML" context={props.context} value={props.parentState.xml}/>
           </div>
         )}
         <hr/>
         <p>Set your size to 0x0 for a creative that will be eligible for any size request.</p>
-        <TextBox name="model.w" label="Width" handler={props.handleInput} value={props.model.w}/>
-        <TextBox name="model.h" label="Height" handler={props.handleInput} value={props.model.h}/>
-        <TextBox name="model.iabCategories" label="IAB Categories" handler={props.handleInputArray}
-                 value={props.model.iabCategories}/>
-        <TextBox name="model.adDomain" label="Ad Domains" handler={props.handleInputArray}
-                 value={props.model.adDomain}/>
+        <TextBox name="w" label="Width" context={props.context} value={props.parentState.w}/>
+        <TextBox name="h" label="Height" context={props.context} value={props.parentState.h}/>
+        <TextBox name="iabCategories" label="IAB Categories" handler={props.handleInputArray}
+                 value={props.parentState.iabCategories}/>
+        <TextBox name="adDomain" label="Ad Domains" handler={props.handleInputArray}
+                 value={props.parentState.adDomain}/>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

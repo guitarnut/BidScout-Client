@@ -1,5 +1,6 @@
 import React from 'react'
 import {ControlLabel, FormControl, FormGroup} from 'react-bootstrap';
+import {handleInput} from "../../input/formInputHandler";
 
 const TextArea = (props)=>
   <form>
@@ -9,7 +10,7 @@ const TextArea = (props)=>
                    value={props.value}
                    componentClass="textarea"
                    placeholder={props.value}
-                   onChange={props.handler}/>
+                   onChange={handleInput.bind(props.context)}/>
       <FormControl.Feedback/>
     </FormGroup>
   </form>;
