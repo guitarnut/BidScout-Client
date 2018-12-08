@@ -11,6 +11,7 @@ import PanelDeals from "./components/panel_deals";
 import {storeAllCampaigns} from "../../store/actions";
 import {connect} from 'react-redux';
 import ModelCreative from "../../model/creative";
+import {buildCampaignModelFromState, buildCampaignStateFromResponse} from "../../builder/campaign";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -51,7 +52,19 @@ class _Campaign extends Component {
     limitsBidRate: 0,
     limitsBidLimit: 0,
     limitsImpressionLimit: 0,
-    limitsRevenueLimit: 0
+    limitsRevenueLimit: 0,
+
+    statsBids: 0,
+    statsNbr: 0,
+    statsImpressions: 0,
+    statsDuplicateImpressions: 0,
+    statsExpiredImpressions: 0,
+    statsInvalidImpressions: 0,
+    statsRevenue: 0,
+    statsEcpm: 0,
+    statsRequests: 0,
+    statsBidPriceTotal: 0,
+    statsClicks: 0
   };
 
   constructor() {
@@ -75,7 +88,9 @@ class _Campaign extends Component {
   getCampaign(id) {
     getCampaign(id)
       .then((data) => {
+        let campaign = buildCampaignStateFromResponse(data);
         this.setState({
+          ...campaign,
           failed: false,
           model: data,
           id: id
@@ -90,7 +105,8 @@ class _Campaign extends Component {
   }
 
   save = () => {
-    saveCampaign(this.state.model)
+    let model = buildCampaignModelFromState(this.state);
+    saveCampaign(model)
       .then(() => {
         getCampaignNames()
           .then((data) => {

@@ -13,6 +13,7 @@ import PanelDeals from "./components/panel_deals";
 import {storeAllCreatives} from "../../store/actions";
 import {connect} from 'react-redux';
 import PanelPlatforms from "./components/panel_platforms";
+import {buildCreativeStateFromResponse} from "../../builder/creative";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -68,6 +69,18 @@ class _Creative extends Component {
     limitsImpressionLimit: 0,
     limitsRevenueLimit: 0,
 
+    statsBids: 0,
+    statsNbr: 0,
+    statsImpressions: 0,
+    statsDuplicateImpressions: 0,
+    statsExpiredImpressions: 0,
+    statsInvalidImpressions: 0,
+    statsRevenue: 0,
+    statsEcpm: 0,
+    statsRequests: 0,
+    statsBidPriceTotal: 0,
+    statsClicks: 0,
+
     bidFrequency: ''
   };
 
@@ -92,9 +105,10 @@ class _Creative extends Component {
   getCreative(id) {
     getCreative(id)
       .then((data) => {
+        let model = buildCreativeStateFromResponse(data);
         this.setState({
+          ...model,
           failed: false,
-          model: data,
           updateCreativeId: id
         })
       })
@@ -121,14 +135,14 @@ class _Creative extends Component {
     if (this.state.saving) {
       return (
         <div>
-          <h1>Saving {this.state.model.name}</h1>
+          <h1>Saving {this.state.name}</h1>
         </div>
       )
     } else {
       return (
         <div>
           {this.state.updateCreativeId ? (
-            <h2>Edit {this.state.model.name}</h2>
+            <h2>Edit {this.state.name}</h2>
           ) : (
             <h2>Build Creative</h2>
           )}

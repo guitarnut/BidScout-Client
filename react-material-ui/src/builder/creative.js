@@ -1,16 +1,26 @@
-import ModelCampaign from "../model/campaign";
+import ModelCreative from "../model/creative";
 
-export function buildCampaignStateFromResponse(response) {
+export function buildCreativeStateFromResponse(response) {
   let data = {
     id: '',
     owner: '',
     name: '',
+    type: '',
+    w: '',
+    h: '',
     enabled: false,
-    cid: '',
-    publisher: '',
-    seat: '',
-    nurl: '',
-    impressionExpiry: 0,
+    iabCategories: [],
+    attr: [],
+    btype: [],
+    mimes: [],
+    adId: '',
+    crid: '',
+    adDomain: [],
+    creativeUrl: '',
+    adm: '',
+    xml: '',
+    minBid: '',
+    maxBid: '',
 
     requirementsUserMatch: false,
     requirementsSecure: false,
@@ -50,12 +60,22 @@ export function buildCampaignStateFromResponse(response) {
   data.id = response.id;
   data.owner = response.owner;
   data.name = response.name;
+  data.type = response.type;
+  data.w = response.w;
+  data.h = response.h;
   data.enabled = response.enabled;
-  data.cid = response.cid;
-  data.publisher = response.publisher;
-  data.seat = response.seat;
-  data.nurl = response.nurl;
-  data.impressionExpiry = response.impressionExpiry;
+  data.iabCategories = response.iabCategories;
+  data.attr = response.attr;
+  data.btype = response.btype;
+  data.mimes = response.mimes;
+  data.adId = response.adId;
+  data.crid = response.crid;
+  data.adDomain = response.adDomain;
+  data.creativeUrl = response.creativeUrl;
+  data.adm = response.adm;
+  data.xml = response.xml;
+  data.minBid = response.minBid;
+  data.maxBid = response.maxBid;
 
   data.requirementsUserMatch = response.requirements.userMatch;
   data.requirementsSecure = response.requirements.secure;
@@ -94,17 +114,27 @@ export function buildCampaignStateFromResponse(response) {
   return data;
 }
 
-export function buildCampaignModelFromState(state) {
-  let model = ModelCampaign;
+export function buildCreativeModelFromState(state) {
+  let model = ModelCreative;
   model.id = state.id;
   model.owner = state.owner;
   model.name = state.name;
+  model.type = state.type;
+  model.w = state.w;
+  model.h = state.h;
   model.enabled = state.enabled;
-  model.cid = state.cid;
-  model.publisher = state.publisher;
-  model.seat = state.seat;
-  model.nurl = state.nurl;
-  model.impressionExpiry = state.impressionExpiry;
+  model.iabCategories = state.iabCategories;
+  model.attr = state.attr;
+  model.btype = state.btype;
+  model.mimes = state.mimes;
+  model.adId = state.adId;
+  model.crid = state.crid;
+  model.adDomain = state.adDomain;
+  model.creativeUrl = state.creativeUrl;
+  model.adm = state.adm;
+  model.xml = state.xml;
+  model.minBid = state.minBid;
+  model.maxBid = state.maxBid;
 
   model.requirements.userMatch = state.requirementsUserMatch;
   model.requirements.secure = state.requirementsSecure;

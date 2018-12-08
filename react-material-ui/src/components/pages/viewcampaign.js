@@ -125,14 +125,14 @@ class _ViewCampaign extends Component {
   }
 
   removeCreativeFromCampaign(v) {
-    removeCreativeFromCampaign(this.state.campaign.id, v)
+    removeCreativeFromCampaign(this.state.id, v)
       .then(() => {
         this.refreshMenus();
       });
   }
 
   edit() {
-    this.props.history.push('/campaign/edit/' + this.state.campaign.id);
+    this.props.history.push('/campaign/edit/' + this.state.id);
   }
 
   addCreativeToCampaign(v) {
@@ -167,7 +167,7 @@ class _ViewCampaign extends Component {
   }
 
   remove() {
-    deleteCampaign(this.state.campaign.id)
+    deleteCampaign(this.state.id)
       .then(() => {
         getCampaignNames()
           .then((data) => {

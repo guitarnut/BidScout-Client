@@ -11,6 +11,8 @@ import {withRouter} from 'react-router-dom';
 import Deals from "./components/deals";
 import {connect} from "react-redux";
 import {storeAllCreatives} from "../../store/actions";
+import {buildCampaignStateFromResponse} from "../../builder/campaign";
+import {buildCreativeStateFromResponse} from "../../builder/creative";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -21,14 +23,67 @@ const mapDispatchToProps = dispatch => {
 class _ViewCreative extends Component {
   state = {
     allCreatives: {},
-    creative: ModelCreative,
+
+    id: '',
+    owner: '',
+    name: '',
+    type: '',
+    w: '',
+    h: '',
+    enabled: false,
+    iabCategories: [],
+    attr: [],
+    btype: [],
+    mimes: [],
+    adId: '',
+    crid: '',
+    adDomain: [],
+    creativeUrl: '',
+    adm: '',
+    xml: '',
+    minBid: '',
+    maxBid: '',
+
+    requirementsUserMatch: false,
+    requirementsSecure: false,
+    requirementsPublisherWhitelist: [],
+    requirementsDomainWhitelist: [],
+    requirementsBundleWhitelist: [],
+    requirementsPublisherBlacklist: [],
+    requirementsDomainBlacklist: [],
+    requirementsBundleBlacklist: [],
+    requirementsDealIds: [],
+    requirementsMobile: false,
+    requirementsDesktop: false,
+    requirementsInapp: false,
+    requirementsCtv: false,
+    requirementsStartDate: null,
+    requirementsEndDate: null,
+
+    limitsRequestLimit: 0,
+    limitsBidRate: 0,
+    limitsBidLimit: 0,
+    limitsImpressionLimit: 0,
+    limitsRevenueLimit: 0,
+
+    statsBids: 0,
+    statsNbr: 0,
+    statsImpressions: 0,
+    statsDuplicateImpressions: 0,
+    statsExpiredImpressions: 0,
+    statsInvalidImpressions: 0,
+    statsRevenue: 0,
+    statsEcpm: 0,
+    statsRequests: 0,
+    statsBidPriceTotal: 0,
+    statsClicks: 0,
+
     campaign: null,
     campaignLink: ''
   };
 
   constructor() {
     super();
-
   }
 
   componentDidMount() {
@@ -42,8 +97,9 @@ class _ViewCreative extends Component {
       });
     getCreative(id)
       .then(data => {
+        let creative = buildCreativeStateFromResponse(data);
         this.setState({
-          creative: data
+          ...creative
         });
         getCampaignWithCreative(id)
           .then(data => {
@@ -60,7 +116,7 @@ class _ViewCreative extends Component {
   }
 
   edit() {
-    this.props.history.push('/creative/edit/' + this.state.creative.id);
+    this.props.history.push('/creative/edit/' + this.state.id);
   }
 
   view(v) {
@@ -68,7 +124,7 @@ class _ViewCreative extends Component {
   }
 
   remove() {
-    deleteCreative(this.state.creative.id)
+    deleteCreative(this.state.id)
       .then(() => {
         getCreativeNames()
           .then((data) => {
@@ -93,7 +149,7 @@ class _ViewCreative extends Component {
           )
         })}
 
-        <h2>Creative {this.state.creative.name} ({this.state.creative.type})</h2>
+        <h2>Creative {this.state.name} ({this.state.type})</h2>
         <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
           onClick={this.remove.bind(this)}>Delete</a></p>
 
@@ -102,13 +158,13 @@ class _ViewCreative extends Component {
         ) : (
           <p>No parent campaign aligned with this creative.</p>
         )}
-        <Stats data={this.state.creative.statistics}/>
-        <CreativeProps data={this.state.creative}/>
-        <Lists data={this.state.creative.requirements}/>
-        <Deals data={this.state.creative.requirements}/>
-        <Platforms data={this.state.creative.requirements}/>
-        <Flight data={this.state.creative}/>
-        <Limits data={this.state.creative.limits}/>
+        <Stats parentState={this.state}/>
+        <CreativeProps parentState={this.state}/>
+        <Lists parentState={this.state}/>
+        <Deals parentState={this.state}/>
+        <Platforms parentState={this.state}/>
+        <Flight parentState={this.state}/>
+        <Limits parentState={this.state}/>
       </div>
     )
   }
