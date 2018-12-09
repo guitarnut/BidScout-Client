@@ -207,37 +207,40 @@ export const WrapperModel = {
 };
 
 export const InLineModel = {
-    AdSystem: AdSystemModel
-    //AdTitle: AdTitleModel
-    //Impression: ImpressionModel,
-    // Category: {
-    //   authority: null,
-    //   value: null
-    // },
-    // Description: {
-    //   value: null
-    // },
-    // Advertiser: {
-    //   value: null
-    // },
-    //Pricing: PricingModel,
-    // Survey: {
-    //   type: null,
-    //   value: null
-    // },
-    //Error: ErrorModel,
-    //ViewableImpression: ViewableImpressionModel,
-    //AdVerifications: [],
-    //Extensions: [],
-    //Creatives: []
+    AdSystem: AdSystemModel,
+    AdTitle: AdTitleModel,
+    Impression: ImpressionModel,
+    Category: {
+      authority: null,
+      value: null
+    },
+    Description: {
+      value: null
+    },
+    Advertiser: {
+      value: null
+    },
+    Pricing: PricingModel,
+    Survey: {
+      type: null,
+      value: null
+    },
+    Error: ErrorModel,
+    ViewableImpression: ViewableImpressionModel,
+    AdVerifications: [],
+    Extensions: [],
+    Creatives: []
 };
 
 export const VASTModel = {
+  version: null,
   Ad: {
-    InLine: InLineModel
-    //Wrapper: WrapperModel
+    id: null,
+    sequence: null,
+    InLine: InLineModel,
+    Wrapper: WrapperModel
+  },
+  Error: {
+    value: null
   }
-  // Error: {
-  //   value: null
-  // }
 };
