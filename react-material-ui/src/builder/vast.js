@@ -1,5 +1,13 @@
 import ModelCampaign from "../model/campaign";
-import {CreativeModel, LinearModel, MediaFileModel, VASTModel} from "../model/vast";
+import {
+  AdModel, AdParametersModel,
+  AdSystemModel, AdTitleModel,
+  CreativeModel, CreativesModel, InLineModel,
+  LinearModel,
+  MediaFileModel,
+  UniversalAdIdModel,
+  VASTModel
+} from "../model/vast";
 
 export function buildVastStateFromResponse(response) {
   let data = {
@@ -50,50 +58,54 @@ export function buildVastModelFromState(state) {
   let model = VASTModel;
   model.version = state.vastVersion;
 
+  model.Ad = AdModel;
   model.Ad.id = state.vastAdId;
   model.Ad.sequence = state.vastAdSequence;
 
+  model.Ad.InLine = InLineModel;
+  model.Ad.InLine.AdSystem = AdSystemModel;
+  model.Ad.InLine.AdTitle = AdTitleModel;
   model.Ad.InLine.AdSystem.value = state.vastAdInLineAdSystemValue;
   model.Ad.InLine.AdTitle.value = state.vastAdInLineAdTitle;
 
-  let creative = CreativeModel;
+  // let universalAdId = UniversalAdIdModel;
+  // creative.UniversalAdId.idRegistry = state.vastAdInLineCreativesCreativeUniversalAdIdIdRegistry;
+  // creative.UniversalAdId.idValue = state.vastAdInLineCreativesCreativeUniversalAdIdIdValue;
+  // creative.UniversalAdId.value = state.vastAdInLineCreativesCreativeUniversalAdIdValue;
 
+  let mediaFile = MediaFileModel;
+  mediaFile.id = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId;
+  mediaFile.delivery = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery;
+  mediaFile.type = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType;
+  mediaFile.bitrate = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate;
+  mediaFile.minBitrate = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate;
+  mediaFile.maxBitrate = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate;
+  mediaFile.width = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth;
+  mediaFile.height = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight;
+  mediaFile.scalable = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable;
+  mediaFile.maintainAspectRatio = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio;
+  mediaFile.codec = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec;
+  mediaFile.apiFramework = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework;
+  mediaFile.value = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue;
+
+  let linear = LinearModel;
+  linear.skipoffset = state.vastAdInLineCreativesCreativeLinearSkipoffset;
+  linear.duration = state.vastAdInLineCreativesCreativeLinearDuration;
+
+  linear.AdParameters = AdParametersModel;
+  linear.AdParameters.xmlEncoded = state.vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded;
+  linear.AdParameters.value = state.vastAdInLineCreativesCreativeLinearAdParametersValue;
+
+  linear.MediaFiles = [mediaFile];
+
+  let creative = CreativeModel;
   creative.id = state.vastAdInLineCreativesCreativeId;
   creative.sequence = state.vastAdInLineCreativesCreativeSequence;
   creative.adId = state.vastAdInLineCreativesCreativeAdId;
   creative.apiFramework = state.vastAdInLineCreativesCreativeApiFramework;
-  creative.UniversalAdId.idRegistry = state.vastAdInLineCreativesCreativeUniversalAdIdIdRegistry;
-  creative.UniversalAdId.idValue = state.vastAdInLineCreativesCreativeUniversalAdIdIdValue;
-  creative.UniversalAdId.value = state.vastAdInLineCreativesCreativeUniversalAdIdValue;
-
-  let linear = LinearModel;
-
-  linear.skipoffset = state.vastAdInLineCreativesCreativeLinearSkipoffset;
-  linear.duration = state.vastAdInLineCreativesCreativeLinearDuration;
-  linear.AdParameters.xmlEncoded = state.vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded;
-  linear.AdParameters.value = state.vastAdInLineCreativesCreativeLinearAdParametersValue;
-
-  let mediaFile = MediaFileModel;
-
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework;
-  mediaFile.attr = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue;
-
-  linear.MediaFiles.push(mediaFile);
   creative.Linear = linear;
-  model.Ad.InLine.Creatives.push(creative);
 
-  delete model.Ad.InLine.AdVerifications;
+  model.Ad.InLine.Creatives = [creative];
 
   return model;
 }

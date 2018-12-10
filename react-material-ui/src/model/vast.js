@@ -1,158 +1,155 @@
 export const ViewableImpressionModel = {
-  Viewable: {
-    value: null
-  },
-  NotViewable: {
-    value: null
-  },
-  ViewUndetermined: {
-    value: null
-  }
+  Viewable: null,
+  NotViewable: null,
+  ViewUndetermined: null
+};
+
+export const ViewableModel = {
+  value: null
+};
+
+export const NotViewableModel = {
+  value: null
+};
+
+export const ViewUndeterminedModel = {
+  value: null
 };
 
 export const VerificationModel = {
-    vendor: null,
-    JavaScriptResource: {
-      apiFramework: null,
-      value: null
-    },
-    FlashResource: {
-      apiFramework: null,
-      value: null
-    },
-    ViewableImpression: {
-      id: null,
-      value: null
-    }
+  vendor: null,
+  JavaScriptResource: null,
+  FlashResource: null,
+  ViewableImpression: null
+};
+
+export const JavaScriptResourceModel = {
+  apiFramework: null,
+  value: null
+};
+
+export const FlashResourceModel = {
+  apiFramework: null,
+  value: null
 };
 
 export const ExtensionModel = {
-  Extension: {
-    type: null,
-    value: null
-  }
+  type: null,
+  value: null
 };
 
 export const CreativeExtensionModel = {
-  CreativeExtension: {
-    type: null,
-    value: null
-  }
+  type: null,
+  value: null
 };
 
 export const MediaFileModel = {
-  MediaFile: {
-    id: null,
-    delivery: null,
-    type: null,
-    bitrate: null,
-    minBitrate: null,
-    maxBitrate: null,
-    width: null,
-    height: null,
-    scalable: null,
-    mantainAspectRatio: null,
-    codec: null,
-    apiFramework: null,
-    value: null
-  }
+  id: null,
+  delivery: null,
+  type: null,
+  bitrate: null,
+  minBitrate: null,
+  maxBitrate: null,
+  width: null,
+  height: null,
+  scalable: null,
+  maintainAspectRatio: null,
+  codec: null,
+  apiFramework: null,
+  value: null
 };
 
 export const MezzanineModel = {
-  Mezzanine: {
-    type: null,
-    value: null
-  }
+  type: null,
+  value: null
 };
 
 export const InteractiveCreativeFile = {
-  InteractiveCreative: {
-    type: null,
-    value: null
-  }
+  type: null,
+  value: null
 };
 
 export const ClickThroughModel = {
-  ClickThrough: {
-    id: null,
-    value: null
-  }
+  id: null,
+  value: null
 };
 
 export const ClickTrackingModel = {
-  ClickTracking: {
-    id: null,
-    value: null
-  }
+  id: null,
+  value: null
 };
 
 export const CustomClickModel = {
-  CustomClick: {
-    id: null,
-    value: null
-  }
+  id: null,
+  value: null
 };
 
 export const TrackingModel = {
-  Tracking: {
-    event: null,
-    offset: null,
-    value: null
-  }
+  event: null,
+  offset: null,
+  value: null
 };
 
 export const IconModel = {
-  Icon: {
-    program: null,
-    width: null,
-    height: null,
-    xPosition: null,
-    yPosition: null,
-    duration: null,
-    offset: null,
-    apiFramework: null,
-    pxratio: null,
-    StaticResource: {
-      creativeType: null,
-      value: null
-    },
-    IFrameResource: {
-      value: null
-    },
-    HTMLResource: {
-      value: null
-    },
-    IconClicks: [],
-    IconViewTracking: {
-      value: null
-    }
-  }
+  program: null,
+  width: null,
+  height: null,
+  xPosition: null,
+  yPosition: null,
+  duration: null,
+  offset: null,
+  apiFramework: null,
+  pxratio: null,
+  StaticResource: null,
+  IFrameResource: null,
+  HTMLResource: null,
+  IconClicks: null,
+  IconViewTracking: null
+};
+
+export const StaticResourceModel = {
+  creativeType: null,
+  value: null
+};
+
+export const IFrameResourceModel = {
+  value: null
+};
+
+export const HTMLResourceModel = {
+  value: null
+};
+
+export const IconViewTrackingModel = {
+  value: null
 };
 
 export const IconClickThroughModel = {
-  IconClickThrough: {
-    value: null
-  }
+  value: null
 };
 
 export const IconClickTrackingModel = {
-  IconClickTracking: {
-    id: null,
-    value: null
-  }
+  id: null,
+  value: null
 };
 
 export const LinearModel = {
   skipoffset: null,
   Duration: null,
-  AdParameters: {
-    xmlEncoded: null,
-    value: null
-  },
-  MediaFiles: [],
-  VideoClicks: [],
-  TrackingEvents: [],
-  Icons: []
+  AdParameters: null,
+  MediaFiles: null,
+  VideoClicks: null,
+  TrackingEvents: null,
+  Icons: null
+};
+
+export const AdParametersModel = {
+  xmlEncoded: null,
+  value: null
+};
+
+export const CreativesModel = {
+  value: null
 };
 
 export const CreativeModel = {
@@ -160,13 +157,15 @@ export const CreativeModel = {
   sequence: null,
   adId: null,
   apiFramework: null,
-  UniversalAdId: {
-    idRegistry: null,
-    idValue: null,
-    value: null
-  },
-  CreativeExtensions: [],
-  Linear: LinearModel
+  UniversalAdId: null,
+  CreativeExtensions: null,
+  Linear: null
+};
+
+export const UniversalAdIdModel = {
+  idRegistry: null,
+  idValue: null,
+  value: null
 };
 
 export const ImpressionModel = {
@@ -194,53 +193,62 @@ export const AdTitleModel = {
 };
 
 export const WrapperModel = {
-    Impression: ImpressionModel,
-    VASTAdTagUri: {
-      value: null
-    },
-    AdSystem: AdSystemModel,
-    Pricing: PricingModel,
-    Error: ErrorModel,
-    AdTitle: AdTitleModel,
-    ViewableImpression: ViewableImpressionModel,
-    AdVerifications: []
+  Impression: null,
+  VASTAdTagUri: null,
+  AdSystem: null,
+  Pricing: null,
+  Error: null,
+  AdTitle: null,
+  ViewableImpression: null,
+  AdVerifications: null
+};
+
+export const VASTAdTagUriModel = {
+  value: null
 };
 
 export const InLineModel = {
-    AdSystem: AdSystemModel,
-    AdTitle: AdTitleModel,
-    Impression: ImpressionModel,
-    Category: {
-      authority: null,
-      value: null
-    },
-    Description: {
-      value: null
-    },
-    Advertiser: {
-      value: null
-    },
-    Pricing: PricingModel,
-    Survey: {
-      type: null,
-      value: null
-    },
-    Error: ErrorModel,
-    ViewableImpression: ViewableImpressionModel,
-    AdVerifications: [],
-    Extensions: [],
-    Creatives: []
+  AdSystem: null,
+  AdTitle: null,
+  Impression: null,
+  Category: null,
+  Description: null,
+  Advertiser: null,
+  Pricing: null,
+  Survey: null,
+  Error: null,
+  ViewableImpression: null,
+  AdVerifications: null,
+  Extensions: null,
+  Creatives: null
+};
+
+export const CategoryModel = {
+  authority: null,
+  value: null
+};
+
+export const DescriptionModel = {
+  value: null
+};
+
+export const AdvertiserModel = {
+  value: null
+};
+
+export const SurveyModel = {
+  type: null,
+  value: null
+};
+
+export const AdModel = {
+  id: null,
+  InLine: null,
+  Wrapper: null
 };
 
 export const VASTModel = {
   version: null,
-  Ad: {
-    id: null,
-    sequence: null,
-    InLine: InLineModel,
-    Wrapper: WrapperModel
-  },
-  Error: {
-    value: null
-  }
+  Ad: null,
+  Error: null
 };
