@@ -1,8 +1,11 @@
-import ModelCampaign from "../model/campaign";
 import {
-  AdModel, AdParametersModel,
-  AdSystemModel, AdTitleModel,
-  CreativeModel, CreativesModel, InLineModel,
+  AdModel,
+  AdParametersModel,
+  AdSystemModel,
+  AdTitleModel,
+  CreativeModel,
+  CreativesModel,
+  InLineModel,
   LinearModel,
   MediaFileModel,
   UniversalAdIdModel,
@@ -11,50 +14,49 @@ import {
 
 export function buildVastStateFromResponse(response) {
   let data = {
-    id: '',
-    name: '',
+    id: response.id,
+    name: response.name,
     type: 'InLine',
 
-    vastVersion: '',
+    vastVersion: response.vast.version,
 
-    vastAdId: '',
-    vastAdSequence: '',
+    vastAdId: response.vast.Ad.id,
+    vastAdSequence: response.vast.Ad.sequence,
 
-    vastAdInLineAdSystemValue: '',
-    vastAdInLineAdTitle: '',
+    vastAdInLineAdSystemValue: response.vast.Ad.InLine.AdSystem.value,
+    vastAdInLineAdTitle: response.vast.Ad.InLine.AdTitle.value,
 
-    vastAdInLineCreativesCreativeId: '',
-    vastAdInLineCreativesCreativeSequence: '',
-    vastAdInLineCreativesCreativeAdId: '',
-    vastAdInLineCreativesCreativeApiFramework: '',
-    vastAdInLineCreativesCreativeUniversalAdId: '',
+    vastAdInLineCreativesCreativeId: response.vast.Ad.InLine.Creatives[0].id,
+    vastAdInLineCreativesCreativeSequence: response.vast.Ad.InLine.Creatives[0].sequence,
+    vastAdInLineCreativesCreativeAdId: response.vast.Ad.InLine.Creatives[0].adId,
+    vastAdInLineCreativesCreativeApiFramework: response.vast.Ad.InLine.Creatives[0].apiFramework,
+    vastAdInLineCreativesCreativeUniversalAdIdIdRegistry: response.vast.Ad.InLine.Creatives[0].UniversalAdId.registry,
+    vastAdInLineCreativesCreativeUniversalAdIdIdValue: response.vast.Ad.InLine.Creatives[0].UniversalAdId.idValue,
+    vastAdInLineCreativesCreativeUniversalAdIdValue: response.vast.Ad.InLine.Creatives[0].UniversalAdId.value,
 
-    vastAdInLineCreativesCreativeLinearSkipoffset: '',
-    vastAdInLineCreativesCreativeLinearDuration: '',
-    vastAdInLineCreativesCreativeLinearAdParameters: '',
-    vastAdInLineCreativesCreativeLinearMediaFiles: '',
-    vastAdInLineCreativesCreativeLinearVideoClicks: '',
-    vastAdInLineCreativesCreativeLinearTrackingEvents: '',
-    vastAdInLineCreativesCreativeLinearIcons: '',
+    vastAdInLineCreativesCreativeLinearSkipoffset: response.vast.Ad.InLine.Creatives[0].Linear.skipoffset,
+    vastAdInLineCreativesCreativeLinearDuration: response.vast.Ad.InLine.Creatives[0].Linear.duration,
+    vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded: response.vast.Ad.InLine.Creatives[0].Linear.AdParameters.xmlEncoded,
+    vastAdInLineCreativesCreativeLinearAdParametersValue: response.vast.Ad.InLine.Creatives[0].Linear.AdParameters.value,
 
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec: '',
-    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework: ''
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].id,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].delivery,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].type,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].bitrate,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].minBitrate,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].maxBitrate,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].width,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].height,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].scalable,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].maintainAspectRatio,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].codec,
+    vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework: response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].apiFramework
   };
 
   return data;
 }
 
-export function buildVastModelFromState(state) {
+export function buildVastLinearAdModelFromState(state) {
   let model = VASTModel;
   model.version = state.vastVersion;
 
@@ -67,11 +69,6 @@ export function buildVastModelFromState(state) {
   model.Ad.InLine.AdTitle = AdTitleModel;
   model.Ad.InLine.AdSystem.value = state.vastAdInLineAdSystemValue;
   model.Ad.InLine.AdTitle.value = state.vastAdInLineAdTitle;
-
-  // let universalAdId = UniversalAdIdModel;
-  // creative.UniversalAdId.idRegistry = state.vastAdInLineCreativesCreativeUniversalAdIdIdRegistry;
-  // creative.UniversalAdId.idValue = state.vastAdInLineCreativesCreativeUniversalAdIdIdValue;
-  // creative.UniversalAdId.value = state.vastAdInLineCreativesCreativeUniversalAdIdValue;
 
   let mediaFile = MediaFileModel;
   mediaFile.id = state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId;
@@ -92,9 +89,11 @@ export function buildVastModelFromState(state) {
   linear.skipoffset = state.vastAdInLineCreativesCreativeLinearSkipoffset;
   linear.duration = state.vastAdInLineCreativesCreativeLinearDuration;
 
-  linear.AdParameters = AdParametersModel;
-  linear.AdParameters.xmlEncoded = state.vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded;
-  linear.AdParameters.value = state.vastAdInLineCreativesCreativeLinearAdParametersValue;
+  if(state.vastAdInLineCreativesCreativeLinearAdParametersValue.length > 0) {
+    linear.AdParameters = AdParametersModel;
+    linear.AdParameters.xmlEncoded = state.vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded;
+    linear.AdParameters.value = state.vastAdInLineCreativesCreativeLinearAdParametersValue;
+  }
 
   linear.MediaFiles = [mediaFile];
 
@@ -104,6 +103,14 @@ export function buildVastModelFromState(state) {
   creative.adId = state.vastAdInLineCreativesCreativeAdId;
   creative.apiFramework = state.vastAdInLineCreativesCreativeApiFramework;
   creative.Linear = linear;
+
+  if (state.vastAdInLineCreativesCreativeUniversalAdIdValue.length > 0) {
+    let universalAdId = UniversalAdIdModel;
+    universalAdId.idRegistry = state.vastAdInLineCreativesCreativeUniversalAdIdIdRegistry;
+    universalAdId.idValue = state.vastAdInLineCreativesCreativeUniversalAdIdIdValue;
+    universalAdId.value = state.vastAdInLineCreativesCreativeUniversalAdIdValue;
+    creative.UniversalAdId = universalAdId;
+  }
 
   model.Ad.InLine.Creatives = [creative];
 

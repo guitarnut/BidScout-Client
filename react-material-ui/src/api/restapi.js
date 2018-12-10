@@ -182,6 +182,18 @@ export function getAllXml() {
   return postRequest(host + '/api/xml/all/' + window.sessionStorage.getItem('userid'));
 }
 
+export function getXml(id) {
+  return postRequest(host + '/api/xml/get/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function getVast(id) {
+  return postRequest(host + '/vast/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function deleteXml(id) {
+  return postRequest(host + '/api/xml/delete/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
 export function addCreativeToCampaign(campaignId, creativeId) {
   return postRequest(host + '/api/campaign/add/creative/' + window.sessionStorage.getItem('userid') + '/' + campaignId + '/' + creativeId);
 }

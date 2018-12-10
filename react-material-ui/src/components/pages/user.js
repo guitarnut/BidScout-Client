@@ -40,7 +40,7 @@ class _User extends Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.user
+      ...this.props.user
     })
   }
 
@@ -73,7 +73,7 @@ class _User extends Component {
 
 const User = connect(
   state => ({
-    user: state.user
+    ...state
   }), mapDispatchToProps
 )(_User);
 

@@ -67,7 +67,7 @@ class _ViewBidder extends Component {
             {Object.keys(this.state.xml).map((v) => {
               return (
                 <p><a href={'/xml/view/' + v}>{this.state.xml[v]}</a> - <a target='_blank'
-                                                                           href={'//localhost:8080/vast/' + this.state.user.id + '/' + v}>View</a>
+                                                                           href={'//localhost:8080/vast/' + this.state.user.id + '/' + v}>View Raw</a>
                 </p>
               )
             })}

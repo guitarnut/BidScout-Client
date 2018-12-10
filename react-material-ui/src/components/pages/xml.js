@@ -3,11 +3,18 @@ import SelectList from "../ui/selectlist";
 import {VASTType} from "../../model/vasttype";
 import TextBox from "../ui/textfield";
 import UIButton from "../ui/button";
-import {saveXML} from "../../api/restapi";
-import {VASTModel} from "../../model/vast";
-import {buildVastModelFromState} from "../../builder/vast";
+import {getAllXml, getXml, saveXML} from "../../api/restapi";
+import {buildVastLinearAdModelFromState, buildVastModelFromState, buildVastStateFromResponse} from "../../builder/vast";
+import {storeAllXml} from "../../store/actions";
+import {connect} from "react-redux";
 
-class XML extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    storeAllXml: xml => dispatch(storeAllXml(xml))
+  }
+};
+
+class _XML extends Component {
 
   componentWillMount() {
     this.setState({
@@ -52,13 +59,35 @@ class XML extends Component {
       vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework: '',
       vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue: ''
     })
+
+    const {id} = this.props.match.params;
+    if (id !== undefined) {
+      this.getXml(id);
+    }
+  }
+
+  getXml(id) {
+    getXml(id)
+      .then((data)=>{
+        let state = buildVastStateFromResponse(data);
+        this.setState({
+          ...state
+        })
+      })
   }
 
   save() {
     let data ={};
-    data['vast'] = buildVastModelFromState(this.state);
+    data['vast'] = buildVastLinearAdModelFromState(this.state);
     data['name'] = this.state.name;
-    saveXML(data);
+    saveXML(data)
+      .then(() => {
+        getAllXml()
+          .then((data) => {
+            this.props.storeAllXml(data);
+            this.props.history.push('/bidder')
+          });
+      });
   }
 
   render() {
@@ -172,5 +201,7 @@ class XML extends Component {
     )
   }
 }
+
+const XML = connect(null, mapDispatchToProps)(_XML);
 
 export default XML;

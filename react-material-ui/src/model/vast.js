@@ -148,10 +148,6 @@ export const AdParametersModel = {
   value: null
 };
 
-export const CreativesModel = {
-  value: null
-};
-
 export const CreativeModel = {
   id: null,
   sequence: null,

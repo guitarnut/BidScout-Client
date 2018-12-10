@@ -7,6 +7,7 @@ import Creative from './components/pages/creative';
 import ViewCampaign from './components/pages/viewcampaign';
 import ViewCreative from './components/pages/viewcreative';
 import ViewAuction from './components/pages/viewauction';
+import ViewXml from './components/pages/viewxml';
 import LoginForm from './components/pages/login';
 import ViewErrors from './components/pages/viewerrors';
 import Error from './components/pages/error';
@@ -41,9 +42,11 @@ class App extends Component {
               <Route path='/xml' exact component={XML}/>
               <Route path='/campaign/edit/:id' exact component={Campaign}/>
               <Route path='/creative/edit/:id' exact component={Creative}/>
+              <Route path='/xml/edit/:id' exact component={XML}/>
               <Route path='/bidder' exact component={ViewBidder}/>
               <Route path='/campaign/view/:id' component={ViewCampaign}/>
               <Route path='/creative/view/:id' component={ViewCreative}/>
+              <Route path='/xml/view/:id' exact component={ViewXml}/>
               <Route path='/auction/:id' exact component={ViewAuction}/>
               <Route path='/auction' exact component={ViewAuction}/>
               <Route path='/biderrors' exact component={ViewErrors}/>

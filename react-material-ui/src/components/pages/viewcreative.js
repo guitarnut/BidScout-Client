@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ModelCreative from "../../model/creative";
 import {deleteCreative, getCampaignWithCreative, getCreative, getCreativeNames} from "../../api/restapi";
 import Limits from "./components/limits";
 import Platforms from "./components/platforms";
@@ -11,7 +10,6 @@ import {withRouter} from 'react-router-dom';
 import Deals from "./components/deals";
 import {connect} from "react-redux";
 import {storeAllCreatives} from "../../store/actions";
-import {buildCampaignStateFromResponse} from "../../builder/campaign";
 import {buildCreativeStateFromResponse} from "../../builder/creative";
 
 const mapDispatchToProps = dispatch => {
