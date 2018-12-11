@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {host} from "../../api/restapi";
 
 class _ViewBidder extends Component {
   state = {
@@ -67,7 +68,7 @@ class _ViewBidder extends Component {
             {Object.keys(this.state.xml).map((v) => {
               return (
                 <p><a href={'/xml/view/' + v}>{this.state.xml[v]}</a> - <a target='_blank'
-                                                                           href={'//localhost:8080/vast/' + this.state.user.id + '/' + v}>View Raw</a>
+                                                                           href={host + '/vast/' + this.state.user.id + '/' + v}>View Raw</a>
                 </p>
               )
             })}
