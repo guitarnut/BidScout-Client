@@ -11,6 +11,7 @@ import Deals from "./components/deals";
 import {connect} from "react-redux";
 import {storeAllCreatives} from "../../store/actions";
 import {buildCreativeStateFromResponse} from "../../builder/creative";
+import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -148,15 +149,17 @@ class _ViewCreative extends Component {
         })}
 
         <h2>Creative {this.state.name} ({this.state.type})</h2>
-        <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
-          onClick={this.remove.bind(this)}>Delete</a></p>
-
+        <hr/>
+        <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
+          onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
         {this.state.campaign !== null ? (
           <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
         ) : (
           <p>No parent campaign aligned with this creative.</p>
         )}
+        <hr/>
         <Stats parentState={this.state}/>
+        <hr/>
         <CreativeProps parentState={this.state}/>
         <Lists parentState={this.state}/>
         <Deals parentState={this.state}/>

@@ -3,7 +3,7 @@ import Stat from '../../ui/stat'
 
 function Stats(props) {
   return (
-    <div>
+    <div className={'row'}>
       <Stat title="Requests" value={props.parentState.statsRequests}/>
       <Stat title="Bids" value={props.parentState.statsBids}/>
       <Stat title="NBR" value={props.parentState.statsNbr}/>

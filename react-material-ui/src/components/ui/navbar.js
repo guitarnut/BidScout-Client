@@ -20,7 +20,7 @@ const _NavBar = ({user, loggedIn}) =>
             Creative
           </NavItem>
           <NavItem eventKey={3} href="/xml">
-            XML
+            VAST
           </NavItem>
           <NavItem eventKey={4} href="/bidder">
             Bidder

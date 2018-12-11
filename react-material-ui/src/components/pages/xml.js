@@ -58,7 +58,7 @@ class _XML extends Component {
       vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec: '',
       vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework: '',
       vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue: ''
-    })
+    });
 
     const {id} = this.props.match.params;
     if (id !== undefined) {
@@ -80,6 +80,7 @@ class _XML extends Component {
     let data ={};
     data['vast'] = buildVastLinearAdModelFromState(this.state);
     data['name'] = this.state.name;
+    data['id'] = this.state.id;
     saveXML(data)
       .then(() => {
         getAllXml()
@@ -93,7 +94,7 @@ class _XML extends Component {
   render() {
     return (
       <div>
-        <h2>XML</h2>
+        <h2>Build VAST XML</h2>
         <TextBox name="name" label="Name" context={this} value={this.state.name}/>
         <TextBox name="vastVersion" label="Vast Version" context={this} value={this.state.vastVersion}/>
         <TextBox name="vastAdId" label="Ad Id" context={this} value={this.state.vastAdId}/>

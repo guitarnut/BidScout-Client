@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
-import {deleteXml, getAllXml, getVast, getXml} from "../../api/restapi";
+import {deleteXml, getAllXml, getVast, host} from "../../api/restapi";
 import {withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import {storeAllXml} from "../../store/actions";
+import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
+
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -14,7 +16,8 @@ class _ViewXml extends Component {
   state = {
     vast: '',
     id: '',
-    failed: false
+    failed: false,
+    user: {}
   };
 
   constructor() {
@@ -28,7 +31,8 @@ class _ViewXml extends Component {
       .then(data => {
         this.setState({
           vast: data,
-          id: id
+          id: id,
+          user: this.props.user
         })
       });
   }
@@ -57,8 +61,12 @@ class _ViewXml extends Component {
     return (
       <div>
         <h2>XML {this.state.name}</h2>
-        <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
-          onClick={this.remove.bind(this)}>Delete</a></p>
+        <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
+          onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
+        <p>VAST Tag URI: <a target='_blank'
+                            href={host + '/vast/' + this.state.user.id + '/' + this.state.id}>{host + '/vast/' + this.state.user.id + '/' + this.state.id}
+                            </a>
+        </p>
         <pre lang="xml"><code>
           {decodeURIComponent(this.state.vast.replace(new RegExp('>', 'g'), '>\n'))}
         </code></pre>
@@ -67,6 +75,8 @@ class _ViewXml extends Component {
   }
 }
 
-const ViewXml = connect(null, mapDispatchToProps)(_ViewXml);
+const ViewXml = connect(state => ({
+  user: state.user
+}), mapDispatchToProps)(_ViewXml);
 
 export default withRouter(ViewXml);

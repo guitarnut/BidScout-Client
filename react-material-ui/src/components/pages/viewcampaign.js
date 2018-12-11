@@ -20,6 +20,7 @@ import Deals from "./components/deals";
 import Platforms from "./components/platforms";
 import Flight from "./components/flight";
 import Limits from "./components/limits";
+import {FaRegTrashAlt, FaRegEdit} from 'react-icons/fa';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -136,14 +137,14 @@ class _ViewCampaign extends Component {
   }
 
   addCreativeToCampaign(v) {
-    addCreativeToCampaign(this.state.campaign.id, v)
+    addCreativeToCampaign(this.state.id, v)
       .then(() => {
         this.refreshMenus();
       });
   }
 
   refreshMenus() {
-    getCreativeNamesByCampaign(this.state.campaign.id)
+    getCreativeNamesByCampaign(this.state.id)
       .then(data => {
         this.setState({
           allCreativesForCampaign: data
@@ -184,43 +185,45 @@ class _ViewCampaign extends Component {
 
   render() {
     return (
-      <div>
-        <h4>All Campaigns</h4>
-        {Object.keys(this.state.allCampaigns).map((v) => {
-          return (
-            <p key={v}><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCampaigns[v]}</p>
-          )
-        })}
-
-        <h4>Creatives Aligned to {this.state.name}</h4>
-        {Object.keys(this.state.allCreativesForCampaign).length > 0 ? (
-          Object.keys(this.state.allCreativesForCampaign).map((v) => {
-            return (
-              <p key={v}><a onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove
-                from {this.state.name}</a> - {this.state.allCreativesForCampaign[v]}</p>
-            )
-          })
-        ) : (
-          <p>No creatives aligned to this campaign.</p>
-        )}
-
-        <h4>Available Creatives</h4>
-        {Object.keys(this.state.allCreatives).length > 0 ? (
-          Object.keys(this.state.allCreatives).map((v) => {
-            return (
-              <p key={v}><a onClick={this.addCreativeToCampaign.bind(this, v)}>Add
-                to {this.state.name}</a> - {this.state.allCreatives[v]}</p>
-            )
-          })
-        ) : (
-          <p>No creatives available.</p>
-        )}
+      <div className={'container'}>
+        <div className={'row'}>
+          <div className={'col-md-4'}><h4>All Campaigns</h4>
+            {Object.keys(this.state.allCampaigns).map((v) => {
+              return (
+                <p key={v}><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCampaigns[v]}</p>
+              )
+            })}</div>
+          <div className={'col-md-4'}><h4>Creatives Aligned to {this.state.name}</h4>
+            {Object.keys(this.state.allCreativesForCampaign).length > 0 ? (
+              Object.keys(this.state.allCreativesForCampaign).map((v) => {
+                return (
+                  <p key={v}><a onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove
+                    from {this.state.name}</a> - {this.state.allCreativesForCampaign[v]}</p>
+                )
+              })
+            ) : (
+              <p>No creatives aligned to this campaign.</p>
+            )}</div>
+          <div className={'col-md-4'}><h4>Available Creatives</h4>
+            {Object.keys(this.state.allCreatives).length > 0 ? (
+              Object.keys(this.state.allCreatives).map((v) => {
+                return (
+                  <p key={v}><a onClick={this.addCreativeToCampaign.bind(this, v)}>Add
+                    to {this.state.name}</a> - {this.state.allCreatives[v]}</p>
+                )
+              })
+            ) : (
+              <p>No creatives available.</p>
+            )}</div>
+        </div>
 
         <h2>Campaign {this.state.name}</h2>
-        <p><a onClick={this.edit.bind(this)}>Edit</a> | <a
-          onClick={this.remove.bind(this)}>Delete</a></p>
-
+        <hr/>
+        <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
+          onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
+        <hr/>
         <Stats parentState={this.state}/>
+        <hr/>
         <CampaignProps parentState={this.state}/>
         <Settings parentState={this.state}/>
         <Lists parentState={this.state}/>
