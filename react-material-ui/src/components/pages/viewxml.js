@@ -13,6 +13,7 @@ const mapDispatchToProps = dispatch => {
 class _ViewXml extends Component {
   state = {
     vast: '',
+    id: '',
     failed: false
   };
 
@@ -26,7 +27,8 @@ class _ViewXml extends Component {
     getVast(id)
       .then(data => {
         this.setState({
-          vast: data
+          vast: data,
+          id: id
         })
       });
   }
