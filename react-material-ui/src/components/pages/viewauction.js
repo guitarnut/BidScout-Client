@@ -102,7 +102,7 @@ class _ViewAuction extends Component {
   renderBid() {
     if (this.state.bid.id !== undefined) {
       return (
-        <div className={'row'}>
+        <div className={'container'}>
           <div className={'col-md-12'}>
             <h2>Bid {this.state.bid.bidRequestId}</h2>
             <p><a onClick={this.deleteBidRecord.bind(this, this.state.bid.id)}><FaRegTrashAlt/></a></p>
@@ -224,7 +224,7 @@ class _ViewAuction extends Component {
                   <p><Badge>${v.bidPrice}</Badge> <strong>Bid Price</strong></p>
                 </div>
                 <div className={'col-md-3'}>
-                  <p><strong>$<Badge>{v.cp}</Badge> Clearing Price</strong></p>
+                  <p><strong><Badge>${v.cp}</Badge> Clearing Price</strong></p>
                 </div>
                 <div className={'col-md-3'}>
                   <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
@@ -273,7 +273,9 @@ class _ViewAuction extends Component {
       )
     } else {
       return (
-        <h2>Bid {this.state.id} Not Found</h2>
+        <div className={'col-md-12'}>
+          <h2>Bid {this.state.id} Not Found</h2>
+        </div>
       )
     }
   }
@@ -285,15 +287,17 @@ class _ViewAuction extends Component {
       )
     } else {
       return (
-        <div>
-          <h2>Auction Records</h2>
-          <p>View end-to-end auction results.</p>
-          <p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
-          {Object.keys(this.state.bids).map((v) => {
-            return (
-              <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
-            )
-          })}
+        <div className={'container'}>
+          <div className={'col-md-12'}>
+            <h2>Auction Records</h2>
+            <p>View end-to-end auction results.</p>
+            <p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
+            {Object.keys(this.state.bids).map((v) => {
+              return (
+                <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
+              )
+            })}
+          </div>
         </div>
       )
     }
