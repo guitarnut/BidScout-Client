@@ -211,11 +211,16 @@ class _ViewAuction extends Component {
             return (
               <div key={v}>
                 <div className={'col-md-12'}>
-                  <p>
+                  <p><strong>URL:</strong><br/>
                     <pre><code>{v.url}</code></pre>
                   </p>
                 </div>
-                <div className={'col-md-3'}>
+                <div className={'col-md-12'}>
+                  <p><strong>User Agent:</strong><br/>
+                    <pre><code>{v.userAgent}</code></pre>
+                  </p>
+                </div>
+                <div className={'col-md-'}>
                   <p><Badge>{v.bidPrice}</Badge> <strong>Bid Price</strong></p>
                 </div>
                 <div className={'col-md-3'}>
@@ -223,9 +228,6 @@ class _ViewAuction extends Component {
                 </div>
                 <div className={'col-md-3'}>
                   <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
-                </div>
-                <div className={'col-md-3'}>
-                  <p><strong>User Agent:</strong> {v.userAgent}</p>
                 </div>
                 <div className={'col-md-3'}>
                   <p><strong>Host:</strong> {v.host}</p>
@@ -246,15 +248,17 @@ class _ViewAuction extends Component {
             return (
               <div key={v}>
                 <div className={'col-md-12'}>
-                  <p>
+                  <p><strong>URL:</strong><br/>
                     <pre><code>{v.url}</code></pre>
                   </p>
                 </div>
                 <div className={'col-md-3'}>
-                  <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
+                  <p><strong>User Agent:</strong><br/>
+                    <pre><code>{v.userAgent}</code></pre>
+                  </p>
                 </div>
                 <div className={'col-md-3'}>
-                  <p><strong>User Agent:</strong> {v.userAgent}</p>
+                  <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
                 </div>
                 <div className={'col-md-3'}>
                   <p><strong>Host:</strong> {v.host}</p>
