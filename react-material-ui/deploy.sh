@@ -8,6 +8,8 @@ GREEN=`tput -Txterm-256color setaf 2`
 echo "${GREEN}Checking out ${BRANCH} Branch${RESET}"
 git checkout ${BRANCH} 2> /dev/null
 
+#run npm install for final script
+
 git pull 2> /dev/null
 
 yarn run build 2> /dev/null

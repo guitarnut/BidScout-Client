@@ -1,5 +1,5 @@
 import React from 'react'
-import {Panel} from 'react-bootstrap';
+import {Panel, Badge} from 'react-bootstrap';
 
 function Limits(props) {
   return (
@@ -7,11 +7,11 @@ function Limits(props) {
       <Panel>
         <Panel.Heading><h4>Limits</h4></Panel.Heading>
         <Panel.Body>
-          <p>Requests: {props.parentState.limitsRequestLimit}</p>
-          <p>Bid Rate: {props.parentState.limitsBidRate}</p>
-          <p>Bids: {props.parentState.limitsBidLimit}</p>
-          <p>Impressions: {props.parentState.limitsImpressionLimit}</p>
-          <p>Spend: {props.parentState.limitsRevenueLimit}</p>
+          <div className={'col-md-3'}><p><Badge>{props.parentState.limitsRequestLimit}</Badge> Requests</p></div>
+          <div className={'col-md-3'}><p><Badge>{props.parentState.limitsBidRate}</Badge> Bid Rate</p></div>
+          <div className={'col-md-3'}><p><Badge>{props.parentState.limitsBidLimit}</Badge> Bids</p></div>
+          <div className={'col-md-3'}><p><Badge>{props.parentState.limitsImpressionLimit}</Badge> Impressions</p></div>
+          <div className={'col-md-3'}><p><Badge>{props.parentState.limitsRevenueLimit}</Badge> Spend</p></div>
         </Panel.Body>
       </Panel>
     </div>

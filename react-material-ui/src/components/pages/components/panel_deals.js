@@ -9,8 +9,10 @@ const PanelDeals = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <TextBox name="requirementsDealIds" label="Deal Ids"
-                 context={props.context} value={props.parentState.requirementsDealIds}/>
+        <div className={'col-md-12'}>
+          <TextBox name="requirementsDealIds" label="Deal Ids"
+                   context={props.context} value={props.parentState.requirementsDealIds}/>
+        </div>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

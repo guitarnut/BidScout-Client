@@ -125,7 +125,7 @@ class _Campaign extends Component {
       )
     } else {
       return (
-        <div>
+        <div className={'container'}>
           {this.state.updateCampaignId ? (
             <h2>Edit {this.state.model.name}</h2>
           ) : (

@@ -8,14 +8,14 @@ function Lists(props) {
     props.parentState.requirementsBundleWhitelist.length === 0 &&
     props.parentState.requirementsPublisherBlacklist.length === 0 &&
     props.parentState.requirementsDomainBlacklist.length === 0 &&
-    props.parentState.requirementsBundleBlacklist.length === 0
+    props.parentState.requirementsBundleBlacklist.length === 0 || props.parentState.requirementsPublisherWhitelist === null
   ) {
     return (
       <div className={'row'}>
         <Panel>
           <Panel.Heading><h4>Whitelist/Blacklist</h4></Panel.Heading>
           <Panel.Body>
-            <p>You have not added any whitelists or blacklists.</p>
+            <div className={'col-md-12'}><p>You have not added any whitelists or blacklists.</p></div>
           </Panel.Body>
         </Panel>
 
@@ -27,18 +27,26 @@ function Lists(props) {
         <Panel>
           <Panel.Heading><h4>Whitelist/Blacklist</h4></Panel.Heading>
           <Panel.Body>
-            {props.parentState.requirementsPublisherWhitelist ? <p>Publisher Whitelist: {props.parentState.requirementsPublisherWhitelist}</p> :
+            <div className={'col-md-12'}>
+            {props.parentState.requirementsPublisherWhitelist ?
+              <p><strong>Publisher Whitelist:</strong> {props.parentState.requirementsPublisherWhitelist}</p> :
               <p>No publisher whitelist specified.</p>}
-            {props.parentState.requirementsDomainWhitelist ? <p>Domain Whitelist: {props.parentState.requirementsDomainWhitelist}</p> :
+            {props.parentState.requirementsDomainWhitelist ?
+              <p><strong>Domain Whitelist:</strong> {props.parentState.requirementsDomainWhitelist}</p> :
               <p>No domain whitelist specified.</p>}
-            {props.parentState.requirementsBundleWhitelist ? <p>Bundle Whitelist: {props.parentState.requirementsBundleWhitelist}</p> :
+            {props.parentState.requirementsBundleWhitelist ?
+              <p><strong>Bundle Whitelist:</strong> {props.parentState.requirementsBundleWhitelist}</p> :
               <p>No bundle whitelist specified.</p>}
-            {props.parentState.requirementsPublisherBlacklist ? <p>Publisher Blacklist: {props.parentState.requirementsPublisherWhitelist}</p> :
+            {props.parentState.requirementsPublisherBlacklist ?
+              <p><strong>Publisher Blacklist:</strong> {props.parentState.requirementsPublisherWhitelist}</p> :
               <p>No publisher blacklist specified.</p>}
-            {props.parentState.requirementsDomainBlacklist ? <p>Publisher Blacklist: {props.parentState.requirementsDomainBlacklist}</p> :
+            {props.parentState.requirementsDomainBlacklist ?
+              <p><strong>Publisher Blacklist:</strong> {props.parentState.requirementsDomainBlacklist}</p> :
               <p>No domain blacklist specified.</p>}
-            {props.parentState.requirementsBundleBlacklist ? <p>Publisher Blacklist: {props.parentState.requirementsBundleBlacklist}</p> :
+            {props.parentState.requirementsBundleBlacklist ?
+              <p><strong>Publisher Blacklist:</strong> {props.parentState.requirementsBundleBlacklist}</p> :
               <p>No bundle blacklist specified.</p>}
+            </div>
           </Panel.Body>
         </Panel>
       </div>

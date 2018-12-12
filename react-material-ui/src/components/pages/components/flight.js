@@ -7,20 +7,26 @@ function Flight(props) {
       <Panel>
         <Panel.Heading><h4>Flight Dates</h4></Panel.Heading>
         <Panel.Body>
-          {props.parentState.requirementsStartDate === null ?
-            (
-              <p>Start: No start date specified.</p>
-            ) : (
-              <p>Start: {props.parentState.requirementsStartDate}</p>
-            )
-          }
-          {props.parentState.requirementsEndDate === null ?
-            (
-              <p>End: No end date specified.</p>
-            ) : (
-              <p>End: {props.parentState.requirementsEndDate}</p>
-            )
-          }
+          <div className={'col-md-6'}>
+            <p><strong>Start:</strong> {props.parentState.requirementsStartDate === null ?
+              (
+                <span>No start date specified</span>
+              ) : (
+                <span>{props.parentState.requirementsStartDate}</span>
+              )
+            }
+            </p>
+          </div>
+          <div className={'col-md-6'}>
+            <p><strong>End:</strong> {props.parentState.requirementsEndDate === null ?
+              (
+                <span>No end date specified</span>
+              ) : (
+                <span>{props.parentState.requirementsStartDate}</span>
+              )
+            }
+            </p>
+          </div>
         </Panel.Body>
       </Panel>
     </div>

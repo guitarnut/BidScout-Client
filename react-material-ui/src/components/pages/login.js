@@ -27,7 +27,7 @@ class _LoginForm extends Component {
 
   success() {
     this.loaded++;
-    if(this.loaded === 3) {
+    if (this.loaded === 3) {
       this.props.history.push('/bidder');
     }
   }
@@ -83,12 +83,19 @@ class _LoginForm extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Login</h2>
-        <TextBox name="username" label="Username" context={this} value={this.state.username}/>
-        <TextBox name="password" label="Password" context={this} value={this.state.password}/>
-        <UIButton text="Login" action={this.loginUser.bind(this)}/>
-        <UIButton text="Create" action={this.createUser.bind(this)}/>
+      <div className={'row'}>
+        <div className={'col-md-12'}>
+          <h2>Login</h2>
+        </div>
+        <div className={'col-md-6'}>
+          <TextBox name="username" label="Username" context={this} value={this.state.username}/>
+        </div>
+        <div className={'col-md-6'}>
+          <TextBox name="password" label="Password" context={this} value={this.state.password}/>
+        </div>
+        <div className={'col-md-12'}>
+          <UIButton text="Login" action={this.loginUser.bind(this)}/> <UIButton text="Create Account" action={this.createUser.bind(this)}/>
+        </div>
         <p>{this.state.message}</p>
       </div>
     )

@@ -9,30 +9,38 @@ const PanelPlatforms = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <Switcher
-          name="requirementsDesktop"
-          label="Desktop"
-          value={props.parentState.requirementsDesktop}
-          context={props.context}
-        />
-        <Switcher
-          name="requirementsMobile"
-          label="Mobile"
-          value={props.parentState.requirementsMobile}
-          context={props.context}
-        />
-        <Switcher
-          name="requirementsInapp"
-          label="InApp"
-          value={props.parentState.requirementsInapp}
-          context={props.context}
-        />
-        <Switcher
-          name="requirementsCtv"
-          label="CTV"
-          value={props.parentState.requirementsCtv}
-          context={props.context}
-        />
+        <div className={'col-md-3'}>
+          <Switcher
+            name="requirementsDesktop"
+            label="Desktop"
+            value={props.parentState.requirementsDesktop}
+            context={props.context}
+          />
+        </div>
+        <div className={'col-md-3'}>
+          <Switcher
+            name="requirementsMobile"
+            label="Mobile"
+            value={props.parentState.requirementsMobile}
+            context={props.context}
+          />
+        </div>
+        <div className={'col-md-3'}>
+          <Switcher
+            name="requirementsInapp"
+            label="InApp"
+            value={props.parentState.requirementsInapp}
+            context={props.context}
+          />
+        </div>
+        <div className={'col-md-3'}>
+          <Switcher
+            name="requirementsCtv"
+            label="CTV"
+            value={props.parentState.requirementsCtv}
+            context={props.context}
+          />
+        </div>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

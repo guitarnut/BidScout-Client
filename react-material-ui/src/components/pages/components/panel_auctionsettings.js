@@ -9,8 +9,8 @@ const PanelAuctionSettings = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <TextBox name="minBid" label="Minimum Bid" context={props.context} value={props.parentState.minBid}/>
-        <TextBox name="maxBid" label="Maximum Bid" context={props.context} value={props.parentState.maxBid}/>
+        <div className={'col-md-6'}><TextBox name="minBid" label="Minimum Bid" context={props.context} value={props.parentState.minBid}/></div>
+        <div className={'col-md-6'}><TextBox name="maxBid" label="Maximum Bid" context={props.context} value={props.parentState.maxBid}/></div>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

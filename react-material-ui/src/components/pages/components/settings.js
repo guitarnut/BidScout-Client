@@ -7,8 +7,8 @@ const Settings = (props) =>
     <Panel>
       <Panel.Heading><h4>Settings</h4></Panel.Heading>
       <Panel.Body>
-        <p>User Match: {props.parentState.requirementsUserMatch.toString()}</p>
-        <p>Secure Bids: {props.parentState.requirementsSecure.toString()}</p>
+        <div className={'col-md-6'}><p><strong>User Match:</strong> {props.parentState.requirementsUserMatch.toString()}</p></div>
+        <div className={'col-md-6'}><p><strong>Secure Bids:</strong> {props.parentState.requirementsSecure.toString()}</p></div>
       </Panel.Body>
     </Panel>
   </div>;

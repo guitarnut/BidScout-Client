@@ -1,5 +1,5 @@
 import React from 'react';
-import {ControlLabel, FormControl, FormGroup} from 'react-bootstrap';
+import {ControlLabel, FormControl, FormGroup, Badge} from 'react-bootstrap';
 import {handleInputMultiSelect} from "../../input/formInputHandler";
 
 const MultiSelect = (props) =>
@@ -15,8 +15,8 @@ const MultiSelect = (props) =>
     {props.value &&
     <p>{props.value.map((v) => {
       return (
-        <button key={v} name={props.name} value={v}
-                onClick={handleInputMultiSelect.bind(props.context)}>{props.data[v]} [x]</button>
+        <Badge key={v} name={props.name} value={v}
+                onClick={handleInputMultiSelect.bind(props.context)}>{props.data[v]}</Badge>
       )
     })}</p>
     }

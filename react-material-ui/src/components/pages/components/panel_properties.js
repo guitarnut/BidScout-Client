@@ -15,56 +15,85 @@ const PanelProperties = (props) =>
     </Panel.Heading>
     <Panel.Collapse>
       <Panel.Body>
-        <SelectList name='type' data={CreativeType} label='Type (DISPLAY, VPAID, VAST)' value={props.parentState.type}
-                    context={props.context}/>
-        <hr/>
+        <div className={'col-md-12'}>
+          <SelectList name='type' data={CreativeType} label='Type (DISPLAY, VPAID, VAST)' value={props.parentState.type}
+                      context={props.context}/>
+          <hr/>
+        </div>
         {props.parentState.type === 'DISPLAY' ? (
           <div>
-            <p>A value of 10 will bid on every eligible request. A value of 0 will never bid. Select a value between
-              0-10 to determine bid frequency.</p>
-            <TextBox name="bidFrequency" label="Bid Frequency" context={props.context}
-                     value={props.parentState.bidFrequency}/>
-            <SelectList name='creativeType' data={DisplayCreativeType} label='Display Creative Type'
-                        value={props.parentState.creativeType}
-                        context={props.context}/>
-            <hr/>
+            <div className={'col-md-12'}>
+              <p>A value of 10 will bid on every eligible request. A value of 0 will never
+                bid. Select a value between
+                0-10 to determine bid frequency.</p>
+              <TextBox name="bidFrequency" label="Bid Frequency" context={props.context}
+                       value={props.parentState.bidFrequency}/>
+            </div>
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
+            <div className={'col-md-12'}>
+              <SelectList name='creativeType' data={DisplayCreativeType}
+                          label='Display Creative Type'
+                          value={props.parentState.creativeType}
+                          context={props.context}/>
+            </div>
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
             {props.parentState.creativeType === 'url' &&
-            <TextBox name="creativeUrl" label="Asset URL" context={props.context}
-                     value={props.creativeUrl}/>
+            <div className={'col-md-12'}>
+              <TextBox name="creativeUrl" label="Asset URL" context={props.context}
+                       value={props.creativeUrl}/>
+            </div>
             }
             {props.parentState.creativeType === 'custom' &&
-            <div>
+            <div className={'col-md-12'}>
               <p>Click events cannot be tracked when using custom ad markup.</p>
               <TextArea name="adm" label="Custom Ad Markup" context={props.context} value={props.adm}/>
             </div>
             }
             {props.parentState.creativeType === 'auto' &&
-            <p>BidScout will render a generic creative for you. Click events cannot be tracked when using a generic
-              creative.</p>
+            <div className={'col-md-12'}>
+              <p>BidScout will render a generic creative for you. Click events cannot be tracked when using a generic
+                creative.</p>
+            </div>
             }
-            <hr/>
-            <MultiSelect name="mimes" label="Mime Type" data={DisplayMimes} context={props.context}
-                         value={props.parentState.mimes}/>
-            <hr/>
-            <MultiSelect name="attr" label="Attributes" data={Attributes} context={props.context}
-                         value={props.parentState.attr}/>
-            <hr/>
-            <MultiSelect name="btype" label="Banner Type" data={BannerTypes} context={props.context}
-                         value={props.parentState.btype}/>
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
+            <div className={'col-md-4'}>
+              <MultiSelect name="mimes" label="Mime Type" data={DisplayMimes} context={props.context}
+                           value={props.parentState.mimes}/>
+            </div>
+            <div className={'col-md-4'}>
+              <MultiSelect name="attr" label="Attributes" data={Attributes} context={props.context}
+                           value={props.parentState.attr}/>
+            </div>
+            <div className={'col-md-4'}>
+              <MultiSelect name="btype" label="Banner Type" data={BannerTypes} context={props.context}
+                           value={props.parentState.btype}/>
+            </div>
           </div>
         ) : (
-          <div>
+          <div className={'col-md-12'}>
             <TextArea name="xml" label="XML" context={props.context} value={props.parentState.xml}/>
           </div>
         )}
-        <hr/>
-        <p>Set your size to 0x0 for a creative that will be eligible for any size request.</p>
-        <TextBox name="w" label="Width" context={props.context} value={props.parentState.w}/>
-        <TextBox name="h" label="Height" context={props.context} value={props.parentState.h}/>
-        <TextBox name="iabCategories" label="IAB Categories" handler={props.handleInputArray}
-                 value={props.parentState.iabCategories}/>
-        <TextBox name="adDomain" label="Ad Domains" handler={props.handleInputArray}
-                 value={props.parentState.adDomain}/>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}><p>Set your size to 0x0 for a creative that will be eligible for any size
+          request.</p></div>
+        <div className={'col-md-6'}><TextBox name="w" label="Width" context={props.context}
+                                             value={props.parentState.w}/></div>
+        <div className={'col-md-6'}><TextBox name="h" label="Height" context={props.context}
+                                             value={props.parentState.h}/></div>
+        <div className={'col-md-12'}><TextBox name="iabCategories" label="IAB Categories"
+                                              handler={props.handleInputArray}
+                                              value={props.parentState.iabCategories}/></div>
+        <div className={'col-md-12'}><TextBox name="adDomain" label="Ad Domains" handler={props.handleInputArray}
+                                              value={props.parentState.adDomain}/></div>
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

@@ -2,9 +2,11 @@ import React, {Component} from 'react'
 
 function Error(props) {
   return (
-    <div>
-      <h2>Error</h2>
-      <p>There was a problem.</p>
+    <div className={'row'}>
+      <div className={'col-md-12'}>
+        <h2>Error</h2>
+        <p>There was a problem.</p>
+      </div>
     </div>
   )
 }

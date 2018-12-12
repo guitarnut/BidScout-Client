@@ -53,19 +53,33 @@ class _User extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Account</h2>
-        <p><strong>Last Login</strong><br/>{new Date().toDateString(this.state.lastLogin)}</p>
-        <div><TextBox name="username" label="Username" context={this} value={this.state.username}/></div>
-        <div><TextBox name="firstName" label="First Name" context={this} value={this.state.firstName}/></div>
-        <div><TextBox name="lastName" label="Last Name" context={this} value={this.state.lastName}/></div>
-        <div><TextBox name="address" label="Address" context={this} value={this.state.address}/></div>
-        <div><TextBox name="city" label="City" context={this} value={this.state.city}/></div>
-        <div><TextBox name="state" label="State" context={this} value={this.state.state}/></div>
-        <div><TextBox name="zip" label="Zip" context={this} value={this.state.zip}/></div>
-        <div><TextBox name="email" label="Email" context={this} value={this.state.email}/></div>
-        <div><TextBox name="phone" label="Phone" context={this} value={this.state.phone}/></div>
-        <div><UIButton text="Save Changes" icon="save" action={this.save.bind(this)}/></div>
+      <div className={'row'}>
+        <div className={'col-md-12'}>
+          <h2>Account</h2>
+          <p><strong>Last Login</strong>: {new Date().toDateString(this.state.lastLogin)}</p>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-4'}><TextBox name="username" label="Username" context={this} value={this.state.username}/></div>
+        <div className={'col-md-4'}><TextBox name="firstName" label="First Name" context={this} value={this.state.firstName}/></div>
+        <div className={'col-md-4'}><TextBox name="lastName" label="Last Name" context={this} value={this.state.lastName}/></div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-4'}><TextBox name="address" label="Address" context={this} value={this.state.address}/></div>
+        <div className={'col-md-4'}><TextBox name="city" label="City" context={this} value={this.state.city}/></div>
+        <div className={'col-md-2'}><TextBox name="state" label="State" context={this} value={this.state.state}/></div>
+        <div className={'col-md-2'}><TextBox name="zip" label="Zip" context={this} value={this.state.zip}/></div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-4'}><TextBox name="email" label="Email" context={this} value={this.state.email}/></div>
+        <div className={'col-md-4'}><TextBox name="phone" label="Phone" context={this} value={this.state.phone}/></div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}><UIButton text="Save Changes" icon="save" action={this.save.bind(this)}/></div>
       </div>
     )
   }

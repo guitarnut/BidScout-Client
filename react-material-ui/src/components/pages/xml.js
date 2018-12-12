@@ -68,7 +68,7 @@ class _XML extends Component {
 
   getXml(id) {
     getXml(id)
-      .then((data)=>{
+      .then((data) => {
         let state = buildVastStateFromResponse(data);
         this.setState({
           ...state
@@ -77,7 +77,7 @@ class _XML extends Component {
   }
 
   save() {
-    let data ={};
+    let data = {};
     data['vast'] = buildVastLinearAdModelFromState(this.state);
     data['name'] = this.state.name;
     data['id'] = this.state.id;
@@ -93,111 +93,212 @@ class _XML extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Build VAST XML</h2>
-        <TextBox name="name" label="Name" context={this} value={this.state.name}/>
-        <TextBox name="vastVersion" label="Vast Version" context={this} value={this.state.vastVersion}/>
-        <TextBox name="vastAdId" label="Ad Id" context={this} value={this.state.vastAdId}/>
-        <TextBox name="vastAdSequence" label="Ad Sequence" context={this} value={this.state.vastAdSequence}/>
-
-        <SelectList name="type" data={VASTType} label='VAST XML Type' context={this} value={this.state.type}/>
+      <div className={'row'}>
+        <div className={'col-md-12'}>
+          <h2>Build VAST XML</h2>
+        </div>
+        <div className={'col-md-12'}>
+          <p>Create a custom VAST XML response. You may use this as a VAST tag, or return it as ad markup in a
+            creative.</p>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-6'}>
+          <TextBox name="name" label="Name" context={this} value={this.state.name}/>
+        </div>
+        <div className={'col-md-2'}>
+          <TextBox name="vastVersion" label="Vast Version" context={this} value={this.state.vastVersion}/>
+        </div>
+        <div className={'col-md-2'}>
+          <TextBox name="vastAdId" label="Ad Id" context={this} value={this.state.vastAdId}/>
+        </div>
+        <div className={'col-md-2'}>
+          <TextBox name="vastAdSequence" label="Ad Sequence" context={this} value={this.state.vastAdSequence}/>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}>
+          <SelectList name="type" data={VASTType} label='VAST XML Type' context={this} value={this.state.type}/>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
         {this.state.type === 'InLine' &&
         (
           <div>
-            <h3>Inline</h3>
-            <TextBox name="vastAdInLineAdSystemValue" label="InLine Ad System" context={this}
-                     value={this.state.vastAdInLineAdSystemValue}/>
-            <TextBox name="vastAdInLineAdTitle" label="InLine Ad Title" context={this}
-                     value={this.state.vastAdInLineAdTitle}/>
-
-            <h3>Creative</h3>
-            <TextBox name="vastAdInLineCreativesCreativeId" label="Creative Id" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeId}/>
-            <TextBox name="vastAdInLineCreativesCreativeSequence" label="Creative Sequence" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeSequence}/>
-            <TextBox name="vastAdInLineCreativesCreativeAdId" label="Creative Ad Id" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeAdId}/>
-            <TextBox name="vastAdInLineCreativesCreativeApiFramework" label="Creative API Framework" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeApiFramework}/>
-
-            <h3>Universal Ad Id</h3>
-            <TextBox name="vastAdInLineCreativesCreativeUniversalAdIdValue" label="Id" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeUniversalAdIdValue}/>
-            <TextBox name="vastAdInLineCreativesCreativeUniversalAdIdIdValue" label="Id Value" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeUniversalAdIdIdValue}/>
-            <TextBox name="vastAdInLineCreativesCreativeUniversalAdIdIdRegistry" label="Id Registry" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeUniversalAdIdIdRegistry}/>
-
-            <h3>Linear Ad</h3>
-            <TextBox name="vastAdInLineCreativesCreativeLinearSkipoffset" label="Skip Offset" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearSkipoffset}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearDuration" label="Duration" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearDuration}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearAdParametersValue" label="Ad Parameters" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearAdParametersValue}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded" label="Ad Parameters XML Encoded"
-                     context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded}/>
-
-            <h3>Media File</h3>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId" label="ID" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery" label="Delivery"
-                     context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType" label="Type" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate" label="Bitrate" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate" label="Min Bitrate"
-                     context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate" label="Max Bitrate"
-                     context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth" label="Width" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight" label="Height" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable" label="Scalable"
-                     context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio"
-                     label="Maintain Aspect Ratio" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec" label="Codec" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework" label="API Framework"
-                     context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework}/>
-            <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue" label="Value" context={this}
-                     value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue}/>
+            <div className={'col-md-12'}>
+              <h3>Inline</h3>
+            </div>
+            <div className={'col-md-6'}>
+              <TextBox name="vastAdInLineAdSystemValue" label="InLine Ad System" context={this}
+                       value={this.state.vastAdInLineAdSystemValue}/>
+            </div>
+            <div className={'col-md-6'}>
+              <TextBox name="vastAdInLineAdTitle" label="InLine Ad Title" context={this}
+                       value={this.state.vastAdInLineAdTitle}/>
+            </div>
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
+            <div className={'col-md-12'}>
+              <h3>Creative</h3>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeId" label="Creative Id" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeId}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeSequence" label="Creative Sequence" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeSequence}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeAdId" label="Creative Ad Id" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeAdId}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeApiFramework" label="Creative API Framework" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeApiFramework}/>
+            </div>
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
+            <div className={'col-md-12'}>
+              <h3>Universal Ad Id</h3>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeUniversalAdIdValue" label="Id" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeUniversalAdIdValue}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeUniversalAdIdIdValue" label="Id Value" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeUniversalAdIdIdValue}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeUniversalAdIdIdRegistry" label="Id Registry" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeUniversalAdIdIdRegistry}/>
+            </div>
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
+            <div className={'col-md-12'}>
+              <h3>Linear Ad</h3>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearSkipoffset" label="Skip Offset" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearSkipoffset}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearDuration" label="Duration" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearDuration}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded"
+                       label="Ad Parameters XML Encoded"
+                       context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded}/>
+            </div>
+            <div className={'col-md-12'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearAdParametersValue" label="Ad Parameters" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearAdParametersValue}/>
+            </div>
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
+            <div className={'col-md-12'}>
+              <h3>Media File</h3>
+            </div>
+            <div className={'col-md-4'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId" label="ID" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId}/>
+            </div>
+            <div className={'col-md-4'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery" label="Delivery"
+                       context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery}/>
+            </div>
+            <div className={'col-md-4'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType" label="Type" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType}/>
+            </div>
+            <div className={'col-md-2'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate" label="Bitrate"
+                       context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate}/>
+            </div>
+            <div className={'col-md-2'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate" label="Min Bitrate"
+                       context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate}/>
+            </div>
+            <div className={'col-md-2'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate" label="Max Bitrate"
+                       context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth" label="Width" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight" label="Height" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight}/>
+            </div>
+            <div className={'col-md-4'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable" label="Scalable"
+                       context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable}/>
+            </div>
+            <div className={'col-md-4'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio"
+                       label="Maintain Aspect Ratio" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio}/>
+            </div>
+            <div className={'col-md-4'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec" label="Codec" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec}/>
+            </div>
+            <div className={'col-md-3'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework" label="API Framework"
+                       context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework}/>
+            </div>
+            <div className={'col-md-9'}>
+              <TextBox name="vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue" label="Video or Javascript Path" context={this}
+                       value={this.state.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue}/>
+            </div>
           </div>
         )
         }
         {this.state.type === 'Wrapper' &&
         (
-          <div>
+          <div className={'col-md-12'}>
             <h3>Wrapper</h3>
           </div>
         )
         }
         {this.state.type === 'Error' &&
         (
-          <div>
+          <div className={'col-md-12'}>
             <h3>Error</h3>
           </div>
         )
         }
         {this.state.type === 'Empty' &&
         (
-          <div>
+          <div className={'col-md-12'}>
             <h3>Empty</h3>
             <p>No further action is needed. Click 'Save' to store your empty XML.</p>
           </div>
         )
         }
-        <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}>
+          <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
+        </div>
       </div>
     )
   }

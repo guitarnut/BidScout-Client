@@ -10,7 +10,7 @@ function Deals(props) {
         <Panel>
           <Panel.Heading><h4>Deal Ids</h4></Panel.Heading>
           <Panel.Body>
-            <p>You have not added any deal Ids.</p>
+            <div className={'col-md-12'}><p>You have not added any deal Ids.</p></div>
           </Panel.Body>
         </Panel>
       </div>
@@ -21,7 +21,7 @@ function Deals(props) {
         <Panel>
           <Panel.Heading><h4>Deal Ids</h4></Panel.Heading>
           <Panel.Body>
-            <p>{props.parentState.requirementsDealIds}</p>
+            <div className={'col-md-3'}><p>{props.parentState.requirementsDealIds}</p></div>
           </Panel.Body>
         </Panel>
       </div>
