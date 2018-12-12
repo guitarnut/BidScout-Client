@@ -220,11 +220,11 @@ class _ViewAuction extends Component {
                     <pre><code>{v.userAgent}</code></pre>
                   </p>
                 </div>
-                <div className={'col-md-'}>
-                  <p><Badge>{v.bidPrice}</Badge> <strong>Bid Price</strong></p>
+                <div className={'col-md-3'}>
+                  <p><Badge>${v.bidPrice}</Badge> <strong>Bid Price</strong></p>
                 </div>
                 <div className={'col-md-3'}>
-                  <p><strong><Badge>{v.cp}</Badge> Clearing Price</strong></p>
+                  <p><strong>$<Badge>{v.cp}</Badge> Clearing Price</strong></p>
                 </div>
                 <div className={'col-md-3'}>
                   <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
