@@ -3,6 +3,7 @@ import {deleteAllBids, deleteBid, getAllBids, viewBid, viewClicks, viewImpressio
 import ModelAuction from "../../model/auction";
 import {connect} from 'react-redux';
 import {FaRegTrashAlt} from 'react-icons/fa';
+import {Badge} from 'react-bootstrap';
 
 class _ViewAuction extends Component {
 
@@ -205,71 +206,103 @@ class _ViewAuction extends Component {
           </div>
           <div className={'col-md-12'}>
             <h4>Impressions</h4>
-            {this.state.impressions.map((v) => {
-              return (
-                <p key={v}>{v.url}<br/>
-                  Timestamp: {this.formatDate(v.impressionTimestamp)}<br/>
-                  User Agent: {v.userAgent}<br/>
-                  Bid Price: {v.bidPrice} - Clearing Price: {v.cp}<br/>
-                  Host: {v.host}<br/>
-                  IP: {v.ip}
-                </p>
-              )
-            })}
           </div>
+          {this.state.impressions.map((v) => {
+            return (
+              <div key={v}>
+                <div className={'col-md-12'}>
+                  <p>
+                    <pre><code>{v.url}</code></pre>
+                  </p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><Badge>{v.bidPrice}</Badge> <strong>Bid Price</strong></p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong><Badge>{v.cp}</Badge> Clearing Price</strong></p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong>User Agent:</strong> {v.userAgent}</p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong>Host:</strong> {v.host}</p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong>IP:</strong> {v.ip}</p>
+                </div>
+              </div>
+            )
+          })}
           <div className={'col-md-12'}>
             <hr/>
           </div>
           <div className={'col-md-12'}>
             <h4>Events</h4>
-            {this.state.clicks.map((v) => {
-              return (
-                <p key={v}>{v.url}<br/>
-                  Timestamp: {this.formatDate(v.clickTimestamp)}<br/>
-                  User Agent: {v.userAgent}<br/>
-                  Host: {v.host}<br/>
-                  IP: {v.ip}
-                </p>
-              )
-            })}
           </div>
+          {this.state.clicks.map((v) => {
+            return (
+              <div key={v}>
+                <div className={'col-md-12'}>
+                  <p>
+                    <pre><code>{v.url}</code></pre>
+                  </p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong>User Agent:</strong> {v.userAgent}</p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong>Host:</strong> {v.host}</p>
+                </div>
+                <div className={'col-md-3'}>
+                  <p><strong>IP:</strong> {v.ip}</p>
+                </div>
+              </div>
+            )
+          })}
         </div>
-    )
-    } else {
-      return (
-      <h2>Bid {this.state.id} Not Found</h2>
-      )
-    }
-    }
-
-    render() {
-      if (this.state.id) {
-      return (
-      this.renderBid()
+        < /div>
       )
     } else {
       return (
-      <div>
-      <h2>Auction Records</h2>
-      <p>View end-to-end auction results.</p>
-      <p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
-      {Object.keys(this.state.bids).map((v) => {
-        return (
-          <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
-        )
-      })}
-      </div>
+        <h2>Bid {this.state.id} Not Found</h2>
+      )
+    }
+  }
+
+  render() {
+    if (this.state.id) {
+      return (
+        this.renderBid()
+      )
+    } else {
+      return (
+        <div>
+          <h2>Auction Records</h2>
+          <p>View end-to-end auction results.</p>
+          <p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
+          {Object.keys(this.state.bids).map((v) => {
+            return (
+              <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
+            )
+          })}
+        </div>
       )
     }
 
-    }
-    }
+  }
+}
 
-    const ViewAuction = connect(
-    state => ({
-      campaigns: state.campaigns,
-      creatives: state.creatives
-    })
-    )(_ViewAuction);
+const ViewAuction = connect(
+  state => ({
+    campaigns: state.campaigns,
+    creatives: state.creatives
+  })
+)(_ViewAuction);
 
-    export default ViewAuction;
+export default ViewAuction;
