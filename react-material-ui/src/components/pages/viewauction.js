@@ -270,7 +270,6 @@ class _ViewAuction extends Component {
             )
           })}
         </div>
-        < /div>
       )
     } else {
       return (
