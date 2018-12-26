@@ -8,15 +8,14 @@ const MultiSelect = (props) =>
     <FormControl componentClass="select" multiple id={props.name} onChange={handleInputMultiSelect.bind(props.context)} name={props.name}>
       {Object.keys(props.data).map(k => {
         return (
-          <option key={k} value={k} selected={props.value.indexOf(k) !== -1}>{k} - {props.data[k]}</option>
+          <option key={k} value={k}>{k} - {props.data[k]}</option>
         )
       })}
     </FormControl>
     {props.value &&
     <p>{props.value.map((v) => {
       return (
-        <Badge key={v} name={props.name} value={v}
-                onClick={handleInputMultiSelect.bind(props.context)}>{props.data[v]}</Badge>
+        <Badge key={v} name={props.name} value={v}>{props.data[v]}</Badge>
       )
     })}</p>
     }
