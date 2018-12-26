@@ -8,7 +8,8 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start": "PORT=80 react-scripts start",
+    "dev": "PORT=80 REACT_APP_HOST=http://localhost:8080 react-scripts start",
+    "start": "PORT=80 REACT_APP_HOST=https://app.auctionscout.net react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

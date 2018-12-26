@@ -19,11 +19,13 @@ class _LoginForm extends Component {
 
   loaded = 0;
 
-  state = {
-    username: null,
-    password: null,
-    message: ''
-  };
+  componentWillMount() {
+    this.setState({
+      username: '',
+      password: '',
+      message: ''
+    })
+  }
 
   success() {
     this.loaded++;
@@ -94,7 +96,8 @@ class _LoginForm extends Component {
           <TextBox name="password" label="Password" context={this} value={this.state.password}/>
         </div>
         <div className={'col-md-12'}>
-          <UIButton text="Login" action={this.loginUser.bind(this)}/> <UIButton text="Create Account" action={this.createUser.bind(this)}/>
+          <UIButton text="Login" action={this.loginUser.bind(this)}/> <UIButton text="Create Account"
+                                                                                action={this.createUser.bind(this)}/>
         </div>
         <p>{this.state.message}</p>
       </div>

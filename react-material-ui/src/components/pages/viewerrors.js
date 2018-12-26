@@ -25,16 +25,26 @@ class ViewErrors extends Component {
   }
 
   render() {
-    return (
-      <div className={'row'}>
-        <div className={'col-md-12'}><h2>Bid Request Errors</h2></div>
-        {this.state.errors.map((v) => {
-          return (
-            <div className={'col-md-3'}><p key={Math.random() * 1000}>{v}</p></div>
-          )
-        })}
-      </div>
-    )
+    if(this.state.errors.length > 0) {
+      return (
+        <div className={'row'}>
+          <div className={'col-md-12'}><h2>Bid Request Errors</h2></div>
+          {this.state.errors.map((v) => {
+            return (
+              <div className={'col-md-3'}><p key={Math.random() * 1000}>{v}</p></div>
+            )
+          })}
+        </div>
+      )
+    } else {
+      return (
+        <div className={'row'}>
+          <div className={'col-md-12'}><h2>Bid Request Errors</h2></div>
+          <div className={'col-md-12'}><p>You have no bid request errors.</p></div>
+        </div>
+      )
+    }
+
   }
 }
 

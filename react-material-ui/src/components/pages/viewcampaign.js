@@ -209,7 +209,7 @@ class _ViewCampaign extends Component {
               Object.keys(this.state.allCreatives).map((v) => {
                 return (
                   <p key={v}><a onClick={this.addCreativeToCampaign.bind(this, v)}>Add
-                    to {this.state.name}</a> - {this.state.allCreatives[v]}</p>
+                    to {this.state.name}</a> - {this.state.allCreatives[v]} {v}</p>
                 )
               })
             ) : (

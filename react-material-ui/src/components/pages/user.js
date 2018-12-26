@@ -39,13 +39,14 @@ class _User extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     this.setState({
       ...this.props.user
     })
   }
 
   save = () => {
-    updateUser(this.state.user)
+    updateUser(this.state)
       .then((data) => {
         this.props.storeLoginUser(data);
       });

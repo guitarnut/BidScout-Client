@@ -288,16 +288,25 @@ class _ViewAuction extends Component {
     } else {
       return (
         <div className={'container'}>
-          <div className={'col-md-12'}>
-            <h2>Auction Records</h2>
-            <p>View end-to-end auction results.</p>
-            <p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
-            {Object.keys(this.state.bids).map((v) => {
-              return (
-                <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
-              )
-            })}
-          </div>
+          {this.state.bids.length > 0 ?
+            (
+              <div className={'col-md-12'}>
+                <h2>Auction Records</h2>
+                <p>View end-to-end auction results.</p>
+                <p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
+                {Object.keys(this.state.bids).map((v) => {
+                  return (
+                    <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className={'col-md-12'}>
+                <h2>Auction Records</h2>
+                <p>No auction records available.</p>
+              </div>
+            )
+          }
         </div>
       )
     }

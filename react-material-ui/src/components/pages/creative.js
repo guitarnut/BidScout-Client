@@ -13,7 +13,7 @@ import PanelDeals from "./components/panel_deals";
 import {storeAllCreatives} from "../../store/actions";
 import {connect} from 'react-redux';
 import PanelPlatforms from "./components/panel_platforms";
-import {buildCreativeStateFromResponse} from "../../builder/creative";
+import {buildCreativeModelFromState, buildCreativeStateFromResponse} from "../../builder/creative";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -27,7 +27,7 @@ class _Creative extends Component {
     updateCreativeId: null,
     creativeType: '',
 
-    id: '',
+    id: null,
     owner: '',
     name: '',
     type: 'DISPLAY',
@@ -121,7 +121,8 @@ class _Creative extends Component {
   }
 
   save() {
-    saveCreative(this.state.model)
+    let model = buildCreativeModelFromState(this.state);
+    saveCreative(model)
       .then(() => {
         getCreativeNames()
           .then((data) => {
