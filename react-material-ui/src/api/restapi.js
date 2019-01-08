@@ -1,7 +1,7 @@
 import axios from "axios/index";
 
 export const sessionTimeout = 1000 * 60 * 60;
-export const host = process.env.REACT_APP_HOST;
+export const host = 'https://app.auctionscout.net'; //process.env.REACT_APP_HOST;
 
 let session = null;
 
