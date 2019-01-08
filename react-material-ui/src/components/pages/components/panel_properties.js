@@ -16,22 +16,22 @@ const PanelProperties = (props) =>
     <Panel.Collapse>
       <Panel.Body>
         <div className={'col-md-12'}>
+          <p>A value of 10 will bid on every eligible request. A value of 0 will never
+            bid. Select a value between
+            0-10 to determine bid frequency.</p>
+          <TextBox name="bidFrequency" label="Bid Frequency" context={props.context}
+                   value={props.parentState.bidFrequency}/>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}>
           <SelectList name='type' data={CreativeType} label='Type (DISPLAY, VPAID, VAST)' value={props.parentState.type}
                       context={props.context}/>
           <hr/>
         </div>
         {props.parentState.type === 'DISPLAY' ? (
           <div>
-            <div className={'col-md-12'}>
-              <p>A value of 10 will bid on every eligible request. A value of 0 will never
-                bid. Select a value between
-                0-10 to determine bid frequency.</p>
-              <TextBox name="bidFrequency" label="Bid Frequency" context={props.context}
-                       value={props.parentState.bidFrequency}/>
-            </div>
-            <div className={'col-md-12'}>
-              <hr/>
-            </div>
             <div className={'col-md-12'}>
               <SelectList name='creativeType' data={DisplayCreativeType}
                           label='Display Creative Type'
@@ -77,7 +77,13 @@ const PanelProperties = (props) =>
           </div>
         ) : (
           <div className={'col-md-12'}>
+            <p>Enter custom XML.</p>
             <TextArea name="xml" label="XML" context={props.context} value={props.parentState.xml}/>
+            <p>Use an existing XML document.</p>
+            <SelectList name='xmlId' data={props.parentState.xmlDocuments}
+                        label='XML Document Name'
+                        value={props.parentState.xmlId}
+                        context={props.context}/>
           </div>
         )}
         <div className={'col-md-12'}>

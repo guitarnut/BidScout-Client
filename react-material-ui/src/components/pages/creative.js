@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => {
 class _Creative extends Component {
 
   state = {
-    updateCreativeId: null,
+    updateCreativeId: '',
     creativeType: '',
 
     id: null,
@@ -44,6 +44,8 @@ class _Creative extends Component {
     creativeUrl: '',
     adm: '',
     xml: '',
+    xmlDocuments: {},
+    xmlId: '',
     minBid: '',
     maxBid: '',
 
@@ -60,8 +62,8 @@ class _Creative extends Component {
     requirementsDesktop: false,
     requirementsInapp: false,
     requirementsCtv: false,
-    requirementsStartDate: null,
-    requirementsEndDate: null,
+    requirementsStartDate: '',
+    requirementsEndDate: '',
 
     limitsRequestLimit: 0,
     limitsBidRate: 0,
@@ -109,7 +111,8 @@ class _Creative extends Component {
         this.setState({
           ...model,
           failed: false,
-          updateCreativeId: id
+          updateCreativeId: id,
+          xmlDocuments: this.props.xmlDocuments
         })
       })
       .catch(() => {
@@ -142,7 +145,7 @@ class _Creative extends Component {
     } else {
       return (
         <div>
-          {this.state.updateCreativeId ? (
+          {this.state.updateCreativeId !== '' ? (
             <h2>Edit {this.state.name}</h2>
           ) : (
             <h2>Build Creative</h2>
@@ -150,7 +153,7 @@ class _Creative extends Component {
           <p>Creatives are the second level item responsible for controlling bid responses. Creatives will be
             returned based on a size match with the bid request. If you do not wish to create multiple creatives,
             BidScout can instead create a 100% fill campaign that will return a creative for every bid request.</p>
-
+          <p>{this.state.xmlId}</p>
           <PanelName value={this.state.name} context={this}/>
           <PanelConfig parentState={this.state} context={this}/>
           <PanelProperties creativeType={this.state.creativeType} context={this} parentState={this.state}/>
@@ -172,6 +175,10 @@ class _Creative extends Component {
   }
 }
 
-const Creative = connect(null, mapDispatchToProps)(_Creative);
+const Creative = connect(
+  state => ({
+    xmlDocuments: state.xml
+  }), mapDispatchToProps)
+(_Creative);
 
 export default Creative;

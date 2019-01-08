@@ -288,7 +288,7 @@ class _ViewAuction extends Component {
     } else {
       return (
         <div className={'container'}>
-          {this.state.bids.length > 0 ?
+          {Object.keys(this.state.bids).length > 0 ?
             (
               <div className={'col-md-12'}>
                 <h2>Auction Records</h2>

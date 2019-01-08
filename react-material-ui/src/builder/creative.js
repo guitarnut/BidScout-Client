@@ -19,8 +19,10 @@ export function buildCreativeStateFromResponse(response) {
     creativeUrl: '',
     adm: '',
     xml: '',
+    xmlId: '',
     minBid: '',
     maxBid: '',
+    bidFrequency: 0,
 
     requirementsUserMatch: false,
     requirementsSecure: false,
@@ -74,8 +76,10 @@ export function buildCreativeStateFromResponse(response) {
   data.creativeUrl = response.creativeUrl;
   data.adm = response.adm;
   data.xml = response.xml;
+  data.xmlId = response.xmlId;
   data.minBid = response.minBid;
   data.maxBid = response.maxBid;
+  data.bidFrequency = response.bidFrequency;
 
   data.requirementsUserMatch = response.requirements.userMatch;
   data.requirementsSecure = response.requirements.secure;
@@ -133,8 +137,10 @@ export function buildCreativeModelFromState(state) {
   model.creativeUrl = state.creativeUrl;
   model.adm = state.adm;
   model.xml = state.xml;
+  model.xmlId = state.xmlId;
   model.minBid = state.minBid;
   model.maxBid = state.maxBid;
+  model.bidFrequency = state.bidFrequency;
 
   model.requirements.userMatch = state.requirementsUserMatch;
   model.requirements.secure = state.requirementsSecure;
