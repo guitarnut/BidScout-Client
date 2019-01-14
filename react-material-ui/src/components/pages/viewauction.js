@@ -107,7 +107,7 @@ class _ViewAuction extends Component {
             <h2>Bid {this.state.bid.bidRequestId}</h2>
             <p><a onClick={this.deleteBidRecord.bind(this, this.state.bid.id)}><FaRegTrashAlt/></a></p>
             <p><strong>Targeting Failures</strong></p>
-            {this.state.bid.targetingFailures && this.state.bid.targetingFailures.length > 0 ?
+            {this.state.bid.targetingFailures && Object.keys(this.state.bid.targetingFailures).length > 0 ?
               <ul>
                 {Object.keys(this.state.bid.targetingFailures).map((v) => {
                   return (
