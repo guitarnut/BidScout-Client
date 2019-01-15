@@ -31,6 +31,7 @@ class _Campaign extends Component {
     seat: null,
     nurl: null,
     impressionExpiry: 0,
+    creatives: [],
 
     requirementsUserMatch: false,
     requirementsSecure: false,
