@@ -1,7 +1,8 @@
 import axios from "axios/index";
 
 export const sessionTimeout = 1000 * 60 * 60;
-export const host = 'https://app.auctionscout.net'; //process.env.REACT_APP_HOST;
+// export const host = 'https://app.auctionscout.net'; //process.env.REACT_APP_HOST;
+export const host = 'http://localhost:8080'; //process.env.REACT_APP_HOST;
 
 let session = null;
 
@@ -171,6 +172,14 @@ export function getCreativeNames() {
 
 export function getCreativeNamesByCampaign(id) {
   return postRequest(host + '/api/creative/all/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function resetCreative(id) {
+  return postRequest(host + '/api/creative/reset/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function resetCampaign(id) {
+  return postRequest(host + '/api/campaign/reset/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
 export function saveXML(json) {

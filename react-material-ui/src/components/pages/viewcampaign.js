@@ -7,7 +7,7 @@ import {
   getCampaignNames,
   getCreativeNames,
   getCreativeNamesByCampaign,
-  removeCreativeFromCampaign
+  removeCreativeFromCampaign, resetCreative
 } from '../../api/restapi';
 import Stats from "./components/stats";
 import {connect} from 'react-redux';
@@ -21,6 +21,7 @@ import Platforms from "./components/platforms";
 import Flight from "./components/flight";
 import Limits from "./components/limits";
 import {FaRegTrashAlt, FaRegEdit} from 'react-icons/fa';
+import {Model} from '../../const/modeltypes';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -183,6 +184,25 @@ class _ViewCampaign extends Component {
       })
   }
 
+  resetStats() {
+    resetCreative(this.state.id)
+      .then(()=>{
+        this.setState({
+          statsBids: 0,
+          statsNbr: 0,
+          statsImpressions: 0,
+          statsDuplicateImpressions: 0,
+          statsExpiredImpressions: 0,
+          statsInvalidImpressions: 0,
+          statsRevenue: 0,
+          statsEcpm: 0,
+          statsRequests: 0,
+          statsBidPriceTotal: 0,
+          statsClicks: 0
+        })
+      })
+  }
+
   render() {
     return (
       <div className={'container'}>
@@ -193,12 +213,11 @@ class _ViewCampaign extends Component {
                 <p key={v}><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCampaigns[v]}</p>
               )
             })}</div>
-          <div className={'col-md-4'}><h4>Creatives Aligned to {this.state.name}</h4>
+          <div className={'col-md-4'}><h4>Creatives</h4>
             {Object.keys(this.state.allCreativesForCampaign).length > 0 ? (
               Object.keys(this.state.allCreativesForCampaign).map((v) => {
                 return (
-                  <p key={v}><a onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove
-                    from {this.state.name}</a> - {this.state.allCreativesForCampaign[v]}</p>
+                  <p key={v}><a onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove</a> - {this.state.allCreativesForCampaign[v]}</p>
                 )
               })
             ) : (
@@ -222,6 +241,7 @@ class _ViewCampaign extends Component {
         <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
           onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
         <hr/>
+        <p onClick={this.resetStats.bind(this)}>Reset</p>
         <Stats parentState={this.state}/>
         <hr/>
         <CampaignProps parentState={this.state}/>

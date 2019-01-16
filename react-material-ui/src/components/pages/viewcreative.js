@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {deleteCreative, getCampaignWithCreative, getCreative, getCreativeNames} from "../../api/restapi";
+import React, {Component} from 'react';
+import {deleteCreative, getCampaignWithCreative, getCreative, getCreativeNames, resetCreative} from "../../api/restapi";
 import Limits from "./components/limits";
 import Platforms from "./components/platforms";
 import Lists from "./components/lists";
@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {storeAllCreatives} from "../../store/actions";
 import {buildCreativeStateFromResponse} from "../../builder/creative";
 import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
+import {Model} from '../../const/modeltypes';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -122,6 +123,25 @@ class _ViewCreative extends Component {
     this.props.history.push('/creative/view/' + v);
   }
 
+  resetStats() {
+    resetCreative(this.state.id)
+      .then(()=>{
+        this.setState({
+          statsBids: 0,
+          statsNbr: 0,
+          statsImpressions: 0,
+          statsDuplicateImpressions: 0,
+          statsExpiredImpressions: 0,
+          statsInvalidImpressions: 0,
+          statsRevenue: 0,
+          statsEcpm: 0,
+          statsRequests: 0,
+          statsBidPriceTotal: 0,
+          statsClicks: 0
+        })
+      })
+  }
+
   remove() {
     deleteCreative(this.state.id)
       .then(() => {
@@ -158,6 +178,7 @@ class _ViewCreative extends Component {
           <p>No parent campaign aligned with this creative.</p>
         )}
         <hr/>
+        <p onClick={this.resetStats.bind(this)}>Reset</p>
         <Stats parentState={this.state}/>
         <hr/>
         <CreativeProps parentState={this.state}/>
