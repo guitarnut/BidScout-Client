@@ -7,7 +7,8 @@ import {
   getCampaignNames,
   getCreativeNames,
   getCreativeNamesByCampaign,
-  removeCreativeFromCampaign, resetCreative
+  removeCreativeFromCampaign,
+  resetCampaign
 } from '../../api/restapi';
 import Stats from "./components/stats";
 import {connect} from 'react-redux';
@@ -20,8 +21,7 @@ import Deals from "./components/deals";
 import Platforms from "./components/platforms";
 import Flight from "./components/flight";
 import Limits from "./components/limits";
-import {FaRegTrashAlt, FaRegEdit} from 'react-icons/fa';
-import {Model} from '../../const/modeltypes';
+import {FaRegEdit, FaRegTrashAlt} from 'react-icons/fa';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -185,7 +185,7 @@ class _ViewCampaign extends Component {
   }
 
   resetStats() {
-    resetCreative(this.state.id)
+    resetCampaign(this.state.id)
       .then(()=>{
         this.setState({
           statsBids: 0,
