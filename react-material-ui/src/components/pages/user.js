@@ -57,7 +57,7 @@ class _User extends Component {
       <div className={'container'}>
         <div className={'col-md-12'}>
           <h2>Account</h2>
-          <p><strong>Last Login</strong>: {new Date().toDateString(this.state.lastLogin)}</p>
+          <p><strong>Last Login</strong>: {new Date(this.state.lastLogin).toString()}</p>
         </div>
         <div className={'col-md-12'}>
           <hr/>

@@ -65,7 +65,7 @@ class _ViewXml extends Component {
           <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
             onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
           <p>VAST Tag URI: <a target='_blank'
-                              href={host + '/vast/' + this.state.user.id + '/' + this.state.id}>{host + '/vast/' + this.state.user.id + '/' + this.state.id}
+                              href={host + '/vast/serve/' + this.state.user.id + '/' + this.state.id}>{host + '/vast/serve/' + this.state.user.id + '/' + this.state.id}
           </a>
           </p>
           <pre lang="xml"><code>

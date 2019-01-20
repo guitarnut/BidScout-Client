@@ -195,7 +195,19 @@ export function getXml(id) {
 }
 
 export function getVast(id) {
-  return postRequest(host + '/vast/' + window.sessionStorage.getItem('userid') + '/' + id);
+  return postRequest(host + '/vast/view/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function getVastRequestRecords() {
+  return postRequest(host + '/api/vast/all/' + window.sessionStorage.getItem('userid'));
+}
+
+export function getVastRequestByTagRequestId(id) {
+  return postRequest(host + '/api/vast/get/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function getVastRequestEventsByTagRequestId(id) {
+  return postRequest(host + '/api/vast/events/get/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
 export function deleteXml(id) {

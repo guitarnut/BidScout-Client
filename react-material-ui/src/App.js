@@ -17,6 +17,7 @@ import Logout from "./components/pages/logout";
 
 import store from './store/index';
 import XML from "./components/pages/xml";
+import ViewVast from "./components/pages/viewvast";
 
 window.store = store;
 
@@ -49,7 +50,8 @@ class App extends Component {
               <Route path='/xml/view/:id' exact component={ViewXml}/>
               <Route path='/auction/:id' exact component={ViewAuction}/>
               <Route path='/auction' exact component={ViewAuction}/>
-              <Route path='/biderrors' exact component={ViewErrors}/>
+              <Route path='/vast' exact component={ViewVast}/>
+              <Route path='/vast/:id' exact component={ViewVast}/>
               <Route path='/account' component={User}/>
             </div>
           </div>

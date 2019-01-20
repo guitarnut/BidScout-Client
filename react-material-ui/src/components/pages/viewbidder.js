@@ -35,6 +35,8 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
             <h4>Campaigns</h4>
+            <p><a href="/campaign">Build a campaign.</a></p>
+            <hr/>
             {Object.keys(this.state.campaigns).map((v) => {
               return (
                 <p key={v}><a href={'/campaign/view/' + v}>{this.state.campaigns[v]}</a> <a
@@ -48,6 +50,8 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
             <h4>Creatives</h4>
+            <p><a href="/creative">Build a creative.</a></p>
+            <hr/>
             {Object.keys(this.state.creatives).map((v) => {
               return (
                 <p key={v}><a href={'/creative/view/' + v}>{this.state.creatives[v]}</a> <a
@@ -61,6 +65,8 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
             <h4>VAST</h4>
+            <p><a href="/xml">Build a XML document.</a></p>
+            <hr/>
             {Object.keys(this.state.xml).map((v) => {
               return (
                 <p key={v}><a href={'/xml/view/' + v}>{this.state.xml[v]}</a> <a href={'/xml/edit/' + v}><FaRegEdit/></a>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {viewBidErrors} from "../../api/restapi";
+import {Panel} from 'react-bootstrap';
 
 class ViewErrors extends Component {
 
@@ -31,7 +32,13 @@ class ViewErrors extends Component {
           <div className={'col-md-12'}><h2>Bid Request Errors</h2></div>
           {this.state.errors.map((v) => {
             return (
-              <div className={'col-md-3'}><p key={Math.random() * 1000}>{v}</p></div>
+              <div className={'col-md-4'} key={Math.random() * 1000}>
+                <Panel>
+                  <Panel.Body>
+                    <p>{v}</p>
+                  </Panel.Body>
+                </Panel>
+              </div>
             )
           })}
         </div>

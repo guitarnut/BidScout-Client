@@ -13,30 +13,21 @@ const _NavBar = ({user, loggedIn}) =>
     {loggedIn ? (
       <Navbar.Collapse>
         <Nav>
-          <NavItem eventKey={1} href="/campaign">
-            Campaign
-          </NavItem>
-          <NavItem eventKey={2} href="/creative">
-            Creative
-          </NavItem>
-          <NavItem eventKey={3} href="/xml">
-            VAST
-          </NavItem>
-          <NavItem eventKey={4} href="/bidder">
+          <NavItem eventKey={1} href="/bidder">
             Bidder
           </NavItem>
-          <NavItem eventKey={5} href="/auction">
+          <NavItem eventKey={2} href="/auction">
             Auctions
           </NavItem>
-          <NavItem eventKey={6} href="/biderrors">
-            Bid Errors
+          <NavItem eventKey={5} href="/vast">
+            VAST Tag Requests
           </NavItem>
-          <NavItem eventKey={7} href="/account">
+          <NavItem eventKey={3} href="/account">
             Account
           </NavItem>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={8} href="/logout">
+          <NavItem eventKey={4} href="/logout">
             Logout {user.firstName}
           </NavItem>
         </Nav>
@@ -44,7 +35,7 @@ const _NavBar = ({user, loggedIn}) =>
     ) : (
       <Navbar.Collapse>
         <Nav pullRight>
-          <NavItem eventKey={8} href="/login">
+          <NavItem eventKey={4} href="/login">
             Login
           </NavItem>
         </Nav>

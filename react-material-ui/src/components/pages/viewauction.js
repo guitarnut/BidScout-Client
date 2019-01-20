@@ -4,6 +4,7 @@ import ModelAuction from "../../model/auction";
 import {connect} from 'react-redux';
 import {FaRegTrashAlt} from 'react-icons/fa';
 import {Badge} from 'react-bootstrap';
+import {Panel} from 'react-bootstrap';
 
 class _ViewAuction extends Component {
 
@@ -287,23 +288,33 @@ class _ViewAuction extends Component {
       )
     } else {
       return (
-        <div className={'container'}>
+        <div>
           {Object.keys(this.state.bids).length > 0 ?
             (
-              <div className={'col-md-12'}>
-                <h2>Auction Records</h2>
-                <p>View end-to-end auction results.</p>
-                <p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
+              <div className={'container'}>
+                <div className={'col-md-12'}>
+                  <h2>Auction Records</h2>
+                  <p>View end-to-end auction results.</p>
+                  <p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
+                </div>
                 {Object.keys(this.state.bids).map((v) => {
                   return (
-                    <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
+                    <div key={v} className={'col-md-4'}>
+                      <Panel>
+                        <Panel.Body>
+                          <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
+                        </Panel.Body>
+                      </Panel>
+                    </div>
                   )
                 })}
               </div>
             ) : (
-              <div className={'col-md-12'}>
-                <h2>Auction Records</h2>
-                <p>No auction records available.</p>
+              <div className={'container'}>
+                <div className={'col-md-12'}>
+                  <h2>Auction Records</h2>
+                  <p>No auction records available.</p>
+                </div>
               </div>
             )
           }
