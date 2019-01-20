@@ -29,12 +29,7 @@ class _ViewBidder extends Component {
 
   render() {
     return (
-      <div className={'row'}>
-        <div className={'col-md-12'}>
-        <h2>Bidder</h2>
-        <p>Your auction endpoint is below. Requests must be POST. You may add an optional tracking value for reporting.</p>
-          <p><pre><code>//app.auctionscout.net/bid/{this.state.user.id}/[TRACKING]</code></pre></p>
-        </div>
+      <div className={'container'}>
         {Object.keys(this.state.campaigns).length === 0 ? (
           <div className={"col-md-4"}><p>You have no campaigns. <a href="/campaign">Build a campaign.</a></p></div>
         ) : (

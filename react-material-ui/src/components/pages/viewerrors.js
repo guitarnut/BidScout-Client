@@ -25,9 +25,9 @@ class ViewErrors extends Component {
   }
 
   render() {
-    if(this.state.errors.length > 0) {
+    if (this.state.errors.length > 0) {
       return (
-        <div className={'row'}>
+        <div className={'container'}>
           <div className={'col-md-12'}><h2>Bid Request Errors</h2></div>
           {this.state.errors.map((v) => {
             return (
@@ -38,13 +38,12 @@ class ViewErrors extends Component {
       )
     } else {
       return (
-        <div className={'row'}>
+        <div className={'container'}>
           <div className={'col-md-12'}><h2>Bid Request Errors</h2></div>
           <div className={'col-md-12'}><p>You have no bid request errors.</p></div>
         </div>
       )
     }
-
   }
 }
 

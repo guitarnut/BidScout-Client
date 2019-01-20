@@ -127,29 +127,33 @@ class _Campaign extends Component {
     } else {
       return (
         <div className={'container'}>
-          {this.state.updateCampaignId ? (
-            <h2>Edit {this.state.model.name}</h2>
-          ) : (
-            <h2>Build Campaign</h2>
-          )}
-          <p>Your campaign is the top level item that makes decisions about your bid responses. A campaign must have one
-            or more creatives associated with it. If you're looking to get up and running quickly, BidScout can generate
-            a 100% fill campaign that will automatically return a bid response for any size bid, for any request.</p>
-          <p>Build campaign settings and targeting.</p>
+          <div className={'col-md-12'}>
+            {this.state.updateCampaignId ? (
+              <h2>Edit {this.state.model.name}</h2>
+            ) : (
+              <h2>Build Campaign</h2>
+            )}
+            <p>Your campaign is the top level item that makes decisions about your bid responses. A campaign must have
+              one
+              or more creatives associated with it. If you're looking to get up and running quickly, BidScout can
+              generate
+              a 100% fill campaign that will automatically return a bid response for any size bid, for any request.</p>
+            <p>Build campaign settings and targeting.</p>
 
-          <PanelName value={this.state.name} context={this}/>
-          <PanelConfig parentState={this.state} context={this}/>
-          <PanelTracking isCampaign={true} context={this} parentState={this.state}/>
-          <PanelLists context={this} parentState={this.state}/>
-          <PanelDeals context={this} parentState={this.state}/>
-          <PanelPacing context={this} parentState={this.state}/>
-          <PanelPlatforms context={this} parentState={this.state}/>
+            <PanelName value={this.state.name} context={this}/>
+            <PanelConfig parentState={this.state} context={this}/>
+            <PanelTracking isCampaign={true} context={this} parentState={this.state}/>
+            <PanelLists context={this} parentState={this.state}/>
+            <PanelDeals context={this} parentState={this.state}/>
+            <PanelPacing context={this} parentState={this.state}/>
+            <PanelPlatforms context={this} parentState={this.state}/>
 
-          {this.state.updateCampaignId ? (
-            <UIButton text="Update" action={this.save.bind(this)} icon="save"/>
-          ) : (
-            <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
-          )}
+            {this.state.updateCampaignId ? (
+              <UIButton text="Update" action={this.save.bind(this)} icon="save"/>
+            ) : (
+              <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
+            )}
+          </div>
         </div>
       )
     }

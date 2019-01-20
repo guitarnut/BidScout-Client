@@ -11,8 +11,9 @@ import Deals from "./components/deals";
 import {connect} from "react-redux";
 import {storeAllCreatives} from "../../store/actions";
 import {buildCreativeStateFromResponse} from "../../builder/creative";
-import { FaRegTrashAlt, FaRegEdit } from 'react-icons/fa';
+import {FaRegTrashAlt, FaRegEdit} from 'react-icons/fa';
 import {Model} from '../../const/modeltypes';
+import UIButton from "../ui/button";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -125,7 +126,7 @@ class _ViewCreative extends Component {
 
   resetStats() {
     resetCreative(this.state.id)
-      .then(()=>{
+      .then(() => {
         this.setState({
           statsBids: 0,
           statsNbr: 0,
@@ -160,33 +161,36 @@ class _ViewCreative extends Component {
 
   render() {
     return (
-      <div>
-        <h4>All Creatives</h4>
-        {Object.keys(this.state.allCreatives).map((v) => {
-          return (
-            <p><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCreatives[v]}</p>
-          )
-        })}
+      <div className={'container'}>
+        <div className={'col-md-12'}>
+          <h4>All Creatives</h4>
+          {Object.keys(this.state.allCreatives).map((v) => {
+            return (
+              <p><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCreatives[v]}</p>
+            )
+          })}
 
-        <h2>Creative {this.state.name} ({this.state.type})</h2>
-        <hr/>
-        <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
-          onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
-        {this.state.campaign !== null ? (
-          <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
-        ) : (
-          <p>No parent campaign aligned with this creative.</p>
-        )}
-        <hr/>
-        <p onClick={this.resetStats.bind(this)}>Reset</p>
-        <Stats parentState={this.state}/>
-        <hr/>
-        <CreativeProps parentState={this.state}/>
-        <Lists parentState={this.state}/>
-        <Deals parentState={this.state}/>
-        <Platforms parentState={this.state}/>
-        <Flight parentState={this.state}/>
-        <Limits parentState={this.state}/>
+          <h2>Creative {this.state.name} ({this.state.type})</h2>
+          <hr/>
+          <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
+            onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
+          {this.state.campaign !== null ? (
+            <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
+          ) : (
+            <p>No parent campaign aligned with this creative.</p>
+          )}
+          <hr/>
+          <UIButton action={this.resetStats.bind(this)} text={"Reset Stats"}></UIButton>
+          <hr/>
+          <Stats parentState={this.state}/>
+          <hr/>
+          <CreativeProps parentState={this.state}/>
+          <Lists parentState={this.state}/>
+          <Deals parentState={this.state}/>
+          <Platforms parentState={this.state}/>
+          <Flight parentState={this.state}/>
+          <Limits parentState={this.state}/>
+        </div>
       </div>
     )
   }

@@ -4,6 +4,7 @@ import {Panel} from 'react-bootstrap';
 
 const Settings = (props) =>
   <div className={'row'}>
+    <div className={'col-md-12'}>
     <Panel>
       <Panel.Heading><h4>Settings</h4></Panel.Heading>
       <Panel.Body>
@@ -11,6 +12,7 @@ const Settings = (props) =>
         <div className={'col-md-6'}><p><strong>Secure Bids:</strong> {props.parentState.requirementsSecure.toString()}</p></div>
       </Panel.Body>
     </Panel>
+    </div>
   </div>;
 
 Settings.propTypes = {

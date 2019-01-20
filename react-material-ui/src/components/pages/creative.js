@@ -144,31 +144,33 @@ class _Creative extends Component {
       )
     } else {
       return (
-        <div>
-          {this.state.updateCreativeId !== '' ? (
-            <h2>Edit {this.state.name}</h2>
-          ) : (
-            <h2>Build Creative</h2>
-          )}
-          <p>Creatives are the second level item responsible for controlling bid responses. Creatives will be
-            returned based on a size match with the bid request. If you do not wish to create multiple creatives,
-            BidScout can instead create a 100% fill campaign that will return a creative for every bid request.</p>
-          <p>{this.state.xmlId}</p>
-          <PanelName value={this.state.name} context={this}/>
-          <PanelConfig parentState={this.state} context={this}/>
-          <PanelProperties creativeType={this.state.creativeType} context={this} parentState={this.state}/>
-          <PanelAuctionSettings context={this} parentState={this.state}/>
-          <PanelTracking isCampaign={false} context={this} parentState={this.state}/>
-          <PanelLists context={this} parentState={this.state}/>
-          <PanelDeals context={this} parentState={this.state}/>
-          <PanelPacing context={this} parentState={this.state}/>
-          <PanelPlatforms context={this} parentState={this.state}/>
+        <div className={'container'}>
+          <div className={'col-md-12'}>
+            {this.state.updateCreativeId !== '' ? (
+              <h2>Edit {this.state.name}</h2>
+            ) : (
+              <h2>Build Creative</h2>
+            )}
+            <p>Creatives are the second level item responsible for controlling bid responses. Creatives will be
+              returned based on a size match with the bid request. If you do not wish to create multiple creatives,
+              BidScout can instead create a 100% fill campaign that will return a creative for every bid request.</p>
+            <p>{this.state.xmlId}</p>
+            <PanelName value={this.state.name} context={this}/>
+            <PanelConfig parentState={this.state} context={this}/>
+            <PanelProperties creativeType={this.state.creativeType} context={this} parentState={this.state}/>
+            <PanelAuctionSettings context={this} parentState={this.state}/>
+            <PanelTracking isCampaign={false} context={this} parentState={this.state}/>
+            <PanelLists context={this} parentState={this.state}/>
+            <PanelDeals context={this} parentState={this.state}/>
+            <PanelPacing context={this} parentState={this.state}/>
+            <PanelPlatforms context={this} parentState={this.state}/>
 
-          {this.state.updateCreativeId ? (
-            <UIButton text="Update" action={this.save.bind(this)} icon="save"/>
-          ) : (
-            <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
-          )}
+            {this.state.updateCreativeId ? (
+              <UIButton text="Update" action={this.save.bind(this)} icon="save"/>
+            ) : (
+              <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
+            )}
+          </div>
         </div>
       )
     }

@@ -54,7 +54,7 @@ class _User extends Component {
 
   render() {
     return (
-      <div className={'row'}>
+      <div className={'container'}>
         <div className={'col-md-12'}>
           <h2>Account</h2>
           <p><strong>Last Login</strong>: {new Date().toDateString(this.state.lastLogin)}</p>

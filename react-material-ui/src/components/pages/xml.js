@@ -93,7 +93,7 @@ class _XML extends Component {
 
   render() {
     return (
-      <div className={'row'}>
+      <div className={'container'}>
         <div className={'col-md-12'}>
           <h2>Build VAST XML</h2>
         </div>
