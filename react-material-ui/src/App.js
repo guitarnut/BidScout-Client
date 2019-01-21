@@ -24,16 +24,16 @@ window.store = store;
 class App extends Component {
   render() {
     return (
-      <div className='App'>
+      <div className='App' id='appwrapper'>
         <Router>
           <div>
-            <div className="jumbotron jumbotron-fluid">
+            <div className="jumbotron jumbotron-fluid" style={{background: "url('/img/header.jpg')"}}>
               <div className="container">
                 <img src="/img/logo.png" style={{width: 50 + '%', height: 50 + '%'}}/>
               </div>
               <NavigationMenu/>
             </div>
-            <div className="container" id="view">
+            <div className="container" id='view'>
               <Route path='/' exact component={LoginForm}/>
               <Route path='/login' component={LoginForm}/>
               <Route path='/logout' component={Logout}/>

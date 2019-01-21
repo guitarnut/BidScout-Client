@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import {
+  deleteAllVastRecords, deleteVastRecord,
   getVastRequestByTagRequestId,
   getVastRequestEventsByTagRequestId,
   getVastRequestRecords
 } from "../../api/restapi";
 import {Panel} from 'react-bootstrap';
 import VastTagRequestModel from "../../model/vasttagrequest";
+import {FaRegTrashAlt} from 'react-icons/fa';
 
 class ViewVast extends Component {
 
@@ -57,31 +59,33 @@ class ViewVast extends Component {
       })
   };
 
-  // deleteVastTagRecord(id) {
-  //   deleteBid(id);
-  //   getAllBids()
-  //     .then((data) => {
-  //       this.setState({
-  //         bids: data
-  //       });
-  //       this.props.history.push('/auction')
-  //     });
-  // }
-  //
-  // deleteAllVastTagRecords() {
-  //   deleteAllBids()
-  //     .then(() => {
-  //       this.setState({
-  //         bids: {}
-  //       });
-  //     });
-  // }
+  deleteVast(id) {
+    deleteVastRecord(id)
+      .then(()=>{
+        getVastRequestRecords()
+          .then((data) => {
+            this.setState({
+              vastTransactions: data
+            });
+            this.props.history.push('/vast')
+          });
+      });
+  }
+
+  deleteAllVast() {
+    deleteAllVastRecords()
+      .then(() => {
+        this.setState({
+          vastTransactions: {}
+        });
+      });
+  }
 
   formatDate(v) {
     if (v === 0) {
       return 'Not available';
     }
-    return new Date(v).toLocaleDateString() + ' ' + new Date(v).toLocaleTimeString();
+    return new Date(v).toString();
   }
 
   renderVastTransaction() {
@@ -90,7 +94,7 @@ class ViewVast extends Component {
         <div className={'container'}>
           <div className={'col-md-12'}>
             <h2>VAST Tag {this.state.vastRequest.vastName}</h2>
-            {/*<p><a onClick={this.deleteBidRecord.bind(this, this.state.bid.id)}><FaRegTrashAlt/></a></p>*/}
+            <p><a onClick={this.deleteVast.bind(this, this.state.vastRequest.id)}><FaRegTrashAlt/></a></p>
           </div>
           <div className={'col-md-12'}>
             <hr/>
@@ -189,7 +193,7 @@ class ViewVast extends Component {
                 <div className={'col-md-12'}>
                   <h2>VAST Tag Records</h2>
                   <p>View VAST tag results.</p>
-                  {/*<p><a onClick={this.deleteAllBidRecords.bind(this)}><FaRegTrashAlt/> Delete all</a></p>*/}
+                  <p><a onClick={this.deleteAllVast.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
                 </div>
                 {Object.keys(this.state.vastTransactions).map((v) => {
                   return (

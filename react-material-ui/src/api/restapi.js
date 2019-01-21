@@ -210,6 +210,14 @@ export function getVastRequestEventsByTagRequestId(id) {
   return postRequest(host + '/api/vast/events/get/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
+export function deleteVastRecord(id) {
+  return postRequest(host + '/api/vast/delete/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function deleteAllVastRecords() {
+  return postRequest(host + '/api/vast/deleteall/' + window.sessionStorage.getItem('userid'));
+}
+
 export function deleteXml(id) {
   return postRequest(host + '/api/xml/delete/' + window.sessionStorage.getItem('userid') + '/' + id);
 }

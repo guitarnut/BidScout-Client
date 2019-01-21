@@ -97,7 +97,7 @@ class _ViewAuction extends Component {
     if (v === 0) {
       return 'Not available';
     }
-    return new Date(v).toLocaleDateString() + ' ' + new Date(v).toLocaleTimeString();
+    return new Date(v).toString();
   }
 
   renderBid() {
@@ -302,7 +302,9 @@ class _ViewAuction extends Component {
                     <div key={v} className={'col-md-4'}>
                       <Panel>
                         <Panel.Body>
-                          <p><a href={'/auction/' + v}>{this.state.bids[v]}</a></p>
+                          <p><a href={'/auction/' + v}>{this.state.bids[v].bidRequestId}</a><br/>
+                            {this.formatDate(this.state.bids[v].requestTimestamp)}
+                          </p>
                         </Panel.Body>
                       </Panel>
                     </div>
