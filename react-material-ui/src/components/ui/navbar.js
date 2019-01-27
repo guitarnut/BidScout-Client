@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import {Nav, Navbar, NavItem} from 'react-bootstrap';
+import {authorized} from "../../api/restapi";
 
 const _NavBar = ({user, loggedIn}) =>
   <Navbar collapseOnSelect fixedTop>
@@ -46,7 +47,7 @@ const _NavBar = ({user, loggedIn}) =>
 const NavigationMenu = connect(
   state => ({
     user: state.user,
-    loggedIn: state.loggedIn
+    loggedIn: authorized()
   })
 )(_NavBar);
 

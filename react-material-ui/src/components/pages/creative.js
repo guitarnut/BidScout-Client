@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import ModelCreative from "../../model/creative";
-import {getCreative, getCreativeNames, saveCreative} from "../../api/restapi";
+import {authorized, getCreative, getCreativeNames, saveCreative} from "../../api/restapi";
 import UIButton from '../ui/button';
 import PanelAuctionSettings from "./components/panel_auctionsettings";
 import PanelProperties from "./components/panel_properties";
@@ -91,6 +91,9 @@ class _Creative extends Component {
   }
 
   componentWillMount() {
+    if(!authorized()) {
+      this.props.history.push('/login')
+    }
     const {id} = this.props.match.params;
     if (id !== undefined) {
       this.getCreative(id);

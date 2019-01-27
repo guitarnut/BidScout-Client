@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { FaRegEdit } from 'react-icons/fa';
+import {FaRegEdit} from 'react-icons/fa';
+import {authorized} from "../../api/restapi";
+import {Badge, Label, Panel} from 'react-bootstrap';
+import UIButton from "../ui/button";
 
 
 class _ViewBidder extends Component {
@@ -16,6 +19,12 @@ class _ViewBidder extends Component {
 
   constructor() {
     super();
+  }
+
+  componentWillMount() {
+    if (!authorized()) {
+      this.props.history.push('/login')
+    }
   }
 
   componentDidMount() {
@@ -35,12 +44,16 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
             <h4>Campaigns</h4>
-            <p><a href="/campaign">Build a campaign.</a></p>
+            <a href="/campaign"><UIButton text={'Create'}></UIButton></a>
             <hr/>
             {Object.keys(this.state.campaigns).map((v) => {
               return (
-                <p key={v}><a href={'/campaign/view/' + v}>{this.state.campaigns[v]}</a> <a
-                  href={'/campaign/edit/' + v}><FaRegEdit/></a></p>
+                <Panel key={v}>
+                  <Panel.Body>
+                    <p key={v}><a href={'/campaign/view/' + v}>{this.state.campaigns[v]}</a> <a
+                      href={'/campaign/edit/' + v}><FaRegEdit/></a></p>
+                  </Panel.Body>
+                </Panel>
               )
             })}
           </div>
@@ -50,12 +63,16 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
             <h4>Creatives</h4>
-            <p><a href="/creative">Build a creative.</a></p>
+            <a href="/creative"><UIButton text={'Create'}></UIButton></a>
             <hr/>
             {Object.keys(this.state.creatives).map((v) => {
               return (
-                <p key={v}><a href={'/creative/view/' + v}>{this.state.creatives[v]}</a> <a
-                  href={'/creative/edit/' + v}><FaRegEdit/></a></p>
+                <Panel key={v}>
+                  <Panel.Body>
+                    <p key={v}><a href={'/creative/view/' + v}>{this.state.creatives[v]}</a> <a
+                      href={'/creative/edit/' + v}><FaRegEdit/></a></p>
+                  </Panel.Body>
+                </Panel>
               )
             })}
           </div>
@@ -65,12 +82,17 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
             <h4>VAST</h4>
-            <p><a href="/xml">Build a XML document.</a></p>
+            <a href="/xml"><UIButton text={'Create'}></UIButton></a>
             <hr/>
             {Object.keys(this.state.xml).map((v) => {
               return (
-                <p key={v}><a href={'/xml/view/' + v}>{this.state.xml[v]}</a> <a href={'/xml/edit/' + v}><FaRegEdit/></a>
-                </p>
+                <Panel key={v}>
+                  <Panel.Body>
+                    <p key={v}><a href={'/xml/view/' + v}>{this.state.xml[v]}</a> <a
+                      href={'/xml/edit/' + v}><FaRegEdit/></a>
+                    </p>
+                  </Panel.Body>
+                </Panel>
               )
             })}
           </div>

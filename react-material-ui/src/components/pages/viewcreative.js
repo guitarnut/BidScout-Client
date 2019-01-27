@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {deleteCreative, getCampaignWithCreative, getCreative, getCreativeNames, resetCreative} from "../../api/restapi";
+import {
+  authorized,
+  deleteCreative,
+  getCampaignWithCreative,
+  getCreative,
+  getCreativeNames,
+  resetCreative
+} from "../../api/restapi";
 import Limits from "./components/limits";
 import Platforms from "./components/platforms";
 import Lists from "./components/lists";
@@ -87,6 +94,12 @@ class _ViewCreative extends Component {
     super();
   }
 
+  componentWillMount() {
+    if(!authorized()) {
+      this.props.history.push('/login')
+    }
+  }
+
   componentDidMount() {
     const {id} = this.props.match.params;
 
@@ -163,17 +176,10 @@ class _ViewCreative extends Component {
     return (
       <div className={'container'}>
         <div className={'col-md-12'}>
-          <h4>All Creatives</h4>
-          {Object.keys(this.state.allCreatives).map((v) => {
-            return (
-              <p><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCreatives[v]}</p>
-            )
-          })}
-
-          <h2>Creative {this.state.name} ({this.state.type})</h2>
-          <hr/>
+          <h2>Creative Name: {this.state.name} ({this.state.type})</h2>
           <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
             onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
+          <hr/>
           {this.state.campaign !== null ? (
             <p><strong>Parent Campaign:</strong> <a href={this.state.campaignLink}>{this.state.campaign.name}</a></p>
           ) : (

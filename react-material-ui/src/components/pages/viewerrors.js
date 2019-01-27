@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {viewBidErrors} from "../../api/restapi";
+import {authorized, viewBidErrors} from "../../api/restapi";
 import {Panel} from 'react-bootstrap';
 
 class ViewErrors extends Component {
@@ -10,6 +10,11 @@ class ViewErrors extends Component {
 
   constructor() {
     super();
+  }
+  componentWillMount() {
+    if(!authorized()) {
+      this.props.history.push('/login')
+    }
   }
 
   componentDidMount() {

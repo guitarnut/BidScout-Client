@@ -1,10 +1,17 @@
 import React, {Component} from 'react'
-import {deleteAllBids, deleteBid, getAllBids, viewBid, viewClicks, viewImpressions} from "../../api/restapi";
+import {
+  authorized,
+  deleteAllBids,
+  deleteBid,
+  getAllBids,
+  viewBid,
+  viewClicks,
+  viewImpressions
+} from "../../api/restapi";
 import ModelAuction from "../../model/auction";
 import {connect} from 'react-redux';
 import {FaRegTrashAlt} from 'react-icons/fa';
-import {Badge} from 'react-bootstrap';
-import {Panel} from 'react-bootstrap';
+import {Badge, Label, Panel} from 'react-bootstrap';
 
 class _ViewAuction extends Component {
 
@@ -25,6 +32,9 @@ class _ViewAuction extends Component {
   }
 
   componentWillMount() {
+    if (!authorized()) {
+      this.props.history.push('/login')
+    }
     const {id} = this.props.match.params;
     if (id !== undefined) {
       this.setState({
@@ -105,30 +115,11 @@ class _ViewAuction extends Component {
       return (
         <div className={'container'}>
           <div className={'col-md-12'}>
-            <h2>Bid {this.state.bid.bidRequestId}</h2>
+            <h2>Bid Id: {this.state.bid.bidRequestId}</h2>
             <p><a onClick={this.deleteBidRecord.bind(this, this.state.bid.id)}><FaRegTrashAlt/></a></p>
-            <p><strong>Targeting Failures</strong></p>
-            {this.state.bid.targetingFailures && Object.keys(this.state.bid.targetingFailures).length > 0 ?
-              <ul>
-                {Object.keys(this.state.bid.targetingFailures).map((v) => {
-                  return (
-                    <li key={v}>{v}: {this.state.bid.targetingFailures[v]}</li>
-                  )
-                })}
-              </ul>
-              : <p>No targeting failures found.</p>
-            }
-            <p><strong>Bid Request Errors</strong></p>
-            {this.state.bid.bidRequestErrors && this.state.bid.bidRequestErrors.length > 0 ?
-              <ul>
-                {Object.keys(this.state.bid.bidRequestErrors).map((v) => {
-                  return (
-                    <li key={v}>{this.state.bid.bidRequestErrors[v]}</li>
-                  )
-                })}
-              </ul>
-              : <p>No bid request errors found.</p>
-            }
+          </div>
+          <div className={'col-md-12'}>
+            <p><strong>Request Timestamp</strong><br/>{this.formatDate(this.state.bid.requestTimestamp)}</p>
           </div>
           <div className={'col-md-12'}>
             <hr/>
@@ -139,9 +130,6 @@ class _ViewAuction extends Component {
           <div className={'col-md-3'}>
             <p><strong>Creative</strong><br/>{this.state.creatives[this.state.bid.creative]}</p>
           </div>
-          <div className={'col-md-3'}>
-            <p><strong>Request Timestamp</strong><br/>{this.formatDate(this.state.bid.requestTimestamp)}</p>
-          </div>
           {this.state.bid.responseTimestamp > 0 &&
           <div className={'col-md-3'}>
             <p><strong>Response
@@ -150,6 +138,33 @@ class _ViewAuction extends Component {
             </p>
           </div>
           }
+          <div className={'col-md-12'}>
+            <hr/>
+          </div>
+          <div className={'col-md-12'}>
+            <p><strong>Targeting Failures</strong></p>
+            {this.state.bid.targetingFailures && Object.keys(this.state.bid.targetingFailures).length > 0 ?
+              <h4>
+                {Object.keys(this.state.bid.targetingFailures).map((v) => {
+                  return (
+                    <Label bsStyle='warning' key={v}>{v}: {this.state.bid.targetingFailures[v]}</Label>
+                  )
+                })}
+              </h4>
+              : <p>No targeting failures found.</p>
+            }
+            <p><strong>Bid Request Errors</strong></p>
+            {this.state.bid.bidRequestErrors && this.state.bid.bidRequestErrors.length > 0 ?
+              <h4>
+                {Object.keys(this.state.bid.bidRequestErrors).map((v) => {
+                  return (
+                    <Label bsStyle='warning' key={v}>{this.state.bid.bidRequestErrors[v]}</Label>
+                  )
+                })}
+              </h4>
+              : <p>No bid request errors found.</p>
+            }
+          </div>
           <div className={'col-md-12'}>
             <hr/>
           </div>
@@ -228,13 +243,13 @@ class _ViewAuction extends Component {
                   <p><strong><Badge>${v.cp}</Badge> Clearing Price</strong></p>
                 </div>
                 <div className={'col-md-3'}>
-                  <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
-                </div>
-                <div className={'col-md-3'}>
                   <p><strong>Host:</strong> {v.host}</p>
                 </div>
                 <div className={'col-md-3'}>
                   <p><strong>IP:</strong> {v.ip}</p>
+                </div>
+                <div className={'col-md-12'}>
+                  <p><strong>Timestamp:</strong> {this.formatDate(v.impressionTimestamp)}</p>
                 </div>
               </div>
             )

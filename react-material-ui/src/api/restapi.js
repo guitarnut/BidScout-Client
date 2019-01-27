@@ -2,13 +2,14 @@ import axios from "axios/index";
 
 export const sessionTimeout = 1000 * 60 * 60;
 export const host = 'https://app.auctionscout.net'; //process.env.REACT_APP_HOST;
-// export const host = 'http://localhost:8080'; //process.env.REACT_APP_HOST;
+//export const host = 'http://localhost:8080'; //process.env.REACT_APP_HOST;
 
 let session = null;
 
 let username = '';
 let password = '';
 let userid = '';
+let loggedin = false;
 
 function generateAuthPostHeaders(noAuth) {
   if (username === '' || password === '') {
@@ -31,8 +32,8 @@ function generateAuthPostHeaders(noAuth) {
 }
 
 function handleError(e) {
-    window.location.pathname = '/error';
-    //return;
+  window.location.pathname = '/error';
+  //return;
 
   // switch (e.response.status) {
   //   case 401:
@@ -71,6 +72,13 @@ function postRequest(path, data, noAuth) {
   });
 }
 
+export function authorized() {
+  return window.sessionStorage.getItem('username') !== ''
+    && window.sessionStorage.getItem('username') !== null
+    && window.sessionStorage.getItem('password') !== ''
+    && window.sessionStorage.getItem('password') !== null;
+}
+
 export function loginUser(u, p) {
   return new Promise((resolve, reject) => {
     username = u;
@@ -84,10 +92,12 @@ export function loginUser(u, p) {
         username = u;
         password = p;
         userid = response.id;
+        loggedin = true;
         resolve(response.data);
       })
       .catch(function (error) {
         console.log(error);
+        loggedin = false;
         reject();
       });
   })
@@ -100,6 +110,7 @@ export function logout() {
   window.sessionStorage.removeItem('username');
   window.sessionStorage.removeItem('password');
   window.sessionStorage.removeItem('userid');
+  loggedin = false;
 }
 
 export function getUserId() {

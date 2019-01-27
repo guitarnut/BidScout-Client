@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import TextBox from '../ui/textfield';
-import {createUser, getAllXml, getCampaignNames, getCreativeNames, loginUser} from "../../api/restapi";
+import {authorized, createUser, getAllXml, getCampaignNames, getCreativeNames, loginUser} from "../../api/restapi";
 import UIButton from '../ui/button';
 import {storeAllCampaigns, storeAllCreatives, storeAllXml, storeLoginUser} from '../../store/actions';
 import {connect} from 'react-redux';
@@ -20,6 +20,9 @@ class _LoginForm extends Component {
   loaded = 0;
 
   componentWillMount() {
+    if(authorized()) {
+      this.props.history.push('/bidder');
+    }
     this.setState({
       username: '',
       password: '',

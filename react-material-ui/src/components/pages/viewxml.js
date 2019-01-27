@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {deleteXml, getAllXml, getVast, host} from "../../api/restapi";
+import {authorized, deleteXml, getAllXml, getVast, host} from "../../api/restapi";
 import {withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import {storeAllXml} from "../../store/actions";
@@ -22,6 +22,12 @@ class _ViewXml extends Component {
 
   constructor() {
     super();
+  }
+
+  componentWillMount() {
+    if (!authorized()) {
+      this.props.history.push('/login')
+    }
   }
 
   componentDidMount() {
@@ -61,7 +67,7 @@ class _ViewXml extends Component {
     return (
       <div className={'container'}>
         <div className={'col-md-12'}>
-          <h2>XML {this.state.name}</h2>
+          <h2>XML Document: {this.state.name}</h2>
           <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
             onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
           <p>VAST Tag URI: <a target='_blank'

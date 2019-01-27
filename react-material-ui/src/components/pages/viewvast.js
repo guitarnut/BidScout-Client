@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {
+  authorized,
   deleteAllVastRecords, deleteVastRecord,
   getVastRequestByTagRequestId,
   getVastRequestEventsByTagRequestId,
@@ -23,6 +24,9 @@ class ViewVast extends Component {
   }
 
   componentWillMount() {
+    if(!authorized()) {
+      this.props.history.push('/login')
+    }
     const {id} = this.props.match.params;
     if (id !== undefined) {
       this.setState({
@@ -99,7 +103,7 @@ class ViewVast extends Component {
           <div className={'col-md-12'}>
             <hr/>
           </div>
-          <div className={'col-md-3'}>
+          <div className={'col-md-12'}>
             <p><strong>Request Timestamp</strong><br/>{this.formatDate(this.state.vastRequest.requestTimestamp)}</p>
           </div>
           <div className={'col-md-12'}>
@@ -157,13 +161,13 @@ class ViewVast extends Component {
                   </p>
                 </div>
                 <div className={'col-md-3'}>
-                  <p><strong>Timestamp:</strong> {this.formatDate(v.eventTimestamp)}</p>
-                </div>
-                <div className={'col-md-3'}>
                   <p><strong>Host:</strong> {v.host}</p>
                 </div>
                 <div className={'col-md-3'}>
                   <p><strong>IP:</strong> {v.ip}</p>
+                </div>
+                <div className={'col-md-12'}>
+                  <p><strong>Timestamp:</strong> {this.formatDate(v.eventTimestamp)}</p>
                 </div>
               </div>
             )

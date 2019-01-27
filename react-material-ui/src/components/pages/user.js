@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {handleInputChange} from "../../input/formInputHandler";
-import {updateUser} from "../../api/restapi";
+import {authorized, updateUser} from "../../api/restapi";
 import UIButton from '../ui/button';
 import TextBox from "../ui/textfield";
 import {connect} from 'react-redux';
@@ -36,6 +36,12 @@ class _User extends Component {
 
   constructor() {
     super();
+  }
+
+  componentWillMount() {
+    if(!authorized()) {
+      this.props.history.push('/login')
+    }
   }
 
   componentDidMount() {

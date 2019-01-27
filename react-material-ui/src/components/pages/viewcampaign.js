@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom';
 import {
-  addCreativeToCampaign,
+  addCreativeToCampaign, authorized,
   deleteCampaign,
   getCampaign,
   getCampaignNames,
@@ -84,6 +84,12 @@ class _ViewCampaign extends Component {
 
   constructor() {
     super();
+  }
+
+  componentWillMount() {
+    if (!authorized()) {
+      this.props.history.push('/login')
+    }
   }
 
   componentDidMount() {
@@ -207,14 +213,18 @@ class _ViewCampaign extends Component {
   render() {
     return (
       <div className={'container'}>
-        <div className={'col-md-4'}><h4>All Campaigns</h4>
-          {Object.keys(this.state.allCampaigns).map((v) => {
-            return (
-              <p key={v}><a onClick={this.view.bind(this, v)}>View</a> - {this.state.allCampaigns[v]}</p>
-            )
-          })}
+        <div className={'col-md-12'}><h2>Campaign Name: {this.state.name}</h2>
+          <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
+            onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
+          <hr/>
         </div>
-        <div className={'col-md-4'}><h4>Creatives</h4>
+        <div className={'col-md-12'}>
+          <p>Your auction endpoint for this campaign is below. Requests must be POST.</p>
+          <p>
+            <pre><code>https://app.auctionscout.net/bid/{this.state.owner}/{this.state.id}</code></pre>
+          </p>
+        </div>
+        <div className={'col-md-6'}><h4>Creatives In Use</h4>
           {Object.keys(this.state.allCreativesForCampaign).length > 0 ? (
             Object.keys(this.state.allCreativesForCampaign).map((v) => {
               return (
@@ -227,7 +237,7 @@ class _ViewCampaign extends Component {
             <p>No creatives aligned to this campaign.</p>
           )}
         </div>
-        <div className={'col-md-4'}><h4>Available Creatives</h4>
+        <div className={'col-md-6'}><h4>Available Creatives</h4>
           {Object.keys(this.state.allCreatives).length > 0 ? (
             Object.keys(this.state.allCreatives).map((v) => {
               return (
@@ -240,18 +250,6 @@ class _ViewCampaign extends Component {
           )}
         </div>
         <div className={'col-md-12'}>
-          <h2>Endpoint</h2>
-          <p>Your auction endpoint for this campaign is below. Requests must be POST.</p>
-          <p>
-            <pre><code>https://app.auctionscout.net/bid/{this.state.owner}/{this.state.id}</code></pre>
-          </p>
-        </div>
-        <div className={'col-md-12'}>
-          <h2>Campaign {this.state.name}</h2>
-          <hr/>
-          <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
-            onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
-          <hr/>
           <UIButton action={this.resetStats.bind(this)} text={"Reset Stats"}></UIButton>
           <hr/>
           <Stats parentState={this.state}/>

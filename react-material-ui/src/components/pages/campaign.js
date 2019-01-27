@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {getCampaign, getCampaignNames, saveCampaign} from "../../api/restapi";
+import {authorized, getCampaign, getCampaignNames, saveCampaign} from "../../api/restapi";
 import UIButton from '../ui/button';
 import PanelName from "./components/panel_name";
 import PanelLists from "./components/panel_lists";
@@ -73,6 +73,9 @@ class _Campaign extends Component {
   }
 
   componentWillMount() {
+    if(!authorized()) {
+      this.props.history.push('/login')
+    }
     const {id} = this.props.match.params;
     if (id !== undefined) {
       this.getCampaign(id);
