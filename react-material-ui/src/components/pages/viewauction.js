@@ -12,6 +12,11 @@ import ModelAuction from "../../model/auction";
 import {connect} from 'react-redux';
 import {FaRegTrashAlt} from 'react-icons/fa';
 import {Badge, Label, Panel} from 'react-bootstrap';
+import '../../App.css';
+
+const padding = {
+  marginRight: '5px'
+};
 
 class _ViewAuction extends Component {
 
@@ -153,12 +158,12 @@ class _ViewAuction extends Component {
               </h4>
               : <p>No targeting failures found.</p>
             }
-            <p><strong>Bid Request Errors</strong></p>
+            <p><strong>Errors/Warnings</strong></p>
             {this.state.bid.bidRequestErrors && this.state.bid.bidRequestErrors.length > 0 ?
               <h4>
                 {Object.keys(this.state.bid.bidRequestErrors).map((v) => {
                   return (
-                    <Label bsStyle='warning' key={v}>{this.state.bid.bidRequestErrors[v]}</Label>
+                    <Label style={padding} bsStyle='warning' key={v}>{this.state.bid.bidRequestErrors[v]}</Label>
                   )
                 })}
               </h4>

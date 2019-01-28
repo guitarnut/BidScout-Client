@@ -20,7 +20,7 @@ class _XML extends Component {
     if(!authorized()) {
       this.props.history.push('/login')
     }
-    
+
     this.setState({
       name: '',
       type: 'InLine',
@@ -85,6 +85,7 @@ class _XML extends Component {
     data['vast'] = buildVastLinearAdModelFromState(this.state);
     data['name'] = this.state.name;
     data['id'] = this.state.id;
+    data['type'] = this.state.type;
     saveXML(data)
       .then(() => {
         getAllXml()

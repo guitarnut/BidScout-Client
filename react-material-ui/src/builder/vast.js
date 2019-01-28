@@ -59,46 +59,57 @@ export function buildVastStateFromResponse(response) {
 
   data.id = response.id;
   data.name = response.name;
-  data.type = 'InLine';
+  data.type = response.type || 'InLine';
   data.vastVersion = response.vast.version;
   data.vastAdId = response.vast.Ad.id;
   data.vastAdSequence = response.vast.Ad.sequence;
 
-  if(response.vast.Ad.InLine !== undefined) {
+  if (response.vast.Ad.InLine !== undefined) {
     data.vastAdInLineAdSystemValue = response.vast.Ad.InLine.AdSystem.value;
     data.vastAdInLineAdTitle = response.vast.Ad.InLine.AdTitle.value;
 
-    data.vastAdInLineCreativesCreativeId = response.vast.Ad.InLine.Creatives[0].id;
-    data.vastAdInLineCreativesCreativeSequence = response.vast.Ad.InLine.Creatives[0].sequence;
-    data.vastAdInLineCreativesCreativeAdId = response.vast.Ad.InLine.Creatives[0].adId;
-    data.vastAdInLineCreativesCreativeApiFramework = response.vast.Ad.InLine.Creatives[0].apiFramework;
+    if (response.vast.Ad.InLine.Creatives !== undefined && response.vast.Ad.InLine.Creatives.length > 0) {
+      response.vast.Ad.InLine.Creatives.map((c) => {
+        data.vastAdInLineCreativesCreativeId = c.id;
+        data.vastAdInLineCreativesCreativeSequence = c.sequence;
+        data.vastAdInLineCreativesCreativeAdId = c.adId;
+        data.vastAdInLineCreativesCreativeApiFramework = c.apiFramework;
 
-    if(response.vast.Ad.InLine.Creatives[0].UniversalAdId !== undefined) {
-      data.vastAdInLineCreativesCreativeUniversalAdIdIdRegistry = response.vast.Ad.InLine.Creatives[0].UniversalAdId.registry;
-      data.vastAdInLineCreativesCreativeUniversalAdIdIdValue = response.vast.Ad.InLine.Creatives[0].UniversalAdId.idValue;
-      data.vastAdInLineCreativesCreativeUniversalAdIdValue = response.vast.Ad.InLine.Creatives[0].UniversalAdId.value;
+        if (c.UniversalAdId !== undefined) {
+          data.vastAdInLineCreativesCreativeUniversalAdIdIdRegistry = c.UniversalAdId.registry;
+          data.vastAdInLineCreativesCreativeUniversalAdIdIdValue = c.UniversalAdId.idValue;
+          data.vastAdInLineCreativesCreativeUniversalAdIdValue = c.UniversalAdId.value;
+        }
+
+        if (c.Linear !== undefined) {
+          data.vastAdInLineCreativesCreativeLinearSkipoffset = c.Linear.skipoffset;
+          data.vastAdInLineCreativesCreativeLinearDuration = c.Linear.duration;
+
+          if (c.Linear.AdParameters !== undefined) {
+            data.vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded = c.Linear.AdParameters.xmlEncoded;
+            data.vastAdInLineCreativesCreativeLinearAdParametersValue = c.Linear.AdParameters.value;
+          }
+          if (c.Linear.MediaFiles !== undefined && c.Linear.MediaFiles.length > 0) {
+            c.Linear.MediaFiles.map((m) => {
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId = m.id;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery = m.delivery;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType = m.type;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate = m.bitrate;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate = m.minBitrate;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate = m.maxBitrate;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth = m.width;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight = m.height;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable = m.scalable;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio = m.maintainAspectRatio;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec = m.codec;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework = m.apiFramework;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework = m.apiFramework;
+              data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue = m.value;
+            });
+          }
+        }
+      });
     }
-
-    data.vastAdInLineCreativesCreativeLinearSkipoffset = response.vast.Ad.InLine.Creatives[0].Linear.skipoffset;
-    data.vastAdInLineCreativesCreativeLinearDuration = response.vast.Ad.InLine.Creatives[0].Linear.duration;
-
-    data.vastAdInLineCreativesCreativeLinearAdParametersXmlEncoded = response.vast.Ad.InLine.Creatives[0].Linear.AdParameters.xmlEncoded;
-    data.vastAdInLineCreativesCreativeLinearAdParametersValue = response.vast.Ad.InLine.Creatives[0].Linear.AdParameters.value;
-
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileId = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].id;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileDelivery = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].delivery;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileType = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].type;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileBitrate = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].bitrate;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMinBitrate = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].minBitrate;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaxBitrate = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].maxBitrate;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileWidth = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].width;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileHeight = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].height;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileScalable = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].scalable;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileMaintainAspectRatio = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].maintainAspectRatio;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileCodec = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].codec;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].apiFramework;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileApiFramework = response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].apiFramework;
-    data.vastAdInLineCreativesCreativeLinearMediaFilesMediaFileValue =  response.vast.Ad.InLine.Creatives[0].Linear.MediaFiles[0].value;
   }
 
   return data;
@@ -107,6 +118,7 @@ export function buildVastStateFromResponse(response) {
 export function buildVastLinearAdModelFromState(state) {
   let model = VASTModel;
   model.version = state.vastVersion;
+  model.type = state.type;
 
   model.Ad = AdModel;
   model.Ad.id = state.vastAdId;
