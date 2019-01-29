@@ -86,20 +86,25 @@ const PanelProperties = (props) =>
                         context={props.context}/>
           </div>
         )}
-        <div className={'col-md-12'}>
-          <hr/>
+        {props.parentState.creativeType !== 'auto' &&
+        <div>
+          <div className={'col-md-12'}>
+            <hr/>
+          </div>
+
+          <div className={'col-md-12'}><p>Set your size to 0x0 for a creative that will be eligible for any size
+            request.</p></div>
+          <div className={'col-md-6'}><TextBox name="w" label="Width" context={props.context}
+                                               value={props.parentState.w}/></div>
+          <div className={'col-md-6'}><TextBox name="h" label="Height" context={props.context}
+                                               value={props.parentState.h}/></div>
+          <div className={'col-md-12'}><TextBox name="iabCategories" label="IAB Categories"
+                                                handler={props.handleInputArray}
+                                                value={props.parentState.iabCategories}/></div>
+          <div className={'col-md-12'}><TextBox name="adDomain" label="Ad Domains" handler={props.handleInputArray}
+                                                value={props.parentState.adDomain}/></div>
         </div>
-        <div className={'col-md-12'}><p>Set your size to 0x0 for a creative that will be eligible for any size
-          request.</p></div>
-        <div className={'col-md-6'}><TextBox name="w" label="Width" context={props.context}
-                                             value={props.parentState.w}/></div>
-        <div className={'col-md-6'}><TextBox name="h" label="Height" context={props.context}
-                                             value={props.parentState.h}/></div>
-        <div className={'col-md-12'}><TextBox name="iabCategories" label="IAB Categories"
-                                              handler={props.handleInputArray}
-                                              value={props.parentState.iabCategories}/></div>
-        <div className={'col-md-12'}><TextBox name="adDomain" label="Ad Domains" handler={props.handleInputArray}
-                                              value={props.parentState.adDomain}/></div>
+        }
       </Panel.Body>
     </Panel.Collapse>
   </Panel>;

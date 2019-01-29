@@ -26,7 +26,7 @@ class _Creative extends Component {
 
   state = {
     updateCreativeId: '',
-    creativeType: '',
+    creativeType: 'auto',
 
     id: null,
     owner: '',
@@ -105,7 +105,7 @@ class _Creative extends Component {
   getCreative(id) {
     getCreative(id)
       .then((data) => {
-        if(data === '') {
+        if (data === '') {
           pageNotFound(this);
           return;
         }
@@ -123,6 +123,36 @@ class _Creative extends Component {
           creative: ModelCreative
         })
       })
+  }
+
+  prepareSave() {
+    // wipe any existing values
+    if (this.state.type === 'DISPLAY') {
+      if (this.state.creativeType === 'url') {
+        this.setState({
+          adm: ''
+        }, function() {
+          this.save();
+        }.bind(this))
+      }
+      if (this.state.creativeType === 'custom') {
+        this.setState({
+          creativeUrl: ''
+        }, function() {
+          this.save();
+        }.bind(this))
+      }
+      if (this.state.creativeType === 'auto') {
+        this.setState({
+          creativeUrl: '',
+          adm: '',
+          w: '0',
+          h: '0'
+        }, function() {
+          this.save();
+        }.bind(this))
+      }
+    }
   }
 
   save() {
@@ -168,9 +198,9 @@ class _Creative extends Component {
             <PanelPlatforms context={this} parentState={this.state}/>
 
             {this.state.updateCreativeId ? (
-              <UIButton text="Update" action={this.save.bind(this)} icon="save"/>
+              <UIButton text="Update" action={this.prepareSave.bind(this)} icon="save"/>
             ) : (
-              <UIButton text="Save" action={this.save.bind(this)} icon="save"/>
+              <UIButton text="Save" action={this.prepareSave.bind(this)} icon="save"/>
             )}
           </div>
         </div>

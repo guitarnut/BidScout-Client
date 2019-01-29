@@ -235,7 +235,7 @@ class _ViewCampaign extends Component {
             Object.keys(this.state.allCreativesForCampaign).map((v) => {
               return (
                 <p key={v}><a
-                  onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove</a> - {this.state.allCreativesForCampaign[v]}
+                  onClick={this.removeCreativeFromCampaign.bind(this, v)}>Remove {this.state.allCreativesForCampaign[v]}</a>
                 </p>
               )
             })
@@ -247,8 +247,7 @@ class _ViewCampaign extends Component {
           {Object.keys(this.state.allCreatives).length > 0 ? (
             Object.keys(this.state.allCreatives).map((v) => {
               return (
-                <p key={v}><a onClick={this.addCreativeToCampaign.bind(this, v)}>Add
-                  to {this.state.name}</a> - {this.state.allCreatives[v]} {v}</p>
+                <p key={v}><a onClick={this.addCreativeToCampaign.bind(this, v)}>Add {this.state.allCreatives[v]}</a></p>
               )
             })
           ) : (

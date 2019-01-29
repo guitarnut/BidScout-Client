@@ -47,7 +47,7 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
               <h4>Campaigns</h4>
-              <UIButton text={'Create New'} action={redirect.bind(this, '/creative')}></UIButton>
+              <UIButton text={'Create New'} action={redirect.bind(this, this, '/campaign')}/>
             <p>
               <hr/>
             </p>
@@ -69,7 +69,7 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
               <h4>Creatives</h4>
-              <UIButton text={'Create New'} action={redirect.bind(this, '/creative')}></UIButton>
+              <UIButton text={'Create New'} action={redirect.bind(this, this, '/creative')}/>
             <p>
               <hr/>
             </p>
@@ -91,7 +91,7 @@ class _ViewBidder extends Component {
         ) : (
           <div className={"col-md-4"}>
               <h4>VAST</h4>
-              <UIButton text={'Create New'} action={redirect.bind(this, '/creative')}></UIButton>
+              <UIButton text={'Create New'} action={redirect.bind(this, this, '/xml')}/>
             <p>
               <hr/>
             </p>
