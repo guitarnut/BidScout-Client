@@ -57,27 +57,6 @@ class App extends Component {
             </div>
           </div>
         </Router>
-        <hr/>
-        <section id="footer">
-          <div className="container">
-            <div className="row text-center text-xs-center text-sm-left text-md-left">
-              <div className="col-xs-12 col-sm-12 col-md-12">
-                <h5>Quick links</h5>
-                <ul className="list-unstyled quick-links">
-                  <li><a href="#"><i className="fa fa-angle-double-right"></i>FAQ</a></li>
-                  <li><a href="#"><i className="fa fa-angle-double-right"></i>Pricing</a></li>
-                  <li><a href="#"><i className="fa fa-angle-double-right"></i>Tutorial</a></li>
-                </ul>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                <p>Auction Scout is a GNut LLC. Property</p>
-                <p className="h6">&copy; All right Reversed. >GNut LLC</p>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
     );
   }
