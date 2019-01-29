@@ -30,3 +30,10 @@ export function convertMilliToDateString(v) {
   }
   return new Date(v).toLocaleDateString("en-US", dateFormatOptions);
 }
+
+export function confirmAction(m) {
+  if(m === null || m === undefined) {
+    m = "Are you sure?";
+  }
+  return window.confirm(m);
+}

@@ -13,7 +13,7 @@ import {storeAllCreatives} from "../../store/actions";
 import {buildCreativeStateFromResponse} from "../../builder/creative";
 import {FaRegEdit, FaRegTrashAlt} from 'react-icons/fa';
 import UIButton from "../ui/button";
-import {checkAuth, pageNotFound} from "../../common/sharedmethods";
+import {checkAuth, confirmAction, pageNotFound} from "../../common/sharedmethods";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -152,19 +152,21 @@ class _ViewCreative extends Component {
   }
 
   remove() {
-    deleteCreative(this.state.id)
-      .then(() => {
-        getCreativeNames()
-          .then((data) => {
-            this.props.storeAllCreatives(data);
-            this.props.history.push('/bidder')
-          });
-      })
-      .catch(() => {
-        this.setState({
-          failed: true
+    if (confirmAction("Delete creative?")) {
+      deleteCreative(this.state.id)
+        .then(() => {
+          getCreativeNames()
+            .then((data) => {
+              this.props.storeAllCreatives(data);
+              this.props.history.push('/bidder')
+            });
         })
-      })
+        .catch(() => {
+          this.setState({
+            failed: true
+          })
+        })
+    }
   }
 
   render() {

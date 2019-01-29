@@ -46,12 +46,8 @@ class _ViewBidder extends Component {
           <div className={"col-md-4"}><p>You have no campaigns. <a href="/campaign">Build a campaign.</a></p></div>
         ) : (
           <div className={"col-md-4"}>
-            <div className={"col-md-8"}>
               <h4>Campaigns</h4>
-            </div>
-            <div className={"col-md-4"}>
-              <UIButton text={'New'} action={redirect.bind(this, '/creative')}></UIButton>
-            </div>
+              <UIButton text={'Create New'} action={redirect.bind(this, '/creative')}></UIButton>
             <p>
               <hr/>
             </p>
@@ -72,12 +68,8 @@ class _ViewBidder extends Component {
           <div className={"col-md-4"}><p>You have no creatives. <a href="/creative">Build a creative.</a></p></div>
         ) : (
           <div className={"col-md-4"}>
-            <div className={"col-md-8"}>
               <h4>Creatives</h4>
-            </div>
-            <div className={"col-md-4"}>
-              <UIButton text={'New'} action={redirect.bind(this, '/creative')}></UIButton>
-            </div>
+              <UIButton text={'Create New'} action={redirect.bind(this, '/creative')}></UIButton>
             <p>
               <hr/>
             </p>
@@ -98,12 +90,8 @@ class _ViewBidder extends Component {
           <div className={"col-md-4"}><p>You have no XML documents. <a href="/xml">Build XML.</a></p></div>
         ) : (
           <div className={"col-md-4"}>
-            <div className={"col-md-8"}>
               <h4>VAST</h4>
-            </div>
-            <div className={"col-md-4"}>
-              <UIButton text={'New'} action={redirect.bind(this, '/creative')}></UIButton>
-            </div>
+              <UIButton text={'Create New'} action={redirect.bind(this, '/creative')}></UIButton>
             <p>
               <hr/>
             </p>

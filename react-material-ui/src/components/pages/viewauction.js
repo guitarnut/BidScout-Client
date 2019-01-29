@@ -2,10 +2,9 @@ import React, {Component} from 'react'
 import {deleteAllBids, deleteBid, getAllBids, viewBid, viewClicks, viewImpressions} from "../../api/restapi";
 import ModelAuction from "../../model/auction";
 import {connect} from 'react-redux';
-import {FaRegTrashAlt} from 'react-icons/fa';
 import {Badge, Label, Panel} from 'react-bootstrap';
 import '../../App.css';
-import {checkAuth, convertMilliToDateString, pageNotFound} from "../../common/sharedmethods";
+import {checkAuth, confirmAction, convertMilliToDateString, pageNotFound} from "../../common/sharedmethods";
 import UIButton from "../ui/button";
 
 const padding = {
@@ -85,23 +84,27 @@ class _ViewAuction extends Component {
   };
 
   deleteBidRecord(id) {
-    deleteBid(id);
-    getAllBids()
-      .then((data) => {
-        this.setState({
-          bids: data
+    if (confirmAction("Delete bid record?")) {
+      deleteBid(id);
+      getAllBids()
+        .then((data) => {
+          this.setState({
+            bids: data
+          });
+          this.props.history.push('/auction')
         });
-        this.props.history.push('/auction')
-      });
+    }
   }
 
   deleteAllBidRecords() {
-    deleteAllBids()
-      .then(() => {
-        this.setState({
-          bids: {}
+    if (confirmAction("Delete all bid records?")) {
+      deleteAllBids()
+        .then(() => {
+          this.setState({
+            bids: {}
+          });
         });
-      });
+    }
   }
 
   renderBid() {

@@ -9,7 +9,7 @@ import {
 import {Panel} from 'react-bootstrap';
 import VastTagRequestModel from "../../model/vasttagrequest";
 import {FaRegTrashAlt} from 'react-icons/fa';
-import {checkAuth, convertMilliToDateString, pageNotFound} from "../../common/sharedmethods";
+import {checkAuth, confirmAction, convertMilliToDateString, pageNotFound} from "../../common/sharedmethods";
 import UIButton from "../ui/button";
 
 class ViewVast extends Component {
@@ -68,25 +68,29 @@ class ViewVast extends Component {
   };
 
   deleteVast(id) {
-    deleteVastRecord(id)
-      .then(() => {
-        getVastRequestRecords()
-          .then((data) => {
-            this.setState({
-              vastTransactions: data
+    if (confirmAction("Delete VAST record?")) {
+      deleteVastRecord(id)
+        .then(() => {
+          getVastRequestRecords()
+            .then((data) => {
+              this.setState({
+                vastTransactions: data
+              });
+              this.props.history.push('/vast')
             });
-            this.props.history.push('/vast')
-          });
-      });
+        });
+    }
   }
 
   deleteAllVast() {
-    deleteAllVastRecords()
-      .then(() => {
-        this.setState({
-          vastTransactions: {}
+    if (confirmAction("Delete all VAST records?")) {
+      deleteAllVastRecords()
+        .then(() => {
+          this.setState({
+            vastTransactions: {}
+          });
         });
-      });
+    }
   }
 
   renderVastTransaction() {
@@ -102,7 +106,8 @@ class ViewVast extends Component {
           <hr/>
         </div>
         <div className={'col-md-12'}>
-          <p><strong>Request Timestamp</strong><br/>{convertMilliToDateString(this.state.vastRequest.requestTimestamp)}</p>
+          <p><strong>Request Timestamp</strong><br/>{convertMilliToDateString(this.state.vastRequest.requestTimestamp)}
+          </p>
         </div>
         <div className={'col-md-12'}>
           <hr/>

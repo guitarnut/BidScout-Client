@@ -23,7 +23,7 @@ import Flight from "./components/flight";
 import Limits from "./components/limits";
 import {FaRegEdit, FaRegTrashAlt} from 'react-icons/fa';
 import UIButton from "../ui/button";
-import {checkAuth, pageNotFound} from "../../common/sharedmethods";
+import {checkAuth, confirmAction, pageNotFound} from "../../common/sharedmethods";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -102,7 +102,7 @@ class _ViewCampaign extends Component {
       });
     getCampaign(id)
       .then(data => {
-        if(data === '') {
+        if (data === '') {
           pageNotFound(this);
           return;
         }
@@ -179,19 +179,21 @@ class _ViewCampaign extends Component {
   }
 
   remove() {
-    deleteCampaign(this.state.id)
-      .then(() => {
-        getCampaignNames()
-          .then((data) => {
-            this.props.storeAllCampaigns(data);
-            this.props.history.push('/bidder')
-          });
-      })
-      .catch(() => {
-        this.setState({
-          failed: true
+    if (confirmAction("Delete campaign?")) {
+      deleteCampaign(this.state.id)
+        .then(() => {
+          getCampaignNames()
+            .then((data) => {
+              this.props.storeAllCampaigns(data);
+              this.props.history.push('/bidder')
+            });
         })
-      })
+        .catch(() => {
+          this.setState({
+            failed: true
+          })
+        })
+    }
   }
 
   resetStats() {
@@ -255,7 +257,8 @@ class _ViewCampaign extends Component {
         </div>
         <div className={'col-md-12'}>
           <hr/>
-          <UIButton text="Edit Campaign" action={this.edit.bind(this)}/> <UIButton action={this.resetStats.bind(this)} text={"Reset Stats"}></UIButton>
+          <UIButton text="Edit Campaign" action={this.edit.bind(this)}/> <UIButton action={this.resetStats.bind(this)}
+                                                                                   text={"Reset Stats"}></UIButton>
           <hr/>
           <Stats parentState={this.state}/>
           <hr/>
