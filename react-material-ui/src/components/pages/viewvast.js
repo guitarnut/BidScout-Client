@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {
-  authorized,
-  deleteAllVastRecords, deleteVastRecord,
+  deleteAllVastRecords,
+  deleteVastRecord,
   getVastRequestByTagRequestId,
   getVastRequestEventsByTagRequestId,
   getVastRequestRecords
@@ -9,6 +9,8 @@ import {
 import {Panel} from 'react-bootstrap';
 import VastTagRequestModel from "../../model/vasttagrequest";
 import {FaRegTrashAlt} from 'react-icons/fa';
+import {checkAuth, convertMilliToDateString, pageNotFound} from "../../common/sharedmethods";
+import UIButton from "../ui/button";
 
 class ViewVast extends Component {
 
@@ -24,9 +26,7 @@ class ViewVast extends Component {
   }
 
   componentWillMount() {
-    if(!authorized()) {
-      this.props.history.push('/login')
-    }
+    checkAuth(this);
     const {id} = this.props.match.params;
     if (id !== undefined) {
       this.setState({
@@ -51,6 +51,10 @@ class ViewVast extends Component {
   getVast() {
     getVastRequestByTagRequestId(this.state.id)
       .then((data) => {
+        if (data === '') {
+          pageNotFound(this);
+          return;
+        }
         this.setState({
           vastRequest: data
         });
@@ -65,7 +69,7 @@ class ViewVast extends Component {
 
   deleteVast(id) {
     deleteVastRecord(id)
-      .then(()=>{
+      .then(() => {
         getVastRequestRecords()
           .then((data) => {
             this.setState({
@@ -85,102 +89,128 @@ class ViewVast extends Component {
       });
   }
 
-  formatDate(v) {
-    if (v === 0) {
-      return 'Not available';
-    }
-    return new Date(v).toString();
+  renderVastTransaction() {
+    return (
+      <div className={'container'}>
+        <div className={'col-md-10'}>
+          <h2>VAST: {this.state.vastRequest.vastName}</h2>
+        </div>
+        <div className={'col-md-2'}>
+          <h2><UIButton text="Delete" action={this.deleteVast.bind(this, this.state.vastRequest.id)}/></h2>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}>
+          <p><strong>Request Timestamp</strong><br/>{convertMilliToDateString(this.state.vastRequest.requestTimestamp)}</p>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}>
+          <p><strong>Request User Agent</strong><br/>
+            <pre><code>{this.state.vastRequest.userAgent}</code></pre>
+          </p>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}>
+          <p><strong>Cookies</strong><br/>
+            <pre><code>{this.state.vastRequest.cookies}</code></pre>
+          </p>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-4'}>
+          <p><strong>Host</strong><br/>{this.state.vastRequest.host}</p>
+        </div>
+        <div className={'col-md-4'}>
+          <p><strong>IP</strong><br/>{this.state.vastRequest.ip}</p>
+        </div>
+        <div className={'col-md-4'}>
+          <p><strong>X-Forwarded</strong><br/>{this.state.vastRequest.xForwardedFor}</p>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}>
+          <h4>Impressions</h4>
+        </div>
+        <div className={'col-md-12'}>
+          <hr/>
+        </div>
+        <div className={'col-md-12'}>
+          <h4>Events</h4>
+        </div>
+        {this.state.vastRequestEvents.map((v) => {
+          return (
+            <div key={v.id}>
+              <div className={'col-md-12'}>
+                <h4>{v.event}</h4>
+                <p><strong>URL:</strong><br/>
+                  <pre><code>{v.url}</code></pre>
+                </p>
+              </div>
+              <div className={'col-md-12'}>
+                <p><strong>User Agent:</strong><br/>
+                  <pre><code>{v.userAgent}</code></pre>
+                </p>
+              </div>
+              <div className={'col-md-3'}>
+                <p><strong>Host:</strong> {v.host}</p>
+              </div>
+              <div className={'col-md-3'}>
+                <p><strong>IP:</strong> {v.ip}</p>
+              </div>
+              <div className={'col-md-12'}>
+                <p><strong>Timestamp:</strong> {convertMilliToDateString(v.eventTimestamp)}</p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
   }
 
-  renderVastTransaction() {
-    if (this.state.id !== undefined) {
-      return (
-        <div className={'container'}>
-          <div className={'col-md-12'}>
-            <h2>VAST Tag {this.state.vastRequest.vastName}</h2>
-            <p><a onClick={this.deleteVast.bind(this, this.state.vastRequest.id)}><FaRegTrashAlt/></a></p>
-          </div>
-          <div className={'col-md-12'}>
-            <hr/>
-          </div>
-          <div className={'col-md-12'}>
-            <p><strong>Request Timestamp</strong><br/>{this.formatDate(this.state.vastRequest.requestTimestamp)}</p>
-          </div>
-          <div className={'col-md-12'}>
-            <hr/>
-          </div>
-          <div className={'col-md-12'}>
-            <p><strong>Request User Agent</strong><br/>
-              <pre><code>{this.state.vastRequest.userAgent}</code></pre>
-            </p>
-          </div>
-          <div className={'col-md-12'}>
-            <hr/>
-          </div>
-          <div className={'col-md-12'}>
-            <p><strong>Cookies</strong><br/>
-              <pre><code>{this.state.vastRequest.cookies}</code></pre>
-            </p>
-          </div>
-          <div className={'col-md-12'}>
-            <hr/>
-          </div>
-          <div className={'col-md-4'}>
-            <p><strong>Host</strong><br/>{this.state.vastRequest.host}</p>
-          </div>
-          <div className={'col-md-4'}>
-            <p><strong>IP</strong><br/>{this.state.vastRequest.ip}</p>
-          </div>
-          <div className={'col-md-4'}>
-            <p><strong>X-Forwarded</strong><br/>{this.state.vastRequest.xForwardedFor}</p>
-          </div>
-          <div className={'col-md-12'}>
-            <hr/>
-          </div>
-          <div className={'col-md-12'}>
-            <h4>Impressions</h4>
-          </div>
-          <div className={'col-md-12'}>
-            <hr/>
-          </div>
-          <div className={'col-md-12'}>
-            <h4>Events</h4>
-          </div>
-          {this.state.vastRequestEvents.map((v) => {
-            return (
-              <div key={v.id}>
-                <div className={'col-md-12'}>
-                  <h4>{v.event}</h4>
-                  <p><strong>URL:</strong><br/>
-                    <pre><code>{v.url}</code></pre>
-                  </p>
-                </div>
-                <div className={'col-md-12'}>
-                  <p><strong>User Agent:</strong><br/>
-                    <pre><code>{v.userAgent}</code></pre>
-                  </p>
-                </div>
-                <div className={'col-md-3'}>
-                  <p><strong>Host:</strong> {v.host}</p>
-                </div>
-                <div className={'col-md-3'}>
-                  <p><strong>IP:</strong> {v.ip}</p>
-                </div>
-                <div className={'col-md-12'}>
-                  <p><strong>Timestamp:</strong> {this.formatDate(v.eventTimestamp)}</p>
-                </div>
+  renderVastTagRecords() {
+    return (
+      <div>
+        {Object.keys(this.state.vastTransactions).length > 0 ?
+          (
+            <div className={'container'}>
+              <div className={'col-md-10'}>
+                <h2>VAST Tag Records</h2>
               </div>
-            )
-          })}
-        </div>
-      )
-    } else {
-      return (
-        <div className={'col-md-12'}>
-          <h2>Bid {this.state.id} Not Found</h2>
-        </div>
-      )
-    }
+              <div className={'col-md-2'}>
+                <h2><UIButton text="Delete all" action={this.deleteAllVast.bind(this)}/></h2>
+              </div>
+              {Object.keys(this.state.vastTransactions).map((v) => {
+                return (
+                  <div key={v} className={'col-md-4'}>
+                    <Panel>
+                      <Panel.Body>
+                        <p><a href={'/vast/' + v}>{this.state.vastTransactions[v].vastName}</a><br/>
+                          {convertMilliToDateString(this.state.vastTransactions[v].requestTimestamp)}
+                        </p>
+                      </Panel.Body>
+                    </Panel>
+                  </div>
+                )
+              })}
+            </div>
+          ) : (
+            <div className={'container'}>
+              <div className={'col-md-12'}>
+                <h2>VAST Tag Records</h2>
+                <p>No VAST tag records available.</p>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    )
   }
 
   render() {
@@ -190,39 +220,7 @@ class ViewVast extends Component {
       )
     } else {
       return (
-        <div>
-          {Object.keys(this.state.vastTransactions).length > 0 ?
-            (
-              <div className={'container'}>
-                <div className={'col-md-12'}>
-                  <h2>VAST Tag Records</h2>
-                  <p>View VAST tag results.</p>
-                  <p><a onClick={this.deleteAllVast.bind(this)}><FaRegTrashAlt/> Delete all</a></p>
-                </div>
-                {Object.keys(this.state.vastTransactions).map((v) => {
-                  return (
-                    <div key={v} className={'col-md-4'}>
-                      <Panel>
-                        <Panel.Body>
-                          <p><a href={'/vast/' + v}>{this.state.vastTransactions[v].vastName}</a><br/>
-                            {new Date(this.state.vastTransactions[v].requestTimestamp).toString()}
-                          </p>
-                        </Panel.Body>
-                      </Panel>
-                    </div>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className={'container'}>
-                <div className={'col-md-12'}>
-                  <h2>VAST Tag Records</h2>
-                  <p>No VAST tag records available.</p>
-                </div>
-              </div>
-            )
-          }
-        </div>
+        this.renderVastTagRecords()
       )
     }
 

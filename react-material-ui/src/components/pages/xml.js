@@ -3,10 +3,11 @@ import SelectList from "../ui/selectlist";
 import {VASTType} from "../../model/vasttype";
 import TextBox from "../ui/textfield";
 import UIButton from "../ui/button";
-import {authorized, getAllXml, getXml, saveXML} from "../../api/restapi";
+import {getAllXml, getXml, saveXML} from "../../api/restapi";
 import {buildVastLinearAdModelFromState, buildVastModelFromState, buildVastStateFromResponse} from "../../builder/vast";
 import {storeAllXml} from "../../store/actions";
 import {connect} from "react-redux";
+import {checkAuth} from "../../common/sharedmethods";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -17,9 +18,7 @@ const mapDispatchToProps = dispatch => {
 class _XML extends Component {
 
   componentWillMount() {
-    if(!authorized()) {
-      this.props.history.push('/login')
-    }
+    checkAuth(this);
 
     this.setState({
       name: '',

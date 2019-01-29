@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import TextBox from '../ui/textfield';
-import {authorized, createUser, getAllXml, getCampaignNames, getCreativeNames, loginUser} from "../../api/restapi";
-import UIButton from '../ui/button';
-import {storeAllCampaigns, storeAllCreatives, storeAllXml, storeLoginUser} from '../../store/actions';
+import TextBox from '../../ui/textfield';
+import {authorized, createUser, getAllXml, getCampaignNames, getCreativeNames, loginUser} from "../../../api/restapi";
+import UIButton from '../../ui/button';
+import {storeAllCampaigns, storeAllCreatives, storeAllXml, storeLoginUser} from '../../../store/actions/index';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import TextBoxPassword from "../../ui/textfieldpassword";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -20,7 +21,7 @@ class _LoginForm extends Component {
   loaded = 0;
 
   componentWillMount() {
-    if(authorized()) {
+    if (authorized()) {
       this.props.history.push('/bidder');
     }
     this.setState({
@@ -80,7 +81,7 @@ class _LoginForm extends Component {
         } else {
           this.setState({
             username: data.username,
-            message: 'Account created. Enter your password to login.'
+            message: 'Account created. An account activation email has been sent to the address you provided.'
           })
         }
       });
@@ -88,21 +89,26 @@ class _LoginForm extends Component {
 
   render() {
     return (
-      <div className={'row'}>
+      <div className={'container'}>
         <div className={'col-md-12'}>
           <h2>Login</h2>
         </div>
-        <div className={'col-md-6'}>
-          <TextBox name="username" label="Username" context={this} value={this.state.username}/>
-        </div>
-        <div className={'col-md-6'}>
-          <TextBox name="password" label="Password" context={this} value={this.state.password}/>
-        </div>
-        <div className={'col-md-12'}>
-          <UIButton text="Login" action={this.loginUser.bind(this)}/> <UIButton text="Create Account"
-                                                                                action={this.createUser.bind(this)}/>
-        </div>
-        <p>{this.state.message}</p>
+        <form onSubmit={this.loginUser.bind(this)}>
+          <div className={'col-md-6'}>
+            <TextBox name="username" label="Email" context={this} value={this.state.username}/>
+          </div>
+          <div className={'col-md-6'}>
+            <TextBoxPassword name="password" label="Password" context={this} value={this.state.password}/>
+          </div>
+          <div className={'col-md-12'}>
+            <UIButton text="Login" action={this.loginUser.bind(this)}/> <UIButton text="Create Account"
+                                                                                  action={this.createUser.bind(this)}/>
+          </div>
+          <div className={'col-md-12'}>
+            <hr/>
+            <p>{this.state.message}</p>
+          </div>
+        </form>
       </div>
     )
   }

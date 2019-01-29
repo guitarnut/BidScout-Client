@@ -8,16 +8,16 @@ import ViewCampaign from './components/pages/viewcampaign';
 import ViewCreative from './components/pages/viewcreative';
 import ViewAuction from './components/pages/viewauction';
 import ViewXml from './components/pages/viewxml';
-import LoginForm from './components/pages/login';
-import ViewErrors from './components/pages/viewerrors';
-import Error from './components/pages/error';
+import LoginForm from './components/pages/general/login';
+import Error from './components/pages/general/error';
 import User from "./components/pages/user";
 import ViewBidder from "./components/pages/viewbidder";
-import Logout from "./components/pages/logout";
+import Logout from "./components/pages/general/logout";
 
 import store from './store/index';
 import XML from "./components/pages/xml";
 import ViewVast from "./components/pages/viewvast";
+import NotFound from "./components/pages/general/notfound";
 
 window.store = store;
 
@@ -53,6 +53,7 @@ class App extends Component {
               <Route path='/vast' exact component={ViewVast}/>
               <Route path='/vast/:id' exact component={ViewVast}/>
               <Route path='/account' component={User}/>
+              <Route path='/404' component={NotFound}/>
             </div>
           </div>
         </Router>

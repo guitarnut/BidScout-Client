@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import ModelCreative from "../../model/creative";
-import {authorized, getCreative, getCreativeNames, saveCreative} from "../../api/restapi";
+import {getCreative, getCreativeNames, saveCreative} from "../../api/restapi";
 import UIButton from '../ui/button';
 import PanelAuctionSettings from "./components/panel_auctionsettings";
 import PanelProperties from "./components/panel_properties";
@@ -14,6 +14,7 @@ import {storeAllCreatives} from "../../store/actions";
 import {connect} from 'react-redux';
 import PanelPlatforms from "./components/panel_platforms";
 import {buildCreativeModelFromState, buildCreativeStateFromResponse} from "../../builder/creative";
+import {checkAuth, pageNotFound} from "../../common/sharedmethods";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -86,14 +87,8 @@ class _Creative extends Component {
     bidFrequency: ''
   };
 
-  constructor() {
-    super();
-  }
-
   componentWillMount() {
-    if(!authorized()) {
-      this.props.history.push('/login')
-    }
+    checkAuth(this);
     const {id} = this.props.match.params;
     if (id !== undefined) {
       this.getCreative(id);
@@ -110,6 +105,10 @@ class _Creative extends Component {
   getCreative(id) {
     getCreative(id)
       .then((data) => {
+        if(data === '') {
+          pageNotFound(this);
+          return;
+        }
         let model = buildCreativeStateFromResponse(data);
         this.setState({
           ...model,

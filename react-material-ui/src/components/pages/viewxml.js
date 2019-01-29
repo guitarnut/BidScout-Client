@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import {authorized, deleteXml, getAllXml, getVast, host} from "../../api/restapi";
+import {deleteXml, getAllXml, getVast, host} from "../../api/restapi";
 import {withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import {storeAllXml} from "../../store/actions";
-import {FaRegTrashAlt, FaRegEdit} from 'react-icons/fa';
+import {FaRegEdit, FaRegTrashAlt} from 'react-icons/fa';
+import {checkAuth, pageNotFound} from "../../common/sharedmethods";
 
 
 const mapDispatchToProps = dispatch => {
@@ -25,9 +26,7 @@ class _ViewXml extends Component {
   }
 
   componentWillMount() {
-    if (!authorized()) {
-      this.props.history.push('/login')
-    }
+    checkAuth(this);
   }
 
   componentDidMount() {
@@ -35,6 +34,10 @@ class _ViewXml extends Component {
 
     getVast(id)
       .then(data => {
+        if(data === '') {
+          pageNotFound(this);
+          return;
+        }
         this.setState({
           vast: data,
           id: id,
@@ -68,8 +71,8 @@ class _ViewXml extends Component {
       <div className={'container'}>
         <div className={'col-md-12'}>
           <h2>XML Document: {this.state.name}</h2>
-          <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
-            onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
+          <p><a onClick={this.edit.bind(this)}><FaRegEdit/> Edit</a> | <a
+            onClick={this.remove.bind(this)}><FaRegTrashAlt/> Delete</a></p>
           <p>VAST Tag URI: <a target='_blank'
                               href={host + '/vast/serve/' + this.state.user.id + '/' + this.state.id}>{host + '/vast/serve/' + this.state.user.id + '/' + this.state.id}
           </a>

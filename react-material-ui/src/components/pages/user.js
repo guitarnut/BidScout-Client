@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import {handleInputChange} from "../../input/formInputHandler";
-import {authorized, updateUser} from "../../api/restapi";
+import {updateUser} from "../../api/restapi";
 import UIButton from '../ui/button';
 import TextBox from "../ui/textfield";
 import {connect} from 'react-redux';
 import {storeLoginUser} from "../../store/actions";
+import {checkAuth, convertMilliToDateString} from "../../common/sharedmethods";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -39,9 +40,7 @@ class _User extends Component {
   }
 
   componentWillMount() {
-    if(!authorized()) {
-      this.props.history.push('/login')
-    }
+    checkAuth(this);
   }
 
   componentDidMount() {
@@ -63,7 +62,7 @@ class _User extends Component {
       <div className={'container'}>
         <div className={'col-md-12'}>
           <h2>Account</h2>
-          <p><strong>Last Login</strong>: {new Date(this.state.lastLogin).toString()}</p>
+          <p><strong>Last Login</strong>: {convertMilliToDateString(this.state.lastLogin)}</p>
         </div>
         <div className={'col-md-12'}>
           <hr/>

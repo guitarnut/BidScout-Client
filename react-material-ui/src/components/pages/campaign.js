@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {authorized, getCampaign, getCampaignNames, saveCampaign} from "../../api/restapi";
+import {getCampaign, getCampaignNames, saveCampaign} from "../../api/restapi";
 import UIButton from '../ui/button';
 import PanelName from "./components/panel_name";
 import PanelLists from "./components/panel_lists";
@@ -12,6 +12,7 @@ import {storeAllCampaigns} from "../../store/actions";
 import {connect} from 'react-redux';
 import ModelCreative from "../../model/creative";
 import {buildCampaignModelFromState, buildCampaignStateFromResponse} from "../../builder/campaign";
+import {checkAuth, pageNotFound} from "../../common/sharedmethods";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -68,14 +69,8 @@ class _Campaign extends Component {
     statsClicks: 0
   };
 
-  constructor() {
-    super();
-  }
-
   componentWillMount() {
-    if(!authorized()) {
-      this.props.history.push('/login')
-    }
+    checkAuth(this);
     const {id} = this.props.match.params;
     if (id !== undefined) {
       this.getCampaign(id);
@@ -92,6 +87,10 @@ class _Campaign extends Component {
   getCampaign(id) {
     getCampaign(id)
       .then((data) => {
+        if(data === '') {
+          pageNotFound(this);
+          return;
+        }
         let campaign = buildCampaignStateFromResponse(data);
         this.setState({
           ...campaign,

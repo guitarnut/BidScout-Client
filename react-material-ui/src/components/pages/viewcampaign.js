@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom';
 import {
-  addCreativeToCampaign, authorized,
+  addCreativeToCampaign,
   deleteCampaign,
   getCampaign,
   getCampaignNames,
@@ -23,6 +23,7 @@ import Flight from "./components/flight";
 import Limits from "./components/limits";
 import {FaRegEdit, FaRegTrashAlt} from 'react-icons/fa';
 import UIButton from "../ui/button";
+import {checkAuth, pageNotFound} from "../../common/sharedmethods";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -87,9 +88,7 @@ class _ViewCampaign extends Component {
   }
 
   componentWillMount() {
-    if (!authorized()) {
-      this.props.history.push('/login')
-    }
+    checkAuth(this);
   }
 
   componentDidMount() {
@@ -103,6 +102,10 @@ class _ViewCampaign extends Component {
       });
     getCampaign(id)
       .then(data => {
+        if(data === '') {
+          pageNotFound(this);
+          return;
+        }
         let campaign = buildCampaignStateFromResponse(data);
         this.setState({
           ...campaign
@@ -213,10 +216,11 @@ class _ViewCampaign extends Component {
   render() {
     return (
       <div className={'container'}>
-        <div className={'col-md-12'}><h2>Campaign Name: {this.state.name}</h2>
-          <p><a onClick={this.edit.bind(this)}><FaRegEdit/></a> | <a
-            onClick={this.remove.bind(this)}><FaRegTrashAlt/></a></p>
+        <div className={'col-md-10'}><h2>Campaign: {this.state.name}</h2>
           <hr/>
+        </div>
+        <div className={'col-md-2'}>
+          <h2><UIButton text="Delete" action={this.remove.bind(this)}/></h2>
         </div>
         <div className={'col-md-12'}>
           <p>Your auction endpoint for this campaign is below. Requests must be POST.</p>
@@ -250,7 +254,8 @@ class _ViewCampaign extends Component {
           )}
         </div>
         <div className={'col-md-12'}>
-          <UIButton action={this.resetStats.bind(this)} text={"Reset Stats"}></UIButton>
+          <hr/>
+          <UIButton text="Edit Campaign" action={this.edit.bind(this)}/> <UIButton action={this.resetStats.bind(this)} text={"Reset Stats"}></UIButton>
           <hr/>
           <Stats parentState={this.state}/>
           <hr/>

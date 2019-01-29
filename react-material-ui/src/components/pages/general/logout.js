@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {storeLoginUser, storeLogout} from "../../store/actions";
+import {storeLoginUser, storeLogout} from "../../../store/actions/index";
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom';
-import {logout} from "../../api/restapi";
+import {logout} from "../../../api/restapi";
 
 const mapDispatchToProps = dispatch => {
   return {
