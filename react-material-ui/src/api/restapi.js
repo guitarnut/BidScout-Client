@@ -117,6 +117,10 @@ export function getUserId() {
   return window.sessionStorage.getItem('userid');
 }
 
+export function getAccountStatus() {
+  return postRequest(host + '/api/account/status/' + window.sessionStorage.getItem('userid'));
+}
+
 export function viewBid(id) {
   return postRequest(host + '/api/bid/' + window.sessionStorage.getItem('userid') + '/' + id);
 }

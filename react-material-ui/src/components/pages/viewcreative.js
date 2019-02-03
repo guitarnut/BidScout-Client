@@ -11,7 +11,6 @@ import Deals from "./components/deals";
 import {connect} from "react-redux";
 import {storeAllCreatives} from "../../store/actions";
 import {buildCreativeStateFromResponse} from "../../builder/creative";
-import {FaRegEdit, FaRegTrashAlt} from 'react-icons/fa';
 import UIButton from "../ui/button";
 import {checkAuth, confirmAction, pageNotFound} from "../../common/sharedmethods";
 

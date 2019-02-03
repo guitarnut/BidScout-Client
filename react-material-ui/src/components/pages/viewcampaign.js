@@ -21,7 +21,6 @@ import Deals from "./components/deals";
 import Platforms from "./components/platforms";
 import Flight from "./components/flight";
 import Limits from "./components/limits";
-import {FaRegEdit, FaRegTrashAlt} from 'react-icons/fa';
 import UIButton from "../ui/button";
 import {checkAuth, confirmAction, pageNotFound} from "../../common/sharedmethods";
 

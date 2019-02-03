@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {FaRegEdit} from 'react-icons/fa';
-import {Panel} from 'react-bootstrap';
-import UIButton from "../ui/button";
-import {checkAuth, redirect} from "../../common/sharedmethods";
+import {checkAuth} from "../../common/sharedmethods";
+import {getAccountStatus} from "../../api/restapi";
+import BidderProperty from "./components/bidderproperty";
 
 
 class _ViewBidder extends Component {
@@ -14,7 +13,8 @@ class _ViewBidder extends Component {
     xml: {},
     selectedCampaign: '',
     selectedCreative: '',
-    user: {}
+    user: {},
+    status: {}
   };
 
   constructor() {
@@ -23,15 +23,22 @@ class _ViewBidder extends Component {
 
   componentWillMount() {
     checkAuth(this);
-  }
 
-  componentDidMount() {
     this.setState({
       campaigns: this.props.campaigns,
       creatives: this.props.creatives,
       xml: this.props.xml,
       user: this.props.user
     });
+
+    getAccountStatus()
+      .then((data) => {
+        this.setState({
+          status: {
+            ...data
+          }
+        })
+      })
   }
 
   render() {
@@ -42,73 +49,38 @@ class _ViewBidder extends Component {
           <p>Build campaigns, creatives, and VAST XML documents for your integration testing.</p>
           <hr/>
         </div>
-        {Object.keys(this.state.campaigns).length === 0 ? (
-          <div className={"col-md-4"}><p>You have no campaigns. <a href="/campaign">Build a campaign.</a></p></div>
-        ) : (
-          <div className={"col-md-4"}>
-              <h4>Campaigns</h4>
-              <UIButton text={'Create New'} action={redirect.bind(this, this, '/campaign')}/>
-            <p>
-              <hr/>
-            </p>
-            {Object.keys(this.state.campaigns).map((v) => {
-              return (
-                <Panel key={v}>
-                  <Panel.Body>
-                    <p key={v}><a href={'/campaign/view/' + v}>{this.state.campaigns[v]}</a><br/>
-                      <hr/>
-                      <a href={'/campaign/edit/' + v}><FaRegEdit/> Edit</a></p>
-                  </Panel.Body>
-                </Panel>
-              )
-            })}
-          </div>
-        )}
-        {Object.keys(this.state.creatives).length === 0 ? (
-          <div className={"col-md-4"}><p>You have no creatives. <a href="/creative">Build a creative.</a></p></div>
-        ) : (
-          <div className={"col-md-4"}>
-              <h4>Creatives</h4>
-              <UIButton text={'Create New'} action={redirect.bind(this, this, '/creative')}/>
-            <p>
-              <hr/>
-            </p>
-            {Object.keys(this.state.creatives).map((v) => {
-              return (
-                <Panel key={v}>
-                  <Panel.Body>
-                    <p key={v}><a href={'/creative/view/' + v}>{this.state.creatives[v]}</a><br/>
-                      <hr/>
-                      <a href={'/creative/edit/' + v}><FaRegEdit/> Edit</a></p>
-                  </Panel.Body>
-                </Panel>
-              )
-            })}
-          </div>
-        )}
-        {Object.keys(this.state.xml).length === 0 ? (
-          <div className={"col-md-4"}><p>You have no XML documents. <a href="/xml">Build XML.</a></p></div>
-        ) : (
-          <div className={"col-md-4"}>
-              <h4>VAST</h4>
-              <UIButton text={'Create New'} action={redirect.bind(this, this, '/xml')}/>
-            <p>
-              <hr/>
-            </p>
-            {Object.keys(this.state.xml).map((v) => {
-              return (
-                <Panel key={v}>
-                  <Panel.Body>
-                    <p key={v}><a href={'/xml/view/' + v}>{this.state.xml[v]}</a><br/>
-                      <hr/>
-                      <a href={'/xml/edit/' + v}><FaRegEdit/> Edit</a>
-                    </p>
-                  </Panel.Body>
-                </Panel>
-              )
-            })}
-          </div>
-        )}
+
+        <BidderProperty
+          items={this.state.campaigns}
+          createlink={'/campaign'}
+          viewlink={'/campaign/view/'}
+          editlink={'/campaign/edit/'}
+          typestring={'Campaign'}
+          count={this.state.status.campaigns}
+          limit={this.state.status.campaignsLimit}
+
+        />
+
+        <BidderProperty
+          items={this.state.creatives}
+          createlink={'/creative'}
+          viewlink={'/creative/view/'}
+          editlink={'/creative/edit/'}
+          typestring={'Creative'}
+          count={this.state.status.creatives}
+          limit={this.state.status.creativesLimit}
+        />
+
+        <BidderProperty
+          items={this.state.xml}
+          createlink={'/xml'}
+          viewlink={'/xml/view/'}
+          editlink={'/xml/edit/'}
+          typestring={'VAST'}
+          count={this.state.status.vast}
+          limit={this.state.status.vastLimit}
+        />
+
       </div>
     )
   }

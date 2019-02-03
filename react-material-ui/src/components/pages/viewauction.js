@@ -1,11 +1,20 @@
 import React, {Component} from 'react'
-import {deleteAllBids, deleteBid, getAllBids, viewBid, viewClicks, viewImpressions} from "../../api/restapi";
+import {
+  deleteAllBids,
+  deleteBid,
+  getAccountStatus,
+  getAllBids,
+  viewBid,
+  viewClicks,
+  viewImpressions
+} from "../../api/restapi";
 import ModelAuction from "../../model/auction";
 import {connect} from 'react-redux';
 import {Badge, Label, Panel} from 'react-bootstrap';
 import '../../App.css';
 import {checkAuth, confirmAction, convertMilliToDateString, pageNotFound} from "../../common/sharedmethods";
 import UIButton from "../ui/button";
+import BidderLimit from "./components/bidderlimit";
 
 const padding = {
   marginRight: '5px'
@@ -53,6 +62,14 @@ class _ViewAuction extends Component {
             bids: data
           })
         });
+      getAccountStatus()
+        .then((data) => {
+          this.setState({
+            status: {
+              ...data
+            }
+          })
+        })
     }
   }
 
@@ -299,6 +316,13 @@ class _ViewAuction extends Component {
               <div className={'col-md-2'}>
                 <h2><UIButton text="Delete all" action={this.deleteAllBidRecords.bind(this)}/></h2>
               </div>
+              <BidderLimit
+                records={this.state.status.auctionRecords}
+                recordmax={this.state.status.auctionRecordsLimit}
+                requests={this.state.status.bidRequests}
+                requestsmax={this.state.status.bidRequestsLimit}
+                resetdate={convertMilliToDateString(this.state.status.periodEnd)}
+              />
               {Object.keys(this.state.bids).map((v) => {
                 return (
                   <div key={v} className={'col-md-4'}>

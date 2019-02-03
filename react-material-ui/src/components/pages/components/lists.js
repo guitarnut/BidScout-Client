@@ -8,7 +8,7 @@ function Lists(props) {
     props.parentState.requirementsBundleWhitelist.length === 0 &&
     props.parentState.requirementsPublisherBlacklist.length === 0 &&
     props.parentState.requirementsDomainBlacklist.length === 0 &&
-    props.parentState.requirementsBundleBlacklist.length === 0 || props.parentState.requirementsPublisherWhitelist === null
+    (props.parentState.requirementsBundleBlacklist.length === 0 || props.parentState.requirementsPublisherWhitelist === null)
   ) {
     return (
       <div className={'row'}>

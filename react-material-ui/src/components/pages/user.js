@@ -44,7 +44,6 @@ class _User extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.setState({
       ...this.props.user
     })

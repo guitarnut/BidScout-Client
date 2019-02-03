@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {
   deleteAllVastRecords,
-  deleteVastRecord,
+  deleteVastRecord, getAccountStatus,
   getVastRequestByTagRequestId,
   getVastRequestEventsByTagRequestId,
   getVastRequestRecords
@@ -11,6 +11,7 @@ import VastTagRequestModel from "../../model/vasttagrequest";
 import {FaRegTrashAlt} from 'react-icons/fa';
 import {checkAuth, confirmAction, convertMilliToDateString, pageNotFound} from "../../common/sharedmethods";
 import UIButton from "../ui/button";
+import BidderLimit from "./components/bidderlimit";
 
 class ViewVast extends Component {
 
@@ -18,7 +19,8 @@ class ViewVast extends Component {
     id: null,
     vastTransactions: {},
     vastRequest: VastTagRequestModel,
-    vastRequestEvents: []
+    vastRequestEvents: [],
+    status: {}
   };
 
   constructor() {
@@ -45,6 +47,14 @@ class ViewVast extends Component {
             vastTransactions: data
           })
         });
+      getAccountStatus()
+        .then((data) => {
+          this.setState({
+            status: {
+              ...data
+            }
+          })
+        })
     }
   }
 
@@ -191,6 +201,15 @@ class ViewVast extends Component {
               <div className={'col-md-2'}>
                 <h2><UIButton text="Delete all" action={this.deleteAllVast.bind(this)}/></h2>
               </div>
+
+              <BidderLimit
+                records={this.state.status.vastRecords}
+                recordmax={this.state.status.vastRecordsLimit}
+                requests={this.state.status.vastTagRequests}
+                requestsmax={this.state.status.vastTagRequestsLimit}
+                resetdate={convertMilliToDateString(this.state.status.periodEnd)}
+              />
+
               {Object.keys(this.state.vastTransactions).map((v) => {
                 return (
                   <div key={v} className={'col-md-4'}>
