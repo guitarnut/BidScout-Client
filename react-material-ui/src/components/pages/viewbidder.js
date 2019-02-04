@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {checkAuth} from "../../common/sharedmethods";
 import {getAccountStatus} from "../../api/restapi";
 import BidderProperty from "./components/bidderproperty";
-
+import {UserStatisticsModel} from "../../model/userstatistics";
 
 class _ViewBidder extends Component {
   state = {
@@ -14,7 +14,7 @@ class _ViewBidder extends Component {
     selectedCampaign: '',
     selectedCreative: '',
     user: {},
-    status: {}
+    status: UserStatisticsModel
   };
 
   constructor() {

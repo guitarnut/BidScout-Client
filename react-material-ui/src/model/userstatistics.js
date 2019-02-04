@@ -1,0 +1,22 @@
+export const UserStatisticsModel = {
+  user: '',
+  campaigns: '',
+  campaignsLimit: '',
+  creatives: '',
+  creativesLimit: '',
+  vast: '',
+  vastLimit: '',
+  auctionRecords: '',
+  auctionRecordsLimit: '',
+  vastRecords: '',
+  vastRecordsLimit: '',
+  vastTagRequests: '',
+  vastTagRequestsLimit: '',
+  vastTagRequestsOverage: '',
+  vastTagRequestsOverageLimit: '',
+  bidRequests: '',
+  bidRequestsLimit: '',
+  bidRequestsOverage: '',
+  bidRequestsOverageLimit: '',
+  periodEnd: ''
+};

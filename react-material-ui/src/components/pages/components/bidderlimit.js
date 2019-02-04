@@ -1,11 +1,18 @@
-import React from 'react'
+import React from 'react';
+import {Badge} from 'react-bootstrap';
 
 function BidderLimit(props) {
   return (
-    <div className={'col-md-12'}>
-      <p>{props.records} record(s) stored out of {props.recordmax} allowed.<br/>
-        {props.requests} requests out of {props.requestsmax} allowed.<br/>
-        Your request limit will reset for requests made after {props.resetdate}</p>
+    <div>
+      <div className={'col-md-6'}>
+        <p><Badge>{props.records}/{props.recordmax}</Badge> Records Stored</p>
+      </div>
+      <div className={'col-md-6'}>
+        <p><Badge>{props.requests}/{props.requestsmax}</Badge> Daily HTTP Requests</p>
+      </div>
+      <div className={'col-md-12'}>
+        <p>Your HTTP request limit resets after {props.resetdate}</p>
+      </div>
     </div>
   )
 }

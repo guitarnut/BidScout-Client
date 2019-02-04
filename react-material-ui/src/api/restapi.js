@@ -33,16 +33,6 @@ function generateAuthPostHeaders(noAuth) {
 
 function handleError(e) {
   window.location.pathname = '/error';
-  //return;
-
-  // switch (e.response.status) {
-  //   case 401:
-  //     window.location.pathname = '/login';
-  //     break;
-  //   default:
-  //     window.location.pathname = '/error';
-  //     break;
-  // }
 }
 
 function resetSession() {
@@ -111,10 +101,6 @@ export function logout() {
   window.sessionStorage.removeItem('password');
   window.sessionStorage.removeItem('userid');
   loggedin = false;
-}
-
-export function getUserId() {
-  return window.sessionStorage.getItem('userid');
 }
 
 export function getAccountStatus() {
@@ -243,10 +229,6 @@ export function addCreativeToCampaign(campaignId, creativeId) {
 
 export function removeCreativeFromCampaign(campaignId, creativeId) {
   return postRequest(host + '/api/campaign/remove/creative/' + window.sessionStorage.getItem('userid') + '/' + campaignId + '/' + creativeId);
-}
-
-export function getUser() {
-  return postRequest(host + '/user/account/get/' + window.sessionStorage.getItem('userid'));
 }
 
 export function updateUser(json) {

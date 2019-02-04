@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 import NavigationMenu from './components/ui/navbar';
 import Campaign from './components/pages/campaign';
@@ -34,6 +34,7 @@ class App extends Component {
               <NavigationMenu/>
             </div>
             <div className="container" id='view'>
+              <Switch>
               <Route path='/' exact component={LoginForm}/>
               <Route path='/login' component={LoginForm}/>
               <Route path='/logout' component={Logout}/>
@@ -53,7 +54,17 @@ class App extends Component {
               <Route path='/vast' exact component={ViewVast}/>
               <Route path='/vast/:id' exact component={ViewVast}/>
               <Route path='/account' component={User}/>
-              <Route path='/404' component={NotFound}/>
+              <Route component={NotFound}/>
+              </Switch>
+            </div>
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
+            <div className={'col-md-12'}>
+              <p align="center"><strong><small>Auction Scout &copy; 2019 GNut</small></strong></p>
+            </div>
+            <div className={'col-md-12'}>
+              <hr/>
             </div>
           </div>
         </Router>
