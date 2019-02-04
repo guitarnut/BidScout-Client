@@ -10,6 +10,15 @@ git checkout ${BRANCH} 2> /dev/null
 
 #run npm install for final script
 
+pidserver=$(pgrep -f 'bidscout-0.0.1-SNAPSHOT')
+
+if [ -n "$pidserver" ]; then
+    kill $pidserver
+    echo "Terminated java process"
+else
+    echo "Java process does not exist"
+fi
+
 git pull 2> /dev/null
 
 yarn run build 2> /dev/null

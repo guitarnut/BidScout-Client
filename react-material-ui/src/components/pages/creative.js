@@ -93,6 +93,9 @@ class _Creative extends Component {
     if (id !== undefined) {
       this.getCreative(id);
     }
+    this.setState({
+      xmlDocuments: this.props.xmlDocuments
+    })
   }
 
   componentDidMount() {
@@ -152,6 +155,8 @@ class _Creative extends Component {
           this.save();
         }.bind(this))
       }
+    } else {
+      this.save();
     }
   }
 
