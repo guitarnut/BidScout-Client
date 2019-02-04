@@ -15,7 +15,7 @@ function BidderProperty(props) {
         {props.count >= props.limit ? (
           <p>You are at your limit of {props.limit}.</p>
         ):(
-          <UIButton text={'Create New'} action={props.createlink}/>
+          <UIButton text={'Create New'} action={props.create}/>
         )
         }
         <div>

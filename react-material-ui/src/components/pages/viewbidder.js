@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {checkAuth} from "../../common/sharedmethods";
+import {checkAuth, redirect} from "../../common/sharedmethods";
 import {getAccountStatus} from "../../api/restapi";
 import BidderProperty from "./components/bidderproperty";
 import {UserStatisticsModel} from "../../model/userstatistics";
@@ -52,7 +52,7 @@ class _ViewBidder extends Component {
 
         <BidderProperty
           items={this.state.campaigns}
-          createlink={'/campaign'}
+          create={redirect.bind(this, this, '/campaign')}
           viewlink={'/campaign/view/'}
           editlink={'/campaign/edit/'}
           typestring={'Campaign'}
@@ -63,7 +63,7 @@ class _ViewBidder extends Component {
 
         <BidderProperty
           items={this.state.creatives}
-          createlink={'/creative'}
+          create={redirect.bind(this, this, '/creative')}
           viewlink={'/creative/view/'}
           editlink={'/creative/edit/'}
           typestring={'Creative'}
@@ -73,7 +73,7 @@ class _ViewBidder extends Component {
 
         <BidderProperty
           items={this.state.xml}
-          createlink={'/xml'}
+          create={redirect.bind(this, this, '/xml')}
           viewlink={'/xml/view/'}
           editlink={'/xml/edit/'}
           typestring={'VAST'}
