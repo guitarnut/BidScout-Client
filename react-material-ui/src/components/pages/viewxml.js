@@ -6,7 +6,6 @@ import {storeAllXml} from "../../store/actions";
 import {checkAuth, confirmAction, pageNotFound} from "../../common/sharedmethods";
 import UIButton from "../ui/button";
 
-
 const mapDispatchToProps = dispatch => {
   return {
     storeAllXml: creatives => dispatch(storeAllXml(creatives))

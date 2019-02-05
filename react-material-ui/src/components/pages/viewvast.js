@@ -84,10 +84,19 @@ class ViewVast extends Component {
           getVastRequestRecords()
             .then((data) => {
               this.setState({
-                vastTransactions: data
+                vastTransactions: data,
+                id: null
               });
-              this.props.history.push('/vast')
             });
+          getAccountStatus()
+            .then((data) => {
+              this.setState({
+                status: {
+                  ...data
+                }
+              })
+            });
+          this.props.history.push('/vast')
         });
     }
   }
@@ -100,6 +109,14 @@ class ViewVast extends Component {
             vastTransactions: {}
           });
         });
+      getAccountStatus()
+        .then((data) => {
+          this.setState({
+            status: {
+              ...data
+            }
+          })
+        })
     }
   }
 
