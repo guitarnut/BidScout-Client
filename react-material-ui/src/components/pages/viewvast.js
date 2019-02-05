@@ -87,16 +87,16 @@ class ViewVast extends Component {
                 vastTransactions: data,
                 id: null
               });
+              getAccountStatus()
+                .then((data) => {
+                  this.setState({
+                    status: {
+                      ...data
+                    }
+                  });
+                  this.props.history.push('/vast')
+                });
             });
-          getAccountStatus()
-            .then((data) => {
-              this.setState({
-                status: {
-                  ...data
-                }
-              })
-            });
-          this.props.history.push('/vast')
         });
     }
   }

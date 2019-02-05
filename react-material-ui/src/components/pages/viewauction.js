@@ -106,16 +106,16 @@ class _ViewAuction extends Component {
             bids: data,
             id: null
           });
+          getAccountStatus()
+            .then((data) => {
+              this.setState({
+                status: {
+                  ...data
+                }
+              });
+              this.props.history.push('/auction')
+            });
         });
-      getAccountStatus()
-        .then((data) => {
-          this.setState({
-            status: {
-              ...data
-            }
-          })
-        });
-      this.props.history.push('/auction')
     }
   }
 
