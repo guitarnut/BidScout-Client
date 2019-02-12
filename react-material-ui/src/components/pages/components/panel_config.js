@@ -20,6 +20,14 @@ const PanelConfig = (props) =>
         </div>
         <div className={'col-md-4'}>
           <Switcher
+            name="syncUsers"
+            label="Sync Users"
+            value={props.parentState.syncUsers}
+            context={props.context}
+          />
+        </div>
+        <div className={'col-md-4'}>
+          <Switcher
             name="requirementsUserMatch"
             label="Require User Match"
             value={props.parentState.requirementsUserMatch}

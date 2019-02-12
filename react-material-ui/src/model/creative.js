@@ -22,6 +22,7 @@ const ModelCreative = {
   xml: null,
   minBid: null,
   maxBid: null,
+  syncUsers: false,
   requirements: ModelRequirements,
   limits: ModelLimits,
   statistics: ModelStatistics,

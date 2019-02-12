@@ -12,6 +12,7 @@ const ModelCampaign = {
   seat: null,
   nurl: null,
   impressionExpiry: 0,
+  syncUsers: false,
   requirements: ModelRequirements,
   limits: ModelLimits,
   statistics: ModelStatistics

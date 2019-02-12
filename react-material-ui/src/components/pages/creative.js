@@ -49,6 +49,7 @@ class _Creative extends Component {
     xmlId: '',
     minBid: '',
     maxBid: '',
+    syncUsers: false,
 
     requirementsUserMatch: false,
     requirementsSecure: false,

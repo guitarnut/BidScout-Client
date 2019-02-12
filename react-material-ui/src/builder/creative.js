@@ -23,6 +23,7 @@ export function buildCreativeStateFromResponse(response) {
     minBid: '',
     maxBid: '',
     bidFrequency: 0,
+    syncUsers: false,
 
     requirementsUserMatch: false,
     requirementsSecure: false,
@@ -80,6 +81,7 @@ export function buildCreativeStateFromResponse(response) {
   data.minBid = response.minBid;
   data.maxBid = response.maxBid;
   data.bidFrequency = response.bidFrequency;
+  data.syncUsers = response.syncUsers;
 
   data.requirementsUserMatch = response.requirements.userMatch;
   data.requirementsSecure = response.requirements.secure;
@@ -141,6 +143,7 @@ export function buildCreativeModelFromState(state) {
   model.minBid = state.minBid;
   model.maxBid = state.maxBid;
   model.bidFrequency = state.bidFrequency;
+  model.syncUsers = state.syncUsers;
 
   model.requirements.userMatch = state.requirementsUserMatch;
   model.requirements.secure = state.requirementsSecure;

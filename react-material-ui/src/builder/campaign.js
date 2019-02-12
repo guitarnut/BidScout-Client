@@ -12,6 +12,7 @@ export function buildCampaignStateFromResponse(response) {
     nurl: '',
     impressionExpiry: 0,
     creatives: [],
+    syncUsers: false,
 
     requirementsUserMatch: false,
     requirementsSecure: false,
@@ -58,6 +59,7 @@ export function buildCampaignStateFromResponse(response) {
   data.nurl = response.nurl;
   data.impressionExpiry = response.impressionExpiry;
   data.creatives = response.creatives;
+  data.syncUsers = response.syncUsers;
 
   data.requirementsUserMatch = response.requirements.userMatch;
   data.requirementsSecure = response.requirements.secure;
@@ -108,6 +110,7 @@ export function buildCampaignModelFromState(state) {
   model.nurl = state.nurl;
   model.impressionExpiry = state.impressionExpiry;
   model.creatives = state.creatives;
+  model.syncUsers = state.syncUsers;
 
   model.requirements.userMatch = state.requirementsUserMatch;
   model.requirements.secure = state.requirementsSecure;
