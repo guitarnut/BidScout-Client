@@ -4,7 +4,7 @@ import {Nav, Navbar, NavItem} from 'react-bootstrap';
 import {authorized} from "../../api/restapi";
 
 const _NavBar = ({user, loggedIn}) =>
-  <Navbar collapseOnSelect fixedTop>
+  <Navbar collapseOnSelect fixedTop inverse>
     <Navbar.Header>
       <Navbar.Brand>
         Admin

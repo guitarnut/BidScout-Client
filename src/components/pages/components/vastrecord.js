@@ -1,6 +1,7 @@
 import React from 'react';
 import {convertMilliToDateString} from "../../../common/sharedmethods";
 import UIButton from "../../ui/button";
+import {Badge} from 'react-bootstrap';
 
 function VastRecord(props) {
   return (
@@ -52,6 +53,34 @@ function VastRecord(props) {
       <div className={'col-md-12'}>
         <h4>Impressions</h4>
       </div>
+      {props.vastImpressions.map((v) => {
+        return (
+          <div key={v}>
+            <div className={'col-md-12'}>
+              <p><strong>URL:</strong><br/>
+                <pre><code>{v.url}</code></pre>
+              </p>
+            </div>
+            <div className={'col-md-12'}>
+              <p><strong>User Agent:</strong><br/>
+                <pre><code>{v.userAgent}</code></pre>
+              </p>
+            </div>
+            <div className={'col-md-3'}>
+              <p><strong><Badge>${v.cp}</Badge> Clearing Price</strong></p>
+            </div>
+            <div className={'col-md-3'}>
+              <p><strong>Host:</strong> {v.host}</p>
+            </div>
+            <div className={'col-md-3'}>
+              <p><strong>IP:</strong> {v.ip}</p>
+            </div>
+            <div className={'col-md-12'}>
+              <p><strong>Timestamp:</strong> {convertMilliToDateString(v.impressionTimestamp)}</p>
+            </div>
+          </div>
+        )
+      })}
       <div className={'col-md-12'}>
         <hr/>
       </div>

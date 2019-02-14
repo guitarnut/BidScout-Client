@@ -5,7 +5,7 @@ import {
   getAccountStatus,
   getVastRequestByTagRequestId,
   getVastRequestEventsByTagRequestId,
-  getVastRequestRecords
+  getVastRequestRecords, viewImpressions, viewVastImpressions
 } from "../../api/restapi";
 import VastTagRequestModel from "../../model/vasttagrequest";
 import {checkAuth, confirmAction, pageNotFound} from "../../common/sharedmethods";
@@ -20,12 +20,9 @@ class ViewVast extends Component {
     vastTransactions: {},
     vastRequest: VastTagRequestModel,
     vastRequestEvents: [],
+    vastImpressions: [],
     status: UserStatisticsModel
   };
-
-  constructor() {
-    super();
-  }
 
   componentWillMount() {
     checkAuth(this);
@@ -72,6 +69,12 @@ class ViewVast extends Component {
           .then((data) => {
             this.setState({
               vastRequestEvents: data
+            });
+          });
+        viewVastImpressions(this.state.vastRequest.id)
+          .then((data) => {
+            this.setState({
+              vastImpressions: data
             });
           });
       })
@@ -126,6 +129,7 @@ class ViewVast extends Component {
         <VastRecord
           vastRequest={this.state.vastRequest}
           vastRequestEvents={this.state.vastRequestEvents}
+          vastImpressions={this.state.vastImpressions}
           delete={this.deleteVast.bind(this, this.state.vastRequest.id)}
         />
       )

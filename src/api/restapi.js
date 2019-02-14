@@ -1,8 +1,8 @@
 import axios from "axios/index";
 
 export const sessionTimeout = 1000 * 60 * 60;
-export const host = 'https://app.auctionscout.net'; //process.env.REACT_APP_HOST;
-// export const host = 'http://localhost:8080'; //process.env.REACT_APP_HOST;
+//export const host = 'https://app.auctionscout.net'; //process.env.REACT_APP_HOST;
+export const host = 'http://localhost:8080'; //process.env.REACT_APP_HOST;
 
 let session = null;
 
@@ -129,6 +129,10 @@ export function viewBidErrors() {
 
 export function viewImpressions(id) {
   return postRequest(host + '/api/impressions/' + window.sessionStorage.getItem('userid') + '/' + id);
+}
+
+export function viewVastImpressions(id) {
+  return postRequest(host + '/api/impressions/vast/' + window.sessionStorage.getItem('userid') + '/' + id);
 }
 
 export function viewClicks(id) {
