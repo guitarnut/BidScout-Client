@@ -20,6 +20,7 @@ const ModelCreative = {
   creativeUrl: null,
   adm: null,
   xml: null,
+  xmlId: '',
   minBid: null,
   maxBid: null,
   syncUsers: false,

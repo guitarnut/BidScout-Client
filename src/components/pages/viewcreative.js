@@ -117,7 +117,8 @@ class _ViewCreative extends Component {
             let link = '/campaign/view/' + data.id;
             this.setState({
               campaign: data,
-              campaignLink: link
+              campaignLink: link,
+              xmlDocuments: this.props.xmlDocuments
             })
           })
       });
@@ -200,6 +201,8 @@ class _ViewCreative extends Component {
   }
 }
 
-const ViewCreative = connect(null, mapDispatchToProps)(_ViewCreative);
+const ViewCreative = connect(state => ({
+  xmlDocuments: state.xml
+}), mapDispatchToProps)(_ViewCreative);
 
 export default withRouter(ViewCreative);
