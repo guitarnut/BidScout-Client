@@ -47,6 +47,7 @@ class _Creative extends Component {
     xml: '',
     xmlDocuments: {},
     xmlId: '',
+    xmlType: 'CUSTOM',
     minBid: '',
     maxBid: '',
     syncUsers: false,
@@ -192,7 +193,6 @@ class _Creative extends Component {
             <p>Creatives are the second level item responsible for controlling bid responses. Creatives will be
               returned based on a size match with the bid request. If you do not wish to create multiple creatives,
               BidScout can instead create a 100% fill campaign that will return a creative for every bid request.</p>
-            <p>{this.state.xmlId}</p>
             <PanelName value={this.state.name} context={this}/>
             <PanelConfig parentState={this.state} context={this}/>
             <PanelProperties creativeType={this.state.creativeType} context={this} parentState={this.state}/>

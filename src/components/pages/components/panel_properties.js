@@ -7,6 +7,7 @@ import {DisplayCreativeType} from "../../../const/displaytypes";
 import {Attributes, BannerTypes, DisplayMimes} from "../../../const/openrtb";
 import MultiSelect from "../../ui/selectmulti";
 import TextArea from "../../ui/textarea";
+import {XmlType} from "../../../const/xmltype";
 
 const PanelProperties = (props) =>
   <Panel>
@@ -25,18 +26,26 @@ const PanelProperties = (props) =>
         <div className={'col-md-12'}>
           <hr/>
         </div>
-        <div className={'col-md-12'}>
+        <div className={'col-md-6'}>
           <SelectList name='type' data={CreativeType} label='Type (DISPLAY, VPAID, VAST)' value={props.parentState.type}
                       context={props.context}/>
+        </div>
+        <div className={'col-md-6'}>
+          <h4>{CreativeType[props.parentState.type]}</h4>
+        </div>
+        <div className={'col-md-12'}>
           <hr/>
         </div>
         {props.parentState.type === 'DISPLAY' ? (
           <div>
-            <div className={'col-md-12'}>
+            <div className={'col-md-6'}>
               <SelectList name='creativeType' data={DisplayCreativeType}
                           label='Display Creative Type'
                           value={props.parentState.creativeType}
                           context={props.context}/>
+            </div>
+            <div className={'col-md-6'}>
+              <h4>{DisplayCreativeType[props.parentState.creativeType]}</h4>
             </div>
             <div className={'col-md-12'}>
               <hr/>
@@ -76,14 +85,38 @@ const PanelProperties = (props) =>
             </div>
           </div>
         ) : (
-          <div className={'col-md-12'}>
-            <p>Enter custom XML.</p>
-            <TextArea name="xml" label="XML" context={props.context} value={props.parentState.xml}/>
-            <p>Use an existing XML document.</p>
-            <SelectList name='xmlId' data={props.parentState.xmlDocuments}
-                        label='XML Document Name'
-                        value={props.parentState.xmlId}
-                        context={props.context}/>
+          <div>
+            <div className={'col-md-6'}>
+              <SelectList name='xmlType' data={XmlType}
+                          label='XML Type'
+                          value={props.parentState.xmlType}
+                          context={props.context}/>
+            </div>
+            <div className={'col-md-6'}>
+              <h4>{XmlType[props.parentState.xmlType]}</h4>
+            </div>
+
+            <div className={'col-md-12'}>
+              <hr/>
+            </div>
+            {props.parentState.xmlType === 'CUSTOM' &&
+            <div className={'col-md-12'}>
+              <TextArea name="xml" label="XML" context={props.context} value={props.parentState.xml}/>
+            </div>
+            }
+            {props.parentState.xmlType === 'DOCUMENT' &&
+            <div>
+              <div className={'col-md-6'}>
+                <SelectList name='xmlId' data={props.parentState.xmlDocuments}
+                            label='XML Document Name'
+                            value={props.parentState.xmlId}
+                            context={props.context}/>
+              </div>
+              <div className={'col-md-6'}>
+                <h4>{props.parentState.xmlDocuments[props.parentState.xmlId]}</h4>
+              </div>
+            </div>
+            }
           </div>
         )}
         {props.parentState.creativeType !== 'auto' &&
